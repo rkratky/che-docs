@@ -27,11 +27,11 @@ Following scenarios are covered:
 
 WARNING: The method that was used to install the {prod-short} instance determines the method to proceed with for the upgrade.
 
-include::assembly_upgrading-{prod-id-short}-on-openshift-4-using-the-operator.adoc[leveloffset=+1]
+include::assembly_upgrading-che-on-openshift-4-using-the-operator.adoc[leveloffset=+1]
 
-include::proc_upgrading-{prod-id-short}-on-openshift-4-using-the-cli-management-tool.adoc[leveloffset=+1]
+include::proc_upgrading-che-on-openshift-4-using-the-cli-management-tool.adoc[leveloffset=+1]
 
-include::proc_upgrading-{prod-id-short}-on-openshift-3-using-the-cli-management-tool.adoc[leveloffset=+1]
+include::proc_upgrading-che-on-openshift-3-using-the-cli-management-tool.adoc[leveloffset=+1]
 
 == Known issues
 
