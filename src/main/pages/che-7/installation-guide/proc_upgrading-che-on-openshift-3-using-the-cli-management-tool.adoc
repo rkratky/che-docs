@@ -1,5 +1,5 @@
-[id="upgrading-from-prod-short-prod-prev-ver-to-prod-short-prod-ver-on-openshift-3-using-the-cli-management-tool_{context}"]
-= Upgrading from {prod-short} {prod-prev-ver} to {prod-short} {prod-ver} on OpenShift 3 using the CLI management tool
+[id="upgrading-{prod-id-short}-on-openshift-3-using-the-cli-management-tool_{context}"]
+= Upgrading {prod-short} on OpenShift 3 using the CLI management tool
 
 This section describes how to upgrade from {prod-short} {prod-prev-ver} to {prod-short} {prod-ver} on OpenShift 3 using the CLI management tool.
 
