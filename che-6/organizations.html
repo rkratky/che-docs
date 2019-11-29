@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="organizations,  organizations, user management, permissions">
+<title>Organizations | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Organizations page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Organizations">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Organizations</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="organizations-in-eclipse-che">Organizations in Eclipse Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Organizations allow administrators to group Eclipse Che users and allocate resources. The system administrator controls and allocates resources and permissions within the administrator dashboard.</p>
+</div>
+<div class="sect2">
+<h3 id="roles-in-an-organization">Roles in an organization</h3>
+<div class="paragraph">
+<p>A user can have the following roles in an organization:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Members</dt>
+<dd>
+<p>Create workspaces, manage their own workspaces, and use any workspaces they have permissions for.</p>
+</dd>
+<dt class="hdlist1">Administrators</dt>
+<dd>
+<p>Manage the organization, members, resources, and sub-organization, and can edit settings.</p>
+</dd>
+<dt class="hdlist1">System Administrators</dt>
+<dd>
+<p>Create root organizations, manages resources, members and sub-organizations. System administrators have more permissions than the administrators and members.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="root-organizations-and-sub-organizations">Root organizations and sub-organizations</h3>
+<div class="paragraph">
+<p>The top-level organizations are called root organizations.   Multiple root organizations can be created.  Any organization can have zero to a set number of sub-organizations.  Only the system administrator can create root organizations and manage the resources of the root organization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-an-organization">Creating an organization</h3>
+<div class="paragraph">
+<p>Only the system administrator can create root organizations. An administrator can create sub-organizations.</p>
+</div>
+<div class="paragraph">
+<p>To create an organization:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the menu in the left sidebar.  A new page displays all the organizations in your system.</p>
+</li>
+<li>
+<p>Click on the upper-left button to create a new organization.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaying-the-list-of-organizations">Displaying the list of organizations</h3>
+<div class="paragraph">
+<p>The <strong>Organization</strong> page displays a list of all the organizations. The list contains the following information for each organization: number of members, total RAM, available RAM, and number of sub-organizations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-members-to-organizations">Adding members to organizations</h3>
+<div class="paragraph">
+<p>To add members to an organization:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Add</strong> button to add a member.  A new pop-up window displays.  You can change the role of a member or remove them from the organization at any time.</p>
+</li>
+<li>
+<p>Enter the new member name.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Users with the green checkmark beside their name already have an Eclipse Che account and can be added to the organization. Users without a checkmark do not have an account and cannot be added into the organization.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="workspaces-in-organizations">Workspaces in organizations</h3>
+<div class="paragraph">
+<p>A workspace is created inside of an organization and uses the resources of the organization. The workspace creator chooses the organization on the <strong>Workspace Creation</strong> page.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-email-notifications">Setting email notifications</h3>
+<div class="paragraph">
+<p>To send notifications from the Che server when a user joins or leaves an organization, you can do either of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Configure the SMTP server in the <code>che.env</code> file.</p>
+</li>
+<li>
+<p>For OpenShift, add environment variables to the deployment.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Che does not have a built-in SMTP server by default. You may use any mail server.</p>
+</div>
+<div class="paragraph">
+<p>For example, to send a notification email to your Gmail account, set the following environment variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_MAIL_PORT=465
+CHE_MAIL_HOST=smtp.gmail.com
+CHE_MAIL_SMTP_STARTTLS_ENABLE=true
+CHE_MAIL_SMTP_AUTH=true
+CHE_MAIL_SMTP_AUTH_USERNAME=no-reply@gmail.com
+CHE_MAIL_SMTP_AUTH_PASSWORD=password</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-sub-organizations">Creating sub-organizations</h3>
+<div class="paragraph">
+<p>To create a sub-organization:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the <strong>Organization Details</strong> page, select the <strong>Sub-Organizations</strong> tab.</p>
+</li>
+<li>
+<p>Click the <strong>Add Sub-Organization</strong> button.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The steps to create a sub-organization are the same as that for creating an organization. Use them to create the organization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-members-to-sub-organizations">Adding members to sub-organizations</h3>
+<div class="paragraph">
+<p>You can only add members of the parent organization as members of the sub-organization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="organization-and-sub-organization-administration">Organization and sub-organization administration</h3>
+<div class="paragraph">
+<p>The settings of the organization are visible to all members of the organization.  Only the Eclipse Che system administrator can modify the settings.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="renaming-an-organization-or-sub-organization">Renaming an organization or sub-organization</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Only an Eclipse Che system administrator and administrator of the organization can rename an organization or sub-organization.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To rename an organization:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Name</strong> field to edit the name of the organization.  The save mode appears.</p>
+</li>
+<li>
+<p>Click the <strong>Save</strong> button to update the name.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The name of the organization or sub-organization must follow these rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Only alphanumeric characters and a single dash (-) can be used.</p>
+</li>
+<li>
+<p>Spaces cannot be used.</p>
+</li>
+<li>
+<p>Each organization name must be unique within the Eclipse Che installation.</p>
+</li>
+<li>
+<p>Each sub-organization name must be unique within an organization.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="leaving-an-organization-or-sub-organization">Leaving an organization or sub-organization</h3>
+<div class="paragraph">
+<p>To leave an organization, members need to contact the administrator of the organization or the system administrator of Eclipse Che.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-organization-or-sub-organization">Deleting an organization or sub-organization</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only system administrators or administrators of the organization can delete an organization or sub-organization.</p>
+</li>
+<li>
+<p>This action cannot be reverted, and all workspaces created under the organization will be deleted.</p>
+</li>
+<li>
+<p>All members of the organization will receive an email notification to inform them about the deletion of the organization.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To delete an organization or a sub-organization:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Click the <strong>Delete</strong> button.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="allocating-resources-for-organizations">Allocating resources for organizations</h3>
+<div class="paragraph">
+<p>Workspaces use the resources of the organization that are allocated by the system administrator. The resources for sub-organizations are taken from the parent organization. Administrators control the portion of resources, of the parent organization, that are available to the sub-organization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="managing-limits">Managing limits</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Managing limits is restricted to the Eclipse Che system administrator and administrator of the organization.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The system configuration defines the default limits. The administrator of the organization manages only the limits of its sub-organizations. No resource limits apply to the organization by default.  The following are the limits defined by the system administrator:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Workspace Cap</strong>: The maximum number of workspaces that can exist in the organization.</p>
+</li>
+<li>
+<p><strong>Running Workspace Cap</strong>: The maximum number of workspaces that can run simultaneously in the organization.<br></p>
+</li>
+<li>
+<p><strong>Workspace RAM Cap</strong>: The maximum amount of RAM that a workspace can use in GB.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="updating-organization-and-sub-organization-member-roles">Updating organization and sub-organization member roles</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Updating the members of an organization or sub-organization is restricted to the Eclipse Che system administrator and administrator of the organization.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To edit the role of an organization member:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Edit</strong> button in the <strong>Actions</strong> column. Update the role of the selected member in the pop-up window.</p>
+</li>
+<li>
+<p>Click <strong>Save</strong> to confirm the update.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-organization-and-sub-organization-members">Removing members from an organization and sub-organization</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Removing the members of an organization or sub-organization is restricted to the Eclipse Che system administrator and administrator of the organization.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To remove a member:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Delete</strong> button in the <strong>Actions</strong> column.  In the confirmation pop-up window, confirm the deletion.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To remove multiple members:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the check boxes to select multiple members from the organization.</p>
+</li>
+<li>
+<p>Click the <strong>Delete</strong> button that appears in the header of the table. The members that are removed from the organization will receive an email notification.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_organizations.html" class="btn btn-default navbar-btn cursorNorm" role="button">organizations</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

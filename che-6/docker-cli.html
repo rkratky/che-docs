@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="installationdocker,  docker, configuration, CLI, cli">
+<title>CLI Reference | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the CLI Reference page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="CLI Reference">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">CLI Reference</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="cli-syntax-and-commands">CLI syntax and commands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CLI is a Docker-formatted container image that comes with a collection of commands to configure, interact with, and start Che. The CLI also contains commands, such as <code>sync</code> and <code>ssh</code>, for end users to interact with workspaces.</p>
+</div>
+<div class="paragraph">
+<p>Command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -it --rm &lt;DOCKER_PARAMETERS&gt; eclipse/che-cli:&lt;version&gt; [COMMAND]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following is the mandatory <code>docker</code> command parameter for the CLI image:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-v &lt;LOCAL_PATH&gt;:/data</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The user, instance, and log data are saved here.</p>
+</div>
+<div class="paragraph">
+<p>The following tables lists the optional <code>docker</code> command parameters that you can use with the CLI image.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Optional Docker parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-e CHE_HOST=&lt;YOUR_HOST&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address or hostname where Che serves its users</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-e CHE_PORT=&lt;YOUR_PORT&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port on which Che binds itself</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-e CHE_CONTAINER=&lt;YOUR_NAME&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prefix name for the Che container</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/data/instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The instance, user, log data is saved here</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/data/backup</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backup files are saved here</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/repo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Che git repository - uses local binaries and manifests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/assembly</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Che assembly - uses local binaries</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/sync</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where <code>remote ws</code> files are copied with the <code>sync</code> command</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/unison</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where unison profile for optimizing the <code>sync</code> command resides</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v &lt;LOCAL_PATH&gt;:/chedir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source repository to convert into workspace with the <code>Chedir</code> utility</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table lists the commands that you can use with the Docker CLI image.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>action &lt;action-name&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start action on Che instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>backup</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backs up Che configuration and data to the <code>/data/backup</code> volume mount</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generates a Che configuration from variables; run on any <code>start</code> or <code>restart</code> command</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>destroy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stops services, and deletes che instance data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dir &lt;command&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>Chedir</code> and <code>Chefile</code> in the directory mounted to <code>:/chedir</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>download</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pulls Docker images for the current Che version</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays information about Che and the CLI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>info</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays system state and debugging information</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>init</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initializes a directory with a Che install</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>offline</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Saves Che container images into TAR files for offline installation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>restart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restarts the Che services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>restore</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restores Che configuration and data from the <code>/data/backup</code> mount</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rmi</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes the container images for <code>&lt;version&gt;</code>, forcing a re-pull</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ssh &lt;<em>workspace-name</em>&gt; [<em>machine-name</em>]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH to a workspace if SSH agent is enabled</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>start</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts the Che services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>stop</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stops the Che services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sync &lt;<em>workspace-name</em>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Synchronizes workspace with local directory mounted to <code>:/sync</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test &lt;<em>test-name</em>&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starts test on the Che instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>upgrade</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upgrades Che from one version to another with migrations and backups</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Installed version and upgrade paths</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table lists the global command options that you can use with the Docker CLI image.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--fast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skips networking, version, nightly, and preflight checks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--offline</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs CLI in offline mode, loading images from the disk</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--debug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable debugging of the Che server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--trace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Activates trace output for debugging the CLI</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The CLI has the following three primary phases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The initialization phase is executed by the <code>init</code> command. It installs version-specific files into the directory mounted to <code>/data/</code>. This includes the universal configuration file named <code>che.env</code>, a version identifier, and a location where configuration files are saved. The configuration is executed by the <code>config</code> command. The <code>config</code> command takes the <code>che.env</code> configuration file and the OS of your host system as input and generates an OS-specific set of configuration files in the <code>data/instance</code> directory."</p>
+</li>
+<li>
+<p>The configuration phase runs an initialization if a directory is not found. Every execution of the <code>config</code> command overwrites the files in the <code>/data/instance/</code> directory with the latest configuration. This ensures that if an administrator modifies any configuration file, the instance’s configuration files are updated consistently. The CLI generates a large number of configuration files specific to running Che. The configuration files are sourced from the Puppet templates that are stored in the GitHub repository under <code>/dockerfiles/init/</code>.</p>
+</li>
+<li>
+<p>The start phase is executed by the <code>start</code> command. It uses a configuration-generated <code>docker-compose-container.yml</code> file to launch Eclipse Che. The start phase always executes a <code>config</code> command, so any files that were edited in the <code>/data/instance/</code> directory are overwritten with the generated configuration from the CLI.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The CLI hides most error conditions from the standard output. Internal stack traces and error output are redirected to the <code>cli.log</code> file, which is saved in the host directory where <code>:/data</code> is mounted.</p>
+</div>
+<div class="paragraph">
+<p>You can override any value in the <code>che.env</code> file for a single execution by passing the <code>-e NAME=VALUE</code> argument on the command line. The CLI detects the values on the command line and ignores those imported from the <code>che.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Following are some selected commands and their uses.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>action</code></dt>
+<dd>
+<p>The <code>action</code> command executes some actions on the Eclipse Che instance or on a workspace running inside Che. To list all workspaces on Che, use the <code>action list-workspaces</code> command. To execute a command on a workspace, use the  <code>action execute-command &lt;workspace-name&gt; &lt;action&gt;</code> command; here, the <code>&lt;action&gt;</code> parameter is interpreted by the shell.</p>
+</dd>
+<dt class="hdlist1"><code>backup</code></dt>
+<dd>
+<p>The <code>backup</code> command creates TAR files from the <code>instance/</code> directory and places them in the <code>/backup/</code> directory. These files are restoration-ready.</p>
+</dd>
+<dt class="hdlist1"><code>config</code></dt>
+<dd>
+<p>The <code>config</code> command generates a Che instance configuration that is placed in the <code>instance/</code> directory. It uses Puppet to generate Docker Compose configuration files to run Che and its associated server. Che server configuration is generated as a <code>che.properties</code> file that is mounted in the Che server when it boots. This command is executed on every <code>start</code> or <code>restart</code>.</p>
+<div class="paragraph">
+<p>If you are using a <code>eclipse/che:&lt;version&gt;</code> image and it does not match the version in the <code>instance/che.ver</code> file, the configuration aborts to prevent you from running a configuration for a different version.</p>
+</div>
+<div class="paragraph">
+<p>It respects the <code>--no-force</code>, <code>--pull</code>, <code>--force</code>, and <code>--offline</code> command options.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>destroy</code></dt>
+<dd>
+<p>The <code>destroy</code> command deletes the <code>che.env</code> file and the <code>/docs/</code> and <code>instance/</code> directories, including user workspaces, projects, data, and user database. To skip the confirmation warning message, pass the <code>--quiet</code> argument in the command. To delete the <code>cli.log</code> file, pass the <code>--cli</code> argument. By default, the <code>cli-log</code> file is retained for traceability.</p>
+</dd>
+<dt class="hdlist1"><code>dir</code></dt>
+<dd>
+<p>The <code>dir</code> command boots a new Eclipse Che instance with a workspace for the <code>:/chedir</code> directory defined as volume mount in the parameter.</p>
+<div class="paragraph">
+<p>For example, if you give <code>$HOME/my-project</code> as a parameter, a new Che instance is created using <code>$HOME/my-project</code> as a project in the IDE. Inside the IDE, the <code>/projects/</code> directory contains a <code>my-project/</code> directory with your host directory. Any changes inside the IDE are reflected in your host directory. Updating a file on your local computer updates the content of the file inside the IDE.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<code>init</code>
+</td>
+<td class="hdlist2">
+<p>Initializes the directory specified and adds a default <code>Chefile</code> if there is none.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>up</code>
+</td>
+<td class="hdlist2">
+<p>Boots Eclipse Che with workspace on directory.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>down</code>
+</td>
+<td class="hdlist2">
+<p>Stops Eclipse Che and any workspaces.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>ssh</code>
+</td>
+<td class="hdlist2">
+<p>Connects to the running workspace by using the <code>ssh</code> command.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>status</code>
+</td>
+<td class="hdlist2">
+<p>Displays if an instance of Eclipse Che is running or not for the specified directory.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1"><code>download</code></dt>
+<dd>
+<p>The <code>download</code> command is used to download container images stored in your image repository. This command downloads images that are used by the CLI as utilities, for Che to do initialization and configuration, and for the runtime images that Che needs when it starts. This command respects the <code>--offline</code>, <code>--pull</code>, <code>--force</code>, and <code>--no-force</code> (default) command options. It is invoked by the <code>che init</code>, <code>che config</code>, or <code>che start</code> commands.</p>
+<div class="paragraph">
+<p>The <code>download</code> command is invoked by the <code>che init</code> command before initialization to download images for the version specified by <code>eclipse/che:&lt;version&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>To override the Docker-formatted container images used by the CLI, set the following environment variables:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>IMAGE_INIT</code> to override the default <code>eclipse/che-init:&lt;version&gt;</code> Docker-formatted container image.</p>
+</li>
+<li>
+<p><code>IMAGE_CHE</code> to override the default <code>eclipse/che-server:&lt;version&gt;</code> Docker-formatted container image.</p>
+<div class="paragraph">
+<p>For example, if you want to use a given tag in your own Docker account for both images, add the following parameters to the <code>docker</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-e IMAGE_INIT=myDockerAccount/che-init:givenTag -e IMAGE_CHE=myDockerAccount/che-server:givenTag</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>info</code></dt>
+<dd>
+<p>The <code>info</code> command displays system state and debugging information. The <code>--network</code> command option runs a test to take the <code>CHE_HOST</code> variable value to test network connectivity by simulating the <strong>browser &gt; Che</strong> and <strong>Che &gt; workspace</strong> connectivity. The <code>--bundle</code> command option generates a support diagnostic bundle in a TAR file, which includes the output of certain commands and the execution logs.</p>
+</dd>
+<dt class="hdlist1"><code>init</code></dt>
+<dd>
+<p>The <code>init</code> command initializes an empty directory with a Che configuration and instance directory. The user data and runtime configuration are stored in the empty directory. You must provide a <code>&lt;path&gt;:/data</code> volume mount for Che to create the <code>instance/</code> and <code>backup/</code> sub-directories of <code>&lt;path&gt;</code>. After initialization, a <code>che.env</code> file is placed in the root directory of the path that you mounted to <code>/data/</code>.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Overriding the location of the <code>instance/</code> directory</dt>
+<dd>
+<p>Mount an additional local directory to the <code>/data/instance/</code> directory.</p>
+</dd>
+<dt class="hdlist1">Overriding the location of where backups are stored</dt>
+<dd>
+<p>Mount an additional local directory to the <code>/data/backup/</code> directory.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The following variables can be set in your local environment shell before running. These variables are respected during initialization:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 44%;">
+<col style="width: 56%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_HOST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address or DNS name of the Che service. We use <code>eclipse/che-ip</code> to attempt discovery if not set.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port the Che server will run on and expose in its container for your clients to connect to.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Che depends on container images. The images are used to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Provide cross-platform utilities within the CLI. For example, to perform a <code>curl</code> operation, you use a small container image to perform this function. This is done as a precautionary measure because many operating systems do not have <code>curl</code> installed.</p>
+</li>
+<li>
+<p>Find the master version and upgrade manifest, which is saved within the CLI container image in the <code>/version/</code> sub-directory.</p>
+</li>
+<li>
+<p>Perform initialization and configuration of Che as done with the <code>eclipse/che-init</code> command. This image contains templates to be installed on your computer used by the CLI to configure Che for your specific OS.</p>
+<div class="paragraph">
+<p>You can control how Che downloads these images with command-line options. All image downloads are performed using the <code>docker pull</code> command.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 32%;">
+<col style="width: 68%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mode</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--no-force</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default behavior. Downloads an image if not found locally. A local check of the image inspects if an image of a matching name is present in your local registry and then skips pulling the image if it is found. This mode does not check DockerHub for a newer version of the same image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--pull</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Always perform a <code>docker pull</code> command when an image is requested. If there is a newer version of the same tagged image at DockerHub, it pulls it, or uses the one in the local cache. This slows the execution but keeps your images up-to-date.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--force</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performs a forced removal of the local image using the <code>docker rmi</code> command and then pulls it again from DockerHub. Use this to clean your local cache and to ensure that all images are new.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--offline</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Loads tar-archived container images from the <code>backup/</code> directory during the pre-boot mode of the CLI. Used if you are performing an installation or start while disconnected from the Internet.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can reinstall Che on a directory that is already initialized and preserve your <code>che.env</code> values by passing the <code>--reinit</code> flag.</p>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>offline</code></dt>
+<dd>
+<p>The <code>offline</code> command saves all the container images that Che requires in <code>/backup/*.tar</code> files. Each image is saved as its own file. If the <code>backup/</code> directory is available on a machine that is disconnected from the Internet and you start Che with the <code>--offline</code> command option, the CLI pre-boot sequence loads all the container images in the <code>backup/</code> directory.</p>
+<div class="paragraph">
+<p>The <code>--list</code> option lists all the core images and optional stack images that can be downloaded. The core system images and the CLI are always saved if an existing TAR file is not found. The <code>--image:&lt;image-name&gt;</code> command option downloads a single-stack image and can be used multiple times on the command line. You can use the <code>--all-stacks</code> option or the <code>--no-stacks</code> option to download all or none of the optional stack images.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>restart</code></dt>
+<dd>
+<p>The <code>restart</code> command performs a <code>stop</code> action followed by a <code>start</code> action, respecting the <code>--pull</code>, <code>--force</code>, <code>--offline</code>, <code>--skip:config</code>, <code>--skip:preflight</code>, and <code>--skip:postflight</code> command options.</p>
+</dd>
+<dt class="hdlist1"><code>restore</code></dt>
+<dd>
+<p>The <code>restore</code> command restores the <code>/instance</code> directory to its previous state. The start-stop-restart cycle ensures that the proper Docker images are available or downloaded if not found.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use this command with caution because it deletes the existing <code>instance/</code> directory. As a precautionary measure, set these values to different directories when performing a restore action.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1"><code>rmi</code></dt>
+<dd>
+<p>The <code>rmi</code> command deletes the container images that Che has downloaded for this version from the local registry.</p>
+</dd>
+<dt class="hdlist1"><code>ssh</code></dt>
+<dd>
+<p>The <code>ssh</code> command connects the current terminal where the command is started to the terminal of a machine of the workspace. If no machine is specified in the command, it connects to the default development machine. The syntax is:</p>
+<div class="listingblock">
+<div class="content">
+<pre> ssh &lt;workspace-name&gt; [machine-name]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SSH connection only works with a configured workspace SSH key. A default SSH key is automatically generated when a workspace is created.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>sync</code></dt>
+<dd>
+<p>The <code>sync</code> command synchronizes contents of a workspace with a local directory mounted to <code>:/sync</code>. The syntax is:</p>
+<div class="listingblock">
+<div class="content">
+<pre>-v &lt;path-on-your-machine&gt;:/sync eclipse/che sync &lt;workspace-name&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To display a log of the underlying unison tool, use the <code>--unison-verbose</code> flag.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>start</code></dt>
+<dd>
+<p>The <code>start</code> command starts Che and its services using the <code>docker-compose</code> command. In the absence of valid configuration, it performs an <code>init</code> command. Every <code>start</code> and <code>restart</code> command runs the <code>config</code> command to generate a new configuration set using the latest configuration files placed into the <code>instance/</code> directory. The starting sequence also tests if any ports required by Che are currently being used by other services and to verify access to key APIs.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Skipping the generation of configuration</dt>
+<dd>
+<p>Use the <code>--skip:config</code> option.</p>
+</dd>
+<dt class="hdlist1">Skipping checks</dt>
+<dd>
+<p>Use the <code>--skip:preflight</code> and <code>--skip:postflight</code> options.</p>
+</dd>
+<dt class="hdlist1">Automatically printing server logs during the boot</dt>
+<dd>
+<p>Use the <code>--follow</code> option. To interrupt the output, press <strong>Ctrl+c</strong>, or use the shell commands to interrupt the output.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1"><code>stop</code></dt>
+<dd>
+<p>The default stop is a graceful stop where each workspace is stopped and confirmed shut down before stopping system services. If workspaces are configured to snap on stop, all snaps are completed before the system service shutdown begins. You can ignore workspace stop behavior and shut down only system services using the <code>–force</code> flag.</p>
+</dd>
+<dt class="hdlist1"><code>test</code></dt>
+<dd>
+<p>The <code>test</code> command performs tests on your local instance of Che. For example, to check the ability to create a workspace, start the workspace by using a custom workspace runtime, and then use it. For a list of all tests available, use the <code>test</code> command.</p>
+</dd>
+<dt class="hdlist1"><code>upgrade</code></dt>
+<dd>
+<p>The <code>upgrade</code> command manages the sequence of upgrading Che from one version to another. For a list of available versions that you can upgrade to, run the <code>che version</code> command.</p>
+<div class="paragraph">
+<p>The Che upgrade is done by using a <code>eclipse/che:&lt;version&gt;</code> image that is newer than the version you currently have installed. For example, if you have <code>&lt;version&gt;</code> installed and you want to upgrade to <code>&lt;version+1&gt;</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To get the new version of Che:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker pull eclipse/che:&lt;version+1&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You now have two <code>eclipse/che</code> images (one for each version).</p>
+</div>
+</li>
+<li>
+<p>Use the new image to upgrade the old installation:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run &lt;volume-mounts&gt; eclipse/che:&lt;version+1&gt; upgrade</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>upgrade</code> command has numerous checks to prevent you from upgrading Che if the new image and the old version are not compatible. For the upgrade procedure to proceed, the CLI image must be newer than the value of <code>instance/che.ver</code>.</p>
+</div>
+<div class="paragraph">
+<p>Following is a list of actions that the upgrade process performs in the background:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Performs a version compatibility check.</p>
+</li>
+<li>
+<p>Downloads new Docker images that are needed to run the new version of Che.</p>
+</li>
+<li>
+<p>Stops Che if it is currently running and triggers a maintenance window.</p>
+</li>
+<li>
+<p>Backs up your installation.</p>
+</li>
+<li>
+<p>Initializes the new version.</p>
+</li>
+<li>
+<p>Starts Che.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>For a list of available versions that you can upgrade to, run the <code>che version</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The <code>--skip-backup</code> option allows you to skip the <a href="https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup">backup</a> operation during the update. Skipping the backup operation speeds up the upgrade because the <a href="https://github.com/codenvy/che-docs/blob/master/src/main/_docs/setup/setup-cli.md#backup">backup operation</a> can be time consuming if the <code>/instance</code> directory contains many user worksapces and projects making it a large directory.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>version</code></dt>
+<dd>
+<p>The <code>version</code> command provides information on the current version and the available versions that are hosted in Che repositories. The <code>che upgrade</code> command enforces upgrade sequences and prevents you from upgrading one version to another version where data migrations cannot be guaranteed.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cli-development">Developing and testing the CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can customize the CLI using a variety of techniques. This section discusses how engineers develop and test the CLI on their local machines.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="structure">Structure of the Che CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Che CLI is constructed of multiple Docker images within the Che source repository.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/dockerfiles/base	<i class="conum" data-value="1"></i><b>(1)</b>
+/dockerfiles/cli	<i class="conum" data-value="2"></i><b>(2)</b>
+/dockerfiles/init	<i class="conum" data-value="3"></i><b>(3)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Common functions and commands</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>CLI entrypoint, overrides, and version information</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Manifests used to configure Che on a host installation</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Che CLI is written in Bash. The <code>cli</code> image depends upon both the <code>base</code> image and the <code>init</code> image. In the source repository, the <code>build.sh</code> script builds these Docker images either one at a time or collectively as a group.</p>
+</div>
+<div class="paragraph">
+<p>Rebuilding images every time you want to test a small change to Bash script can be tedious. To avoid rebuilding the images every time and for every change to a Bash script, mount the contents during the image execution. You cannot mount the <code>entrypoint.sh</code> file, but you can mount the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To mount the contents of the <code>base</code> image:</p>
+<div class="listingblock">
+<div class="content">
+<pre>-v &lt;path-to-che-repo&gt;/dockerfiles/scripts/base/scripts:/base/scripts</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To mount the contents of the <code>init</code> image:</p>
+<div class="listingblock">
+<div class="content">
+<pre>-v &lt;path-to-che-repo&gt;:/repo</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you run the Che CLI in this configuration, any changes made to the Bash files or templates in those repositories are used without having to first rebuild the CLI image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom-cli">Customizing the Che CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Che CLI was designed to be overridden to allow different CLIs to be created from the same base structure. The CLI is created with the following minimal assets:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/dockerfiles/cli/build.sh		<i class="conum" data-value="1"></i><b>(1)</b>
+/dockerfiles/cli/Dockerfile		<i class="conum" data-value="2"></i><b>(2)</b>
+/dockerfiles/cli/scripts		<i class="conum" data-value="3"></i><b>(3)</b>
+/dockerfiles/cli/scripts/entrypoint.sh	<i class="conum" data-value="4"></i><b>(4)</b>
+/dockerfiles/cli/scripts/cli.sh		<i class="conum" data-value="5"></i><b>(5)</b>
+/dockerfiles/cli/version		<i class="conum" data-value="6"></i><b>(6)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Local file to build the image</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Image definition, must FROM <code>eclipse/che-base:nightly</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Contains additional commands in the form of <code>cmd_&lt;name&gt;.sh</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>The entrypoint of the CLI container, with the <code>usage()</code> method</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Defines CLI-specific product names and variables</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Contains version-specific data that the CLI requires</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can add additional commands to the Che CLI beyond the base set of commands that are provided by adding a file of the name <code>cmd_&lt;name&gt;.sh</code> into the <code>scripts/</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>The <code>version/</code> directory contains information about the latest version and a sub-directory for each version that is available for installation. Each version sub-directory has version-specific data that the CLI depends on to create a manifest of container images that must be downloaded to support the product that is going to be run. When a release of the Che CLI is generated, the CI systems automatically update the <code>version/</code> directory with the version-specific information contained in the release.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="puppet-templates">Puppet templates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Che CLI uses Puppet to generate OS-specific configuration files based on environment variables set by the user either with the <code>-e &lt;VALUE&gt;</code> option on the command line, or by modifying their <code>che.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>A Puppet configuration utility parses files contained in the <code>/dockerfiles/init/modules/</code> and <code>/dockerfiles/init/manifests/</code> directories to take the templates contained in the <code>/init/</code> directory, matches them with user-specific variables, and generates an instance-specific configuration in the <code>instance/</code> directory. Puppet has logic constructs that allow us to generate different kinds of constructs with logic based on the values provided by the end users.</p>
+</div>
+<div class="paragraph">
+<p>This Puppet-based approach allows to simplify the outputs for end users and limit the locations where end users need to configure various parts of the system. An example of this is that we generate two <code>docker-compose.yml</code> files from a single Puppet template. The <code>docker-compose.yml</code> and <code>docker-compose-container.yml</code> files are located in the user’s <code>instance/</code> directory.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>docker-compose.yml</code></dt>
+<dd>
+<p>A configuration file that allows a user to run Docker Compose for Che on their host. They can run the <code>docker-compose up</code> command in that directory.</p>
+</dd>
+<dt class="hdlist1"><code>docker-compose-container.yml</code></dt>
+<dd>
+<p>A configuration file for running Docker Compose from within a container, which is what the CLI does.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The syntax of Docker Compose changes in each of these scenarios as the files being referenced from within the compose syntax are different. There is a single template for Docker Compose in the <code>init</code> image. It is then applied in two configurations using Puppet.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cli-tests">CLI tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are existing <a href="https://github.com/sstephenson/bats">bats</a> tests for the Che CLI, which run automatically with each execution of the <code>build.sh</code> script located in the <code>dockerfiles/cli/</code> directory. To skip them, pass the <code>--skip-tests</code> argument when running the build script. To only run the tests, execute the <code>test.sh</code> script located in the same directory. The tests utilize the <code>eclipse/che-bats</code> docker image, which is built from the <code>Dockerfile</code> placed in the <code>dockerfiles/bats/</code> directory.</p>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_installation.html" class="btn btn-default navbar-btn cursorNorm" role="button">installation</a>
+        
+        
+        
+        <a href="tag_docker.html" class="btn btn-default navbar-btn cursorNorm" role="button">docker</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Eclipse Che is a developer workspace server and cloud IDE">
+<meta name="keywords" content="overviewgetting-started,  overview">
+<title>Introduction to Eclipse Che | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Introduction to Eclipse Che page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Introduction to Eclipse Che">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Introduction to Eclipse Che</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">Eclipse Che is a developer workspace server and cloud IDE</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che provides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Workspaces that include runtimes and IDEs</p>
+</li>
+<li>
+<p>RESTful workspace server</p>
+</li>
+<li>
+<p>A browser-based IDE</p>
+</li>
+<li>
+<p>Plugins for languages, framework, and tools</p>
+</li>
+<li>
+<p>An SDK for creating plugins and assemblies</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started">Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can get started with Che by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="quick-start.html">Quick start guide</a></p>
+</li>
+<li>
+<p>Installing it on Docker: <a href="docker-single-user.html">Single-user</a> or <a href="docker-multi-user.html">Multi-user</a></p>
+</li>
+<li>
+<p>Installing it on OpenShift: <a href="openshift-single-user.html">Single-user</a> or <a href="openshift-multi-user.html">Multi-user</a></p>
+</li>
+<li>
+<p><a href="https://che.openshift.io">Creating a hosted SaaS account</a> (at che.openshift.io)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="single-and-multi-user-flavors">Single and Multi-User Flavors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che is available in two different modes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Single-user</strong>: perfectly suited for personal desktop environment.</p>
+</li>
+<li>
+<p><strong>Multi-user</strong>: secure and best for organization and developer teams.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Learn more about single and multi-user flavors on the following <a href="single-multi-user.html">page</a>.</p>
+</div>
+<div class="paragraph">
+<p>Considering the <code>multi-user</code> mode as an advanced setup of Eclipe Che, the quick starts are covering only the <code>single-user</code> mode. If you are interested by the <code>multi-user</code>, please read the following pages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="docker-multi-user.html">Multi-user configuration on Docker</a></p>
+</li>
+<li>
+<p><a href="openshift-multi-user.html">Multi-user configuration on OpenShift</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="docker-and-openshift-support">Docker and OpenShift Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che runs on different kind of infrastructure and container engine:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="infra-support.html">Docker</a></p>
+</li>
+<li>
+<p><a href="infra-support.html">OpenShift</a></p>
+</li>
+<li>
+<p>Kubernetes (soon)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Learn more about the different infrastructure supported by Eclipse Che on the following <a href="infra-support.html">page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="workspace-model">Workspace Model</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-che-workspace.png" alt="intro che workspace">
+</div>
+</div>
+<div class="paragraph">
+<p>Che defines the workspace to be the project code files and all of their dependencies necessary to edit, build, run, and debug them. In our world, we treat the IDE and the development runtime as a dependency of the workspace. These items are embedded and included with the workspace, whereever it may run. This compares to classic workspace definitions which may include the project code, but require the developer to bind their IDE and use their laptop localhost to provide a runtime.</p>
+</div>
+<div class="paragraph">
+<p>Each workspace is isolated from one another and is responsible for managing the lifecycle of the components that are contained within it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-workspace-runtimes.png" alt="intro workspace runtimes">
+</div>
+</div>
+<div class="paragraph">
+<p>A workspace contains one or more runtimes. The default runtime within our workspaces are Docker containers, but these runtimes can be replaced with other types of "machines" that offer different characteristics. We, for example, provide an SSH machine type and will soon provide localhost machines. The advantage of Docker as the runtime type allows users to define the contents of their runtime using Dockerfiles, for which we can then dynamically construct workspace runtimes without the user having to learn a lot of complex Docker syntax.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-project-mounted.png" alt="intro project mounted">
+</div>
+</div>
+<div class="paragraph">
+<p>A workspace can have 0..n projects, with each project mapping to 0..1 remote version control repositories such as git, subversion, or mercurial. Projects are mounted into the workspace, so that they are available both inside of the workspace and also available on long term storage. Each project has a "type", such as "maven", which when selected will activate a series of plugins that alter the behavior of the workspace to accommodate that project type. Projects can have different types and they can also have remodules which are sub-portions of a project that have their own typing and behaviors.</p>
+</div>
+<div class="paragraph">
+<p>Each workspace has its own private browser IDE hosted within it. The browser IDE provided by Che is packaged as JavaScript and CSS, but our IDE could be replaced with other IDEs. Since each workspace has its own server runtimes, each workspace can have a customized IDE with different plugins packaged within it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-SSH-connect.png" alt="intro SSH connect">
+</div>
+</div>
+<div class="paragraph">
+<p>By default, each workspace also configures its own SSH server. This allows remote clients and desktop IDEs to SSH mount into the workspace. By SSH mounting, you can let IDEs like IntelliJ or Eclipse work with the projects and runtimes contained within Che.</p>
+</div>
+<div class="paragraph">
+<p>Workspaces are hosted in the Che server, which is a lightweight runtime for managing workspaces. A single Che server can manage large volumes of workspaces, which themselves may or may not be running on the same host. Since Che workspace runtimes have their own runtimes, each workspace can be running on the same host or another host, managed by a docker daemon. The Che server is also a Docker container by default, which itself could be operated by compose or Swarm.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-share-workspace.png" alt="intro share workspace">
+</div>
+</div>
+<div class="paragraph">
+<p>Since the workspaces are servers that have their own runtimes, they are collaborative and shareable. This allows multiple users to access the same workspace at the same time. Each workspace has its own unique URL which allows multi-user access. We currently support multiple users within a single workspace on a last-write-wins policy. Before the end of 2016, we’ll have multi-cursor editing using an operational transform.</p>
+</div>
+<div class="paragraph">
+<p>Each workspace is defined with a JSON data model that contains the definition of its projects, its runtimes, its IDE, and other necessary information that allows a Che server to create replicas. This allows workspaces to move from one location to another, such as from one Che server to another Che server. You will never have the "but it runs on that computer" issue again. Workspaces can also have their internal state snapshot and saved in a registry, so replicas can be created from the original template, or from images that contain modifications made after a user started working with the workspace.</p>
+</div>
+<div class="paragraph">
+<p>Both the Che server and each workspace have their own embedded RESTful APIs. Everything that is done by the user dashboard Web application and the browser IDE is done over RESTful APIs. You can access these APIs using swagger as Swagger configurations are provided within each service. The API set within the server and each workspace dynamically changes based upon the plugins that have been deployed by the admin or the user.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="users">Users</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che has three types of users:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Developers</strong>. Che can be installed and used as a local IDE for any kind of programming language or framework, such as Java and JavaScript. While Che runs as a server, it can be run on a desktop, server, or within an embedded device. You can use Che with our embedded browser IDE or your existing IDE which is allowed to SSH into the Che workspaces.</p>
+</li>
+<li>
+<p><strong>Product Owners</strong>. Che provides APIs hosted within its workspace server to manage environments, workspaces, projects, templates, stacks, and intellisense for developer activities such as editing, syntax analysis, compiling, packaging, and debugging. You can use Che to host on-demand workspaces accessed by the Che IDE or a client that your product team authors. For example, SAP uses the Che workspace server to embed its development tools for SAP Hana.</p>
+</li>
+<li>
+<p><strong>Plugin Providers</strong>. Che provides a SDK to create and package plugins that modify the browser IDE, workspaces, or the Che server. ISVs and tool providers can add new project types, programming languages, tooling extensions, or applications. Che plugins can be authored for the client-side IDE or the server-side.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logical-architecture">Logical Architecture</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/images/intro/intro-che-architecture.png" alt="intro che architecture">
+</div>
+</div>
+<div class="paragraph">
+<p>Che is a workspace server that runs on top of an application server like Tomcat. When the Che server is launched, the IDE is loaded as a Web application accessible via a browser at <code><a href="http://localhost:8080/" class="bare">http://localhost:8080/</a></code>. The browser downloads the IDE as a single page web app from the Che server. The Web application provides UI components such as wizards, panels, editors, menus, toolbars, and dialog boxes.</p>
+</div>
+<div class="paragraph">
+<p>As a user interacts with the Web application, they will create workspaces, projects, environments, machines, and other artifacts necessary to code and debug a project. The IDE communicates with Che over RESTful APIs that manage and interact with a Workspace Master.</p>
+</div>
+<div class="paragraph">
+<p>The Che server controls the lifecycle of workspaces. Workspaces are isolated spaces where developers can work. Che injects various services into each workspace, including the projects, source code, Che plug-ins, SSH daemon, and language services such as Eclipse JDT.LS Intellisense to provide refactoring for Java language projects. The workspace also contains a synchronizer which, depending upon whether the workspace is running locally or remotely, is responsible for synchronizing project files from within the machine with Che long term storage.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extensibility">Extensibility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che provides an SDK for authoring new extensions, packaging extensions into plug-ins, and grouping plug-ins into an assembly. An assembly can either be executed stand alone as a new server, or, it can be installed onto desktops as an application using included installers.</p>
+</div>
+<div class="paragraph">
+<p>There are a number of aspects that can be modified within Che.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IDE Extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modify the look-and-feel, panels, editors, wizards, menus, toolbars, and pop-up boxes of the client. IDE extensions are authored in Java and transpiled into a JavaScript Web application that is hosted on the Che server as a WAR file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Che Server Extension  (aka, Workspace Master)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add or modify the core APIs that run within the Che server for managing workspaces, environments and machines. Workspace extensions are authored in Java and packaged as JAR files.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workspace Extension  (aka, Workspace Agent)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create or modify project-specific extensions that run within a workspace machine and have local access to project files. Define machine behaviors, code templates, command instructions, scaffolding commands, and intellisense. The Che Java extension is authored as a workspace agent extension, deployed into the machine, and runs Eclipse JDT.LS services to do local intellisense operations against the remote workspace.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each extension type is packaged separately because they are deployed differently into the assembly. IDE extensions are transpiled using GWT to generate a cross-browser JavaScript. This application is packaged as a WAR file and hosted on the Che server.</p>
+</div>
+<div class="paragraph">
+<p>Workspace master extensions are deployed as services within the Che server. Once deployed, they activate new management services that can control users, identity and workspaces.</p>
+</div>
+<div class="paragraph">
+<p>Workspace agent extensions are compiled with Che core libraries and also deployed within an embedded Che server that runs inside of each workspace machine. The Che server is injected into machines created and controlled by the central workspace master Che server. This embedded server hosts your workspace agent extensions and provides a communication bridge between the services hosted within Che and the machines that are hosting the project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="machines">Machines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you develop with a desktop IDE, the workspace uses localhost as the execution environment for processes like build, run and debug. In a cloud IDE, localhost is not available, so the workspace server must generate the environments that it needs. These environments must be isolated from one another and scalable. We generate containers that contain the software needed for each environment. Each workspace is given at least one environment, but users may create additional environments for each workspace if they want. Each container can have different software installed. Che installs different software into the machine based upon the project type. For example, a Java project will have the JDK, Git, and Maven installed. When a user is working within their Workspace, this container is booted by Che and the source code of the project is mounted within it. Developer actions like auto-complete and <code>mvn clean install</code> are processes that are executed within the container. Users can provide their own Dockerfiles or Composefile that Che will build into images and extension developers can register Dockerfile templates associated with a project type. This allows Che to manage a potentially infinite number of environments while still giving users customization flexibility.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whats-included">What’s Included</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che ships with a large number of plugins for many programming languages, build systems, source code tools, and infrastructure including Java, Maven, Ant, Git, JavaScript, and Angular.JS. The community is developing their own and many are merged into the main Che repository. Che can be installed on any operating system that supports Docker 1.8+, OpenShift or Java 1.8 – desktop, server or cloud and has been tested on Linux, MacOS and Windows. It is originally licensed as EPL 1.0, and starting from version 6.9.0 and higher - as EPL 2.0.</p>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        
+        
+        <a href="tag_getting-started.html" class="btn btn-default navbar-btn cursorNorm" role="button">getting-started</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

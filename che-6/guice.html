@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="extensionsdev-docs,  framework, plugin, extension, DI, dependency injection">
+<title>Dependency Injection | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Dependency Injection page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Dependency Injection">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Dependency Injection</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>In this section, we briefly introduce the usage of dependency injection in Che, on the client and on the server side. If you are already familiar with Guice and Gin, you might want to skip this part.</p>
+</div>
+<div class="paragraph">
+<p>Che uses dependency injection to wire the different components, in order to create objects as well as register and retrieve extensions. Therefore, dependency injection is technically the core mechanism of communicating with the framework and connecting custom extensions. This includes accessing framework services and objects (e.g. a file type or a <a href="%7B%7B%20base%20%7D%7D%7B%7Bsite.links%5B%22assemblies-sdk-code-editors%22%5D%7D%7D">file type registry</a>) and providing custom objects to the framework.</p>
+</div>
+<div class="paragraph">
+<p>Che uses the existing dependency injection framework <a href="https://github.com/google/guice">Guice</a> on the server-side and the GWT version of Guice, <a href="https://github.com/google-code-export/google-gin">Gin</a>, on the client-side.</p>
+</div>
+<div class="paragraph">
+<p>In general, there are two use cases for dependency injection: consuming objects and providing objects.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/devel/di.png" alt="di">
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that when extending Che, DI consumer and provider can be either in your custom extension or within the Che framework. As an example, if you want to provide a new wizard to be used in the IDE, you will create an object provider, which provides the wizard. Che implements an object consumer, which picks up the wizard class and uses it. In turn, if you want to access a service provided by Che, your extension will be the object consumer.</p>
+</div>
+<div class="paragraph">
+<p>The main goal of using dependency injection is to decouple object provider and object consumer. Both parties just need to know about the object they consume/provide. The object is identified by its type (typically a Java interface) and optionally an additional key. In the following, we first describe how to consume objects (in Guice and Gin) and subsequently, how to provide objects.</p>
+</div>
+<div class="sect1">
+<h2 id="consuming-objects">Consuming Objects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Required objects can be injected in any class that is instantiated by the framework. If a custom component requires objects, e.g. a service, it can be injected as a parameter. This can be done in the constructor or in methods of a class. If the parameter is required for a class to operate, we recommend using the constructor for injection. To get parameters injected in a method or constructor, it is marked with the annotation <code>@Inject</code> (see code example below). By adding the annotation, all parameters of a constructor/method will be resolved by the framework and passed in through the initialization of the class.</p>
+</div>
+<div class="paragraph">
+<p>The dependency injection framework needs to know how to identify the correct object to be used as a parameter. There are two essential ways of specifying the parameters as a consumer * First, if you just specify a parameter of a certain type (in the example <code>SomeService</code>), the framework will search for an object of that type. This will only work, if there is exactly one object of this type in the context, which is typically true for services.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Second, if there can be several objects of the required type and you want a specific object out of those, you can additionally specify a key using the annotation <code>@Named</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the following example, for the second parameter, the framework will look for an object which is of type <code>MyClass</code> has been explicitly registered with the key <code>MyID</code>. Please <a href="#providing-objects">see the following</a> section how to provide objects to be consumed that way.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MyClass</span> {
+
+  <span style="color:#088;font-weight:bold">private</span> MyOtherClass myOtherClass;
+
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">public</span> MyClass(<span style="color:#088;font-weight:bold">final</span> SomeService someService,
+                            <span style="color:#088;font-weight:bold">final</span> <span style="color:#007">@Named</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">MyID</span><span style="color:#710">&quot;</span></span>) MyClass myClass) {
+                              someService.someMethod(myClass);
+                              <span style="color:#950">this</span>.other = <span style="color:#080;font-weight:bold">new</span> MyOtherClass(myClass);
+  }
+
+  <span style="color:#777">// do somehting with myOtherClass;</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note, that dependency injection is only available for objects which are instantiated by the dependency injection framework. In the example above, the class <code>MyOtherClass</code> is instantiated using plain Java, therefore it is not possible to use <code>@Inject</code> in its constructor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="providing-objects">Providing Objects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Implementing an object provider serves two purposes when writing an extension: * First, you can consume the objects that you provide from within other custom classes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Second, the provided classes can be consumed by the Che framework.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As an example, if you provide a wizard class, it will be integrated by the Che IDE. Therefore, dependency injection is a core extension mechanism of Che.</p>
+</div>
+<div class="paragraph">
+<p>To provide custom objects, you implement a module class. It is responsible to create the objects to be injected as well as register them using the type and optionally a key. Depending on the general structure of your extension, you could add as many modules as you like, however, most extensions use only one module for the client (Gin) and one for the server part (Guice).</p>
+</div>
+<div class="paragraph">
+<p>The following code example shows a simple Guice module. All Guice modules inherit from AbstractModule and are marked with the annotation <code>@DynaModule</code>, which registers the module itself to be executed by Guice. The mandatory method <code>#configure</code> is responsible for the registration of objects. We will not go into detail about all the different options of Guice/Gin, but focus on relevant use cases in Che. In the following code example, we register a custom object (<code>CustomObject</code>), which implements an existing Che type (<code>ExistingCheType</code>). The Che type defines an extension point for Che, e.g. a wizard.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CustomObject</span> <span style="color:#088;font-weight:bold">implements</span> ExistingCheType {
+  <span style="color:#777">// ...</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, we register our custom object using the type and therefore make it available for the Che framework. To register and to retrieve the object, the type <code>ExistingCheType</code> is used as an identifier. In the example, there can be an arbitrary number of objects implementing <code>ExistingCheType</code>, so Che will retrieve a set of objects. To register the object, we create a new <code>Set Binder</code> for the type <code>ExistingCheType</code>. Then, we add a binding and register the custom object. The <code>CustomObject</code> will be instantiated by the framework using dependency injection. Therefore, the <code>@Inject</code> annotation can be used in the constructor of <code>CustomObject</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.inject.DynaModule</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.inject.AbstractModule</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.inject.multibindings.Multibinder</span>;
+
+<span style="color:#007">@DynaModule</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MyGuiceModule</span> <span style="color:#088;font-weight:bold">extends</span> AbstractModule {
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">protected</span> <span style="color:#339;font-weight:bold">void</span> configure() {
+        Multibinder.newSetBinder(binder(), ExistingCheType.class)
+                   .addBinding()
+                   .to(CustomObject.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gin modules inherit from <code>AbstractGinModule</code> and use the <code>@ExtensionGinModule</code> annotation. Gin has a different <a href="https://code.google.com/p/google-gin/wiki/GinTutorial">binding mechanism than Guice</a>, however, for the typical use case, the code would look the same:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.extension.ExtensionGinModule</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.gwt.inject.client.AbstractGinModule</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.gwt.inject.client.multibindings.GinMultibinder</span>;
+
+<span style="color:#007">@ExtensionGinModule</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MyGinModule</span> <span style="color:#088;font-weight:bold">extends</span> AbstractGinModule {
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">protected</span> <span style="color:#339;font-weight:bold">void</span> configure() {
+        GinMultibinder.newSetBinder(binder(), ExistingCheType.class)
+                      .addBinding()
+                      .to(CustomObject.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As an alternative to the registration above, objects can also be registered using methods marked with the <code>@Provides</code> annotation. The following example provides a simple object, which only needs to be instantiated once (<code>@Singleton</code>). In this example, the registration additionally contains a key specified by the <code>@Named</code> annotation. Please note that in this case, the <code>CustomObject</code> is created manually, so no dependency injection can be used within it. The following method is placed in your custom Gin/Guice module.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Provides</span>
+<span style="color:#007">@Singleton</span>
+<span style="color:#007">@Named</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">MyID</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">protected</span> FileType provideMyClass() {
+        <span style="color:#080;font-weight:bold">return</span> <span style="color:#080;font-weight:bold">new</span> MyClass();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The examples of dependency injection cover all basic use cases to understand the following extension tutorial. If you want to learn more about the different types of Guice bindings, please refer <a href="https://github.com/google/guice/wiki/Bindings">to this page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extension-classes">Extension Classes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Besides the extensibility using dependency injections, many custom extensions need to call some Che services or registries on start-up. Therefore, most extensions contain a central class called <code>Extension</code>. To register those classes, Che provides the custom annotation <code>@Extension</code>, which also allows to define a title for the extension. A common example for a class which gets instantiated by Che and which requires parameters is the <code>Extension</code> class.</p>
+</div>
+<div class="paragraph">
+<p>Extension classes will automatically be picked-up by Che on start-up and all methods will be executed using dependency injection. In the following example, the extension class connects <code>SomeParameter</code> to <code>SomeService</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Extension</span>(title = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">My Extension</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">MyExtension</span> {
+
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#339;font-weight:bold">void</span> myInitialization(
+            <span style="color:#088;font-weight:bold">final</span> SomeService someService,
+            <span style="color:#088;font-weight:bold">final</span> SomeParameter someParameter) {
+                  someService.doSth(someParameter);
+               }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_extensions.html" class="btn btn-default navbar-btn cursorNorm" role="button">extensions</a>
+        
+        
+        
+        <a href="tag_dev-docs.html" class="btn btn-default navbar-btn cursorNorm" role="button">dev-docs</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Che workspaces architecture | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Che workspaces architecture page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Che workspaces architecture">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 7</li>
+  
+  <div class="sidebarSubtitle">Overview</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/introduction-to-eclipse-che">Introduction to Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che quick-starts</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-quick-starts">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-the-chectl-management-tool">Installing the chectl management tool</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/running-che-locally">Running Che locally</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/deploying-che-on-kubernetes-on-aws">Che on Amazon Web Services</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-openshift-3-using-the-operator">Che on OpenShift 3</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-openshift-4-from-operatorhub">Che on OpenShift 4</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-google-cloud-platform">Che on Google Cloud Platform</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-eclipse-che-on-microsoft-azure">Che on Microsoft Azure</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/hosted-che">Hosted Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che architecture</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-architecture">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/high-level-che-architecture">High-level Che architecture</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-workspace-controller">Che workspace controller</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-workspaces-architecture">Che workspaces architecture</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">End-user Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/navigating-che-using-the-dashboard">Navigating Che: dashboard</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che-Theia IDE basics</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-theia-ide-basics">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/defining-custom-commands-for-che-theia">Defining custom commands for Che-Theia</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/version-control">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-theia-troubleshooting">Che-Theia Troubleshooting</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Using developer workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/workspaces-overview">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/configuring-a-workspace-using-a-devfile">Configuring a workspace using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/making-a-workspace-portable-using-a-devfile">Making a workspace portable using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 Workspace to a Che 7 devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-and-configuring-a-new-che-7-workspace">Creating and configuring a new Che 7 workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/importing-a-kubernetes-application-into-a-che-workspace">Importing a Kubernetes application into a Che workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/remotely-accessing-che-workspaces">Remotely accessing workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-a-workspace-from-code-sample">Creating a workspace from code sample</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-a-workspace-by-importing-source-code-of-a-project">Creating a workspace by importing source code of a project</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/configuring-workspace-exposure-strategies">Configuring workspace exposure strategies</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing developer environments</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/customizing-developer-environments">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/what-is-a-che-theia-plug-in">What is a Che-Theia plug-in</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/using-alternative-ides-in-che">Using alternative IDEs in Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/using-a-visual-studio-code-extension-in-che">Using a VS Code extension in Che</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Installation Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/updating-che">Updating Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/advanced-configuration-options">Advanced configuration options</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Administration Guide</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing devfile and plug-in registries</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/customizing-the-devfile-and-plug-in-registries">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/building-and-running-a-custom-registry-image">Building and running a custom registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/including-the-plug-in-binaries-in-the-registry-image">Including the plug-in binaries in the registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/editing-a-devfile-and-plug-in-at-runtime">Editing a devfile and plug-in at runtime</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Retrieving Che logs</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/retrieving-che-logs">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-kubernetes-events">Viewing Kubernetes events</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-che-server-logs">Viewing Che server logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-external-service-logs">Viewing external service logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-che-workspaces-logs">Viewing Che workspaces logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-plug-in-broker-logs">Viewing the plug-in broker logs</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/monitoring-che">Monitoring Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/tracing-che">Tracing Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Securing Che</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/securing-che">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/authenticating-users">Authenticating users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/authorizing-users">Authorizing users</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Contributor Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/developing-che-theia-plug-ins">Developing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/testing-che-theia-plug-ins">Testing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/publishing-che-theia-plug-ins">Publishing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/adding-support-for-a-new-language">Adding support for a new language</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/adding-support-for-a-new-debugger">Adding support for a new debugger</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che extensibility reference</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-extensibility-reference">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-extension-points">Che extension points</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-theia-plug-in-api">Che-Theia plug-in API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/debug-adapter-protocol">Debug Adapter Protocol</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/language-server-protocol">Language Server Protocol</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Extensions</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Eclipse Che4z</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/eclipse-che4z">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-release-information">Release Information</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-installing">Installing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-using-explorer-for-zos">Using z/OS Resource Explorer</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-product-accessibility-features">Product Accessibility Features</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Che workspaces architecture</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Che workspace is a web application. It is composed of microservices running in containers that provide all the services of a modern IDE (an editor, language auto-completion, debugging tooling). The IDE services are deployed with the development tooling, packaged in containers and user runtime applications, which are defined as Kubernetes resources.</p>
+</div>
+<div class="paragraph">
+<p>The source code of the projects of a Che workspace is persisted in a Kubernetes <code>PersistentVolume</code>. Microservices run in containers that have read-write access to the source code (IDE services, development tools), and runtime applications have read-write access to this shared directory.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the detailed components of a Che workspace.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/architecture/che-workspaces.png" alt="che workspaces">
+</div>
+<div class="title">Figure 1. Che workspace components</div>
+</div>
+<div class="paragraph">
+<p>In the diagram, there are three running workspaces: two belonging to <strong>User A</strong> and one to <strong>User C</strong>. A fourth workspace is getting provisioned where the plug-in broker is verifying and completing the workspace configuration.</p>
+</div>
+<div class="paragraph">
+<p>Use the devfile format to specify the tools and runtime applications of a Che workspace.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="che-workspace-components_che-workspaces-architecture">Che workspace components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the components of a Che workspace.</p>
+</div>
+<div class="sect2">
+<h3 id="che-plug-ins_che-workspace-components">Che plug-ins</h3>
+<div class="paragraph">
+<p>Che plug-ins are special services that extend Che workspace capabilities. Che plug-ins are packaged as containers. Packaging plug-ins into a container has the following benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It isolates the plug-ins from the main IDE, thus limiting the resources that a plug-in has access to.</p>
+</li>
+<li>
+<p>It uses the consolidated standard of container registries to publish and distribute plug-ins (as with any container image).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The containers that plug-ins are packaged into run as sidecars of the Che workspace editor and augment its capabilities.</p>
+</div>
+<div class="paragraph">
+<p>Visual Studio Code extensions packaged in containers are Che plug-ins for the Che-Theia editor.</p>
+</div>
+<div class="paragraph">
+<p>Multiple Che plug-ins can run in the same container (for better resource use), or a Che plug-in can run in its dedicated container (for better isolation).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="che-editor-plug-in_che-workspace-components">Che editor plug-in</h3>
+<div class="paragraph">
+<p>A Che editor is a Che workspace plug-in. It defines the web application that is used as an editor in a workspace. The default Che workspace editor is called Eclipse Che-Theia.</p>
+</div>
+<div class="paragraph">
+<p>The Eclipse Che-Theia source-code repository is at <a href="https://github.com/eclipse/che-theia">Che Theia Github</a>. It is based on the <a href="https://github.com/theia-ide/theia">Eclipse Theia open-source project</a>.</p>
+</div>
+<div class="paragraph">
+<p>Che-Theia is written in TypeScript and is built on the <a href="https://github.com/Microsoft/monaco-editor">Microsoft Monaco editor</a>. It is a web-based source-code editor similar to <a href="https://code.visualstudio.com/">Visual Studio Code</a> (VS Code). It has a plug-in system that supports VS Code extensions.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse/che-theia">Che Theia</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eclipse/che-theia</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="che-user-runtimes_che-workspace-components">Che user runtimes</h3>
+<div class="paragraph">
+<p>Use any non-terminating user container as a user runtime. An application that can be defined as a container image or as a set of Kubernetes or OpenShift resources can be included in a Che workspace. This makes it easy to test applications in the Che workspace.</p>
+</div>
+<div class="paragraph">
+<p>To test an application in the Che workspace, include the application YAML definition used in stage or production in the workspace specification. It is a 12-factor app dev/prod parity.</p>
+</div>
+<div class="paragraph">
+<p>Examples of user runtimes are Node.js, SpringBoot or MongoDB, and MySQL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="che-workspace-jwt-proxy_che-workspace-components">Che workspace JWT proxy</h3>
+<div class="paragraph">
+<p>The JWT proxy is responsible for securing the communication of the Che workspace services. The Che workspace JWT proxy is included in a Che workspace only if the Che server is configured in multi-user mode.</p>
+</div>
+<div class="paragraph">
+<p>An HTTP proxy is used to sign outgoing requests from a workspace service to the Che server and to authenticate incoming requests from the IDE client running on a browser.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse/che-jwtproxy">JWT proxy</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eclipse/che-jwtproxy</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="che-plug-in-broker_che-workspace-components">Che plug-in broker</h3>
+<div class="paragraph">
+<p>Plug-in brokers are special services that, given a plug-in <code>meta.yaml</code> file:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gather all the information to provide a Che plug-in definition that the Che server knows.</p>
+</li>
+<li>
+<p>Perform preparation actions in the workspace namespace (download, unpack files, process configuration).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The main goal of the plug-in broker is to decouple the Che plug-in definition from the actual plug-ins that Che can support. With brokers, Che can support different plug-ins without updating the Che server.</p>
+</div>
+<div class="paragraph">
+<p>The Che server starts the plug-in broker. The plug-in broker runs in the same Kubernetes namespace as the workspace. It has access to the plug-ins and project persistent volumes.</p>
+</div>
+<div class="paragraph">
+<p>A plug-in broker is defined as a container image (for example, <code>eclipse/che-plugin-broker</code>). The plug-in type determines the type of the broker that is started. Two types of plug-ins are supported: Che plug-in and Che editor.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/eclipse/che-plugin-broker">Che Plug-in broker</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>eclipse/che-init-plugin-broker</code><br>
+<code>eclipse/che-unified-plugin-broker</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="che-workspace-configuration_che-workspaces-architecture">Che workspace configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the properties of the Che server that affect the provisioning of a Che workspace.</p>
+</div>
+<div class="sect2">
+<h3 id="persistent-volume-configuration_che-workspace-configuration">Persistent volume configuration</h3>
+<div class="paragraph">
+<p>A Kubernetes persistent volume is attached to the Che workspace to persist its data: source code, application logs, and tools configuration. A Che server can be configured to use different strategies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>common</strong>: A Che workspace that is provisioned in the same Kubernetes namespace and shares the same <code>PersistentVolume</code>. The data of different workspaces are separated using subpaths. The default strategy is <strong>common</strong>.</p>
+</li>
+<li>
+<p><strong>unique</strong>: Every Che workspace is attached to a distinct persistent volume. This strategy provides better data isolation but requires more resources.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="workspace-namespaces-configuration_che-workspace-configuration">Workspace namespaces configuration</h3>
+<div class="paragraph">
+<p>The Kubernetes namespace where a new workspace pod is deployed depends on the Che server configuration. By default, every workspace is deployed in a distinct namespace, but the user can configure the Che server to deploy all workspaces in one specific namespace. The name of a namespace must be provided as a Che server configuration property and cannot be changed at runtime.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="che-workspace-creation-flow_che-workspaces-architecture">Che workspace creation flow</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/images/architecture/che-workspace-creation-flow.png" alt="che workspace creation flow">
+</div>
+</div>
+<div class="paragraph">
+<p>The following is a Che workspace creation flow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A user starts a Che workspace defined by:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>An editor (the default is Che-Theia)</p>
+</li>
+<li>
+<p>A list of plug-ins (for example, Java and Kubernetes tooling)</p>
+</li>
+<li>
+<p>A list of runtime applications</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>wsmaster</strong> retrieves the editor and plug-in metadata from the plug-in registry.</p>
+</li>
+<li>
+<p>For every plug-in type, <strong>wsmaster</strong> starts a specific plug-in broker.</p>
+</li>
+<li>
+<p>The Che plug-in broker transforms the plug-in metadata into a Che plug-in definition. It executes the following steps:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Downloads a plug-in and extracts its content.</p>
+</li>
+<li>
+<p>Processes the plug-in <code>meta.yaml</code> file and sends it back to <strong>wsmaster</strong> in the format of a Che plug-in.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>wsmaster</strong> starts the editor and the plug-in sidecars.</p>
+</li>
+<li>
+<p>The editor loads the plug-ins from the plug-in persistent volume.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

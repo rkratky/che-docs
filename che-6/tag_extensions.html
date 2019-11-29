@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Extensions pages | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Extensions pages page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Extensions pages">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Extensions pages</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <p>The following pages and posts are tagged with <button type="button" style="cursor: default" class="btn btn-default navbar-btn">extensions</button></p>
+<table><thead><tr><th>Title</th><th>Excerpt</th></tr></thead>
+    <tbody>
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/actions.html">IDE UI: Actions</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  Actions allow you to add custom behavior to the Che IDE. They can be placed in menus, toolbars or context menus. An Action is a Java class, which implements the behavior to be executed. Additionally, it defines a text to be shown, a tooltip and an icon. In... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/assemblies.html">Che Assemblies</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  Understanding Che Assemblies?   An assembly is a Maven module that produces a build artifact. In case of Eclipse Che, this is either a .war with jars in it, or a Tomcat assembly, which is a Tomcat web server with custom configuration and... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/che-in-che-quickstart.html">Develop Your First Plugin Usign Che</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  Before you dive into information on how you can extend Che framework and build your own Che assembly, let’s install and debug your first Che plugin using Che itself.   Run Eclipse Che     Installing it on Docker:... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/custom-installers.html">Installers</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  Now that you have made yourself familiar with Installer concept and usage, let’s take a closer look at implementing custom ones.   Let’s take a closer look of a custom installer named Curl:   The installer can be split into description in json... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/dto.html">DTO</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  A data transfer object (DTO) is an object to exchange data with the client and server. DTOs are responsible for serializing (and deserializing) themselves into JSON. You can prepare custom DTOs for your extensions and plugins. You define a DTO interface and then our DTO utilities will generate... </td>
+        </tr>
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/editor.html">IDE UI: Editor</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td>  </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/framework-overview.html">Extending Che</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="introduction"] == Introduction Eclipse Che is a platform that can be extended by: * adding client side plugins that bring new menus, panels and other UI components, link:ide-extensions-gwt.html[authored in GWT] * adding link:server-side-extensions.html[server side components and agents] that get deployed to a workspace machines * adding support of... </td>
+        </tr>
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/framework.html">Eclipse Che Framework</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto
+ </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/guice.html">Dependency Injection</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto In this section, we briefly introduce the usage of dependency injection in Che, on the client and on the server side. If you are already familiar with Guice and Gin, you might want to skip this part. Che uses dependency injection to wire the different components, in order... </td>
+        </tr>
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Server and Client Side Plugins</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="overview"] == Overview In Che there is a bunch of project operations that can be performed via REST, JSON-RPC or programmatically (on server side). Most valuable will be covered by this chapter. [id="project-import"] == Project import In is possible to import a project using several ways, Che supports... </td>
+        </tr>
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/ide-extensions-gwt.html">IDE Extensions: GWT</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="ide-extension-structure"] == IDE Extension Structure Let’s take a closer look at how an IDE extension should be structured: ---- ide ├─ src // sources folder │ └─ main │ ├─ java │ │ └─ org.eclipse.che.plugin.menu.ide │ │ ├─ ... │ │ ├─ inject │ │ │ └─ SampleMenuGinModule.java... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/json-rpc.html">Communication: JSON-RPC</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="overview"] == Overview In CHE we use http://www.jsonrpc.org/specification[JSON-RPC] for asynchronous communication between clients and servers. JSON-RPC is asymmetric by nature so in order to be able to information independently we use duplex approach where both sides (clients and servers) can act both as a JSON-RPC server and as... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/language-servers.html">Language Support</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="overview"] == Overview The Language Server Protocol is used between a tool (the client) and a language intelligence provider (the server) to integrate features like auto complete, goto definition, find references, etc. You can learn more about the language server specification on the https://github.com/Microsoft/language-server-protocol[LSP GitHub page]. Currently Eclipse... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/logging.html">Che logging</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="logging-in-che"] == Logging in Che By default ws-master and ws-agent are configured to use logback as default logging backend. Their configuration produces plaintext logs to output of Che assembly and stores it to files. There are several options on how to customize logs producing in Che. Che is... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/parts.html">IDE UI: Parts</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto Parts represent the content of the Che workbench, i.e. views and editors within the IDE. Che already provides various parts such as the project explorer, the output console, the build result view, file outline and the code editor. In this part of the tutorial, we describe how to implement... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/project-types.html">Project Types</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto Project types allow you to provide custom project behavior for a certain language. Additionally, they allow you to specify specific project templates, which can be instantiated and already contain language specific content. Further, they allow the user to specify language specific properties for a project, e.g. compiler settings or... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/properties.html">Properties in Extensions</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto [id="referencing-properties-in-extensions"] == Referencing Properties in Extensions You can reference properties in Che extensions that you author. Configuration parameters may be injected with a constructor or directly in the fields. The parameter of the field must be annotated with `@javax.inject.Named`. The value of the annotation is the name of... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/rest-api.html">REST API</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto Eclipse Che server side components - both for master and workspace agents - are exposed as REST services which makes it easy to integrate Che in other platforms or use custom clients to create and run workspaces, import and update projects, update/delete workspaces and associated objects etc. You... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/server-side-extensions.html">Server Side Extensions</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto
+TODO
+ </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/themes.html">IDE UI: Themes</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto
+ </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tr><td><a href="/che-6/workspace-agent.html">Workspace Agent</a></td>
+            <!-- <td><span class="label label-default">Page</span></td> -->
+          <td> :page-layout: _auto == Enabling debugging on Workspace Agent . Configure your WS Agent Tomcat JPDA launching parameters with the following Workspace environment variables: + `WSAGENT_DEBUG`:: Set to `true` to enable JPDA mode for Workspace Agent Tomcat. The default is `false`. `WSAGENT_DEBUG_PORT`:: Configure the JPDA port. The default is `4403`. `WSAGENT_DEBUG_SUSPEND`::... </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   </tbody>
+</table>
+
+    <div class="tags">
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

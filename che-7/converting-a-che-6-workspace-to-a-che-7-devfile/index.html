@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Converting a Che 6 workspace to a Che 7 devfile | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Converting a Che 6 workspace to a Che 7 devfile page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Converting a Che 6 workspace to a Che 7 devfile">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 7</li>
+  
+  <div class="sidebarSubtitle">Overview</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/introduction-to-eclipse-che">Introduction to Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che quick-starts</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-quick-starts">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-the-chectl-management-tool">Installing the chectl management tool</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/running-che-locally">Running Che locally</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/deploying-che-on-kubernetes-on-aws">Che on Amazon Web Services</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-openshift-3-using-the-operator">Che on OpenShift 3</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-openshift-4-from-operatorhub">Che on OpenShift 4</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-che-on-google-cloud-platform">Che on Google Cloud Platform</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/installing-eclipse-che-on-microsoft-azure">Che on Microsoft Azure</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/hosted-che">Hosted Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che architecture</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-architecture">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/high-level-che-architecture">High-level Che architecture</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-workspace-controller">Che workspace controller</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-workspaces-architecture">Che workspaces architecture</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">End-user Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/navigating-che-using-the-dashboard">Navigating Che: dashboard</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che-Theia IDE basics</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-theia-ide-basics">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/defining-custom-commands-for-che-theia">Defining custom commands for Che-Theia</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/version-control">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-theia-troubleshooting">Che-Theia Troubleshooting</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Using developer workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/workspaces-overview">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/configuring-a-workspace-using-a-devfile">Configuring a workspace using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/making-a-workspace-portable-using-a-devfile">Making a workspace portable using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 Workspace to a Che 7 devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-and-configuring-a-new-che-7-workspace">Creating and configuring a new Che 7 workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/importing-a-kubernetes-application-into-a-che-workspace">Importing a Kubernetes application into a Che workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/remotely-accessing-che-workspaces">Remotely accessing workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-a-workspace-from-code-sample">Creating a workspace from code sample</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/creating-a-workspace-by-importing-source-code-of-a-project">Creating a workspace by importing source code of a project</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/configuring-workspace-exposure-strategies">Configuring workspace exposure strategies</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing developer environments</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/customizing-developer-environments">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/what-is-a-che-theia-plug-in">What is a Che-Theia plug-in</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/using-alternative-ides-in-che">Using alternative IDEs in Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/using-a-visual-studio-code-extension-in-che">Using a VS Code extension in Che</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Installation Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/updating-che">Updating Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/advanced-configuration-options">Advanced configuration options</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Administration Guide</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing devfile and plug-in registries</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/customizing-the-devfile-and-plug-in-registries">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/building-and-running-a-custom-registry-image">Building and running a custom registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/including-the-plug-in-binaries-in-the-registry-image">Including the plug-in binaries in the registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/editing-a-devfile-and-plug-in-at-runtime">Editing a devfile and plug-in at runtime</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Retrieving Che logs</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/retrieving-che-logs">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-kubernetes-events">Viewing Kubernetes events</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-che-server-logs">Viewing Che server logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-external-service-logs">Viewing external service logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-che-workspaces-logs">Viewing Che workspaces logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/viewing-plug-in-broker-logs">Viewing the plug-in broker logs</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/monitoring-che">Monitoring Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/tracing-che">Tracing Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Securing Che</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/securing-che">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/authenticating-users">Authenticating users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/authorizing-users">Authorizing users</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Contributor Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-7/developing-che-theia-plug-ins">Developing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/testing-che-theia-plug-ins">Testing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/publishing-che-theia-plug-ins">Publishing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/adding-support-for-a-new-language">Adding support for a new language</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-7/adding-support-for-a-new-debugger">Adding support for a new debugger</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che extensibility reference</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/che-extensibility-reference">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-extension-points">Che extension points</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che-theia-plug-in-api">Che-Theia plug-in API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/debug-adapter-protocol">Debug Adapter Protocol</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/language-server-protocol">Language Server Protocol</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Extensions</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Eclipse Che4z</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-7/eclipse-che4z">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-release-information">Release Information</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-installing">Installing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-using-explorer-for-zos">Using z/OS Resource Explorer</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-7/che4z-product-accessibility-features">Product Accessibility Features</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Converting a Che 6 workspace to a Che 7 devfile</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to manually convert an old Che 6 workspace configuration to a Che 7 devfile. The following are the benefits of using a Che 7 devfile:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using a portable file that works with any installation of Che; nothing needs to be changed on the server to start a workspace.</p>
+</li>
+<li>
+<p>Configuration can be stored in project repository and automatically used by Che to start a workspace. To start a workspace, specify a devfile using the following format: <code><em>&lt;che-instance-domain&gt;</em>/f?url=path</code>, for example:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>https://che.openshift.io/f?url=https://raw.githubusercontent.com/redhat-developer/devfile/master/getting-started/vertx/devfile.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This creates and starts a new workspace based on the <a href="https://github.com/redhat-developer/devfile/blob/master/getting-started/vertx/devfile.yaml">devfile</a> defined in the URL attribute.
+* A human-readable YAML format for all content.</p>
+</div>
+<div class="paragraph">
+<p>Below, there is a comparison of a <strong>Che 6 workspace configuration</strong> and a <strong>Che 7 devfile</strong>. Both are <strong>Java Vert.x</strong> stacks with a default project and default settings:</p>
+</div>
+<div class="listingblock">
+<div class="title">Che 6 configuration file</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>defaultEnv</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">default</span><span style="color:#710">&quot;</span></span>,
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>environments</span><span style="color:#404">&quot;</span></span>: {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>default</span><span style="color:#404">&quot;</span></span>: {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>machines</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>dev-machine</span><span style="color:#404">&quot;</span></span>: {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>memoryLimitBytes</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">2147483648</span><span style="color:#710">&quot;</span></span>
+          },
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>servers</span><span style="color:#404">&quot;</span></span>: {
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>8080/tcp</span><span style="color:#404">&quot;</span></span>: {
+              <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {},
+              <span style="color:#606"><span style="color:#404">&quot;</span><span>port</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">8080</span><span style="color:#710">&quot;</span></span>,
+              <span style="color:#606"><span style="color:#404">&quot;</span><span>protocol</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">http</span><span style="color:#710">&quot;</span></span>
+            }
+          },
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>volumes</span><span style="color:#404">&quot;</span></span>: {},
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>installers</span><span style="color:#404">&quot;</span></span>: [
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">com.redhat.oc-login</span><span style="color:#710">&quot;</span></span>,
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">com.redhat.bayesian.lsp</span><span style="color:#710">&quot;</span></span>,
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">org.eclipse.che.ls.java</span><span style="color:#710">&quot;</span></span>,
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">org.eclipse.che.ws-agent</span><span style="color:#710">&quot;</span></span>,
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">org.eclipse.che.exec</span><span style="color:#710">&quot;</span></span>,
+            <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">org.eclipse.che.terminal</span><span style="color:#710">&quot;</span></span>
+          ],
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>env</span><span style="color:#404">&quot;</span></span>: {}
+        }
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>recipe</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">dockerimage</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>content</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">quay.io/openshiftio/che-vertx</span><span style="color:#710">&quot;</span></span>
+      }
+    }
+  },
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>projects</span><span style="color:#404">&quot;</span></span>: [
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>links</span><span style="color:#404">&quot;</span></span>: [],
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">vertx-http-booster</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>language</span><span style="color:#404">&quot;</span></span>: [
+          <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">java</span><span style="color:#710">&quot;</span></span>
+        ]
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">maven</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>source</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>location</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">https://github.com/openshiftio-vertx-boosters/vertx-http-booster</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">git</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>parameters</span><span style="color:#404">&quot;</span></span>: {}
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>path</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/vertx-http-booster</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>description</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">HTTP Vert.x Booster</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>problems</span><span style="color:#404">&quot;</span></span>: [],
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>mixins</span><span style="color:#404">&quot;</span></span>: []
+    }
+  ],
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">wksp-jhwp</span><span style="color:#710">&quot;</span></span>,
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>commands</span><span style="color:#404">&quot;</span></span>: [
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>commandLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">scl enable rh-maven33 'mvn compile vertx:debug -f ${current.project.path} -Dvertx.disableDnsResolver=true'</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">debug</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>goal</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Debug</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>previewUrl</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">${server.8080/tcp}</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">custom</span><span style="color:#710">&quot;</span></span>
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>commandLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">scl enable rh-maven33 'mvn compile vertx:run -f ${current.project.path} -Dvertx.disableDnsResolver=true'</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">run</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>goal</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Run</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>previewUrl</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">${server.8080/tcp}</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">custom</span><span style="color:#710">&quot;</span></span>
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>commandLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">scl enable rh-maven33 'mvn clean install -f ${current.project.path}'</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">build</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>goal</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Build</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>previewUrl</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mvn</span><span style="color:#710">&quot;</span></span>
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>commandLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mvn -Duser.home=${HOME} -f ${CHE_PROJECTS_ROOT}/vertx-http-booster clean package</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">vertx-http-booster:build</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>goal</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Build</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>previewUrl</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mvn</span><span style="color:#710">&quot;</span></span>
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>commandLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mvn -Duser.home=${HOME} -f ${CHE_PROJECTS_ROOT}/vertx-http-booster vertx:run</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">vertx-http-booster:run</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>goal</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Run</span><span style="color:#710">&quot;</span></span>,
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>previewUrl</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">${server.8080/tcp}</span><span style="color:#710">&quot;</span></span>
+      },
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">mvn</span><span style="color:#710">&quot;</span></span>
+    }
+  ],
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>links</span><span style="color:#404">&quot;</span></span>: []
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Che 7 devfile</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span style="color:#606">metadata</span>:
+  <span style="color:#606">name</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">testing-workspace</span></span>
+<span style="color:#606">projects</span>:
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: java-web-vertx</span></span>
+    <span style="color:#606">source</span>:
+      <span style="color:#606">location</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">'https://github.com/che-samples/web-java-vertx'</span></span>
+      <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">git</span></span>
+<span style="color:#606">components</span>:
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">id: redhat/java/latest</span></span>
+    <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">chePlugin</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">mountSources: true</span></span>
+    <span style="color:#606">endpoints</span>:
+      - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: 8080/tcp</span></span>
+        <span style="color:#606">port</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">8080</span></span>
+    <span style="color:#606">memoryLimit</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">512Mi</span></span>
+    <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">dockerimage</span></span>
+    <span style="color:#606">volumes</span>:
+      - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: m2</span></span>
+        <span style="color:#606">containerPath</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">/home/user/.m2</span></span>
+    <span style="color:#606">alias</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">maven</span></span>
+    <span style="color:#606">image</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">'quay.io/eclipse/che-java8-maven:nightly'</span></span>
+<span style="color:#606">apiVersion</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">1.0.0</span></span>
+<span style="color:#606">commands</span>:
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: maven build</span></span>
+    <span style="color:#606">actions</span>:
+      - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">workdir: '${CHE_PROJECTS_ROOT}/java-web-vertx'</span></span>
+        <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">exec</span></span>
+        <span style="color:#606">command</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">'mvn -Duser.home=${HOME} clean install'</span></span>
+        <span style="color:#606">component</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">maven</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: run app</span></span>
+    <span style="color:#606">actions</span>:
+      - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">workdir: '${CHE_PROJECTS_ROOT}/java-web-vertx'</span></span>
+        <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">exec</span></span>
+        <span style="color:#606">command</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&gt;</span><span style="color:#D20">
+          JDBC_URL=jdbc:h2:/tmp/db \
+
+          java -jar -Xdebug
+          -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
+
+          ./target/*fat.jar</span></span>
+        <span style="color:#606">component</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">maven</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">name: Debug remote java application</span></span>
+    <span style="color:#606">actions</span>:
+      - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">referenceContent: |</span><span style="color:#D20">
+          {
+          &quot;version&quot;: &quot;0.2.0&quot;,
+          &quot;configurations&quot;: [
+            {
+              &quot;type&quot;: &quot;java&quot;,
+              &quot;name&quot;: &quot;Debug (Attach) - Remote&quot;,
+              &quot;request&quot;: &quot;attach&quot;,
+              &quot;hostName&quot;: &quot;localhost&quot;,
+              &quot;port&quot;: 5005
+            }]
+          }</span></span>
+        <span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">vscode-launch</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="converting-a-che-6-workspace-to-a-basic-che-7-devfile_converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 workspace to a basic Che 7 devfile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to convert a Che 6 workspace to a Che 7 devfile. The result is a basic Che 7 devfile that can be used for further workspace creation.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A running instance of Eclipse Che. To install an instance of Eclipse Che, see <a href="/che-7/che-quick-starts/">Che 'quick-starts'</a>.</p>
+</li>
+<li>
+<p>An existing workspace defined on this instance of Eclipse Che <a href="/che-7/creating-and-configuring-a-new-che-7-workspace/">Creating a workspace from user dashboard</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To convert a Che 6 workspace to a Che 7 devfile:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open an old Che 6 configuration file to identify which Che 6 stack is used in the workspace. Below, there is a detailed guide for  <a href="#accessing-che-6-workspace-configuration_converting-a-che-6-workspace-to-a-che-7-devfile">Accessing a Che 6 workspace configuration</a>.</p>
+</li>
+<li>
+<p>Create a new workspace from the Che 7 devfile that corresponds to the Che 6 stack.</p>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Che 7 devfile corresponding to the respective Che 6 stacks.</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Che 6 stacks</th>
+<th class="tableblock halign-left valign-top">Che 7 devfile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apache Camel based projects,<br>
+Apache Camel based projects on Che 7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apache Camel based on Spring Boot</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.NET,<br>
+.NET Core with Theia IDE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.NET Core</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go,<br>
+CentOS Go,<br>
+Go with Theia IDE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Gradle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Gradle</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blank,<br>
+Java,<br>
+Java-MySQL,<br>
+Eclipse Che,<br>
+Java CentOS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Maven</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node,<br>
+CentOS nodejs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NodeJS Express Web Application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python,<br>
+Python with Theia IDE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eclipse Vert.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Vert.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PHP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PHP Simple</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Boot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java Spring Boot</p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>By default, the example project is added to the workspace. To remove the default project, click the <b class="button">Remove</b> button:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/images/workspaces/remove-default-project.png"><img src="/images/workspaces/remove-default-project.png" alt="remove default project"></a>
+</div>
+</div>
+</li>
+<li>
+<p>To import a custom project that was used in Che 6 workspace, click the <strong>Add or Import Project</strong> and select <strong>Git</strong> or <strong>GitHub</strong> option:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/images/workspaces/add-custom-project.png"><img src="/images/workspaces/add-custom-project.png" alt="add custom project"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Various commands can be added to devfiles of imported projects, for example, <code>run</code>, <code>build</code>, and  <code>test</code>. The commands are then accessible from the IDE when a workspace is started. Custom commands and other devfile components can be added in the <strong>Devfile</strong> configuration.</p>
+</li>
+<li>
+<p>Click the <b class="button">Create &amp; Proceed Editing</b> button.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/images/workspaces/create-and-edit.png"><img src="/images/workspaces/create-and-edit.png" alt="create and edit"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>Select the <strong>Devfile</strong> tab to update the configuration. Machine servers in Che 6 workspaces can be specified as components endpoints in a Devfile and Che 6 installers as components of type chePlugin. See the <a href="https://redhat-developer.github.io/devfile/devfile">Devfile specification</a> for the detailed information about the supported properties and attributes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/images/workspaces/update-devfile-configuration.png"><img src="/images/workspaces/update-devfile-configuration.png" alt="update devfile configuration"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Once the <strong>Devfile</strong> configuration is completed, click the <b class="button">Open</b> button to start a newly created Che 7 workspace.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accessing-che-6-workspace-configuration_converting-a-che-6-workspace-to-a-che-7-devfile">Accessing a Che 6 workspace configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che 6 workspace configuration is not supported in Che 7 but can be accessed for further conversion to a devfile.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A running instance of Eclipse Che. To install an instance of Eclipse Che, see <a href="/che-7/che-quick-starts/">Che 'quick-starts'</a>.</p>
+</li>
+<li>
+<p>An existing workspace defined on this instance of Eclipse Che <a href="/che-7/creating-and-configuring-a-new-che-7-workspace/">Creating a workspace from user dashboard</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To access the Che 6 workspace configuration:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Dashboard</strong>, click the <strong>Workspaces</strong> menu to open the workspaces list and locate the workspace to migrate to Che 7.</p>
+</li>
+<li>
+<p>In the <strong>Actions</strong> column, click the <strong>Configure workspace</strong> icon. The raw workspace configuration is available under the <strong>Config</strong> tab.</p>
+<div class="imageblock">
+<div class="content">
+<img src="/images/workspaces/configure-workspace-button.png" alt="configure workspace button">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/images/workspaces/config-workspace-code.png" alt="config workspace code">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

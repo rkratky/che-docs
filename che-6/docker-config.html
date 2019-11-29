@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="installationdocker,  docker, configuration">
+<title>Configuring Che on Docker | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/customstyles.css">
+<link rel="stylesheet" href="/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/js/toc.js"></script>
+<script src="/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="http://0.0.0.0:4000/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Configuring Che on Docker page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Configuring Che on Docker">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Configuring Che on Docker</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>The Che on Docker configuration is handled by modifying the <a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/manifests/che.env"><code>che.env</code></a> file that is placed in the root directory of a host directory mounted to <code>:/data</code>. This configuration file is generated during the <code>che init</code> phase. If you rerun the <code>che init</code> command in an already initialized directory, the process will abort unless you pass the <code>--force</code>, <code>--pull</code>, or <code>--reinit</code> options.</p>
+</div>
+<div class="paragraph">
+<p>You can also pass an environment variable directly in the <code>docker run</code> syntax: <code>-e CHE_ENV_NAME=value</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each variable is documented with an explanation and usually commented out. If you need to set a variable, uncomment it and configure it with your value. You can then run the <code>che config</code> command to apply this configuration to your system. The <code>che start</code> command also reapplies the latest configuration.</p>
+</div>
+<div class="paragraph">
+<p>You can run the <code>che init</code> command to install a new configuration into an empty directory. This command uses the <code>che/init:&lt;version&gt;</code> Docker container to deliver a version-specific set of Puppet templates into the directory.</p>
+</div>
+<div class="paragraph">
+<p>If you run the <code>che config</code> command, Che runs Puppet to transform your Puppet templates into a Che instance configuration. It places the results either into the <code>/che/instance</code> directory if you mounted that, or into an <code>instance</code> subdirectory of the path you mounted to <code>/che</code>. Each time you start Che, the <code>che config</code> command is run to ensure that the instance configuration files are properly generated and consistent with the configuration you have specified in the <code>che.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Administration teams that want to manage versions of your Che configuration should save the <code>che.env</code> file. This is the only file that should be saved with version control. It is not necessary to save any other files. To upgrade, use the <code>che upgrade</code> command and replace these files with templates that are specific to the version that is being upgraded. The <code>che.env</code> file remains the same between versions and you can generate instance configurations from that.</p>
+</div>
+<div class="paragraph">
+<p>The following is the version-control sequence:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>che init</code> command to get an initial configuration for a particular version.</p>
+</li>
+<li>
+<p>Edit the <code>che.env</code> file with your environment-specific configuration.</p>
+</li>
+<li>
+<p>Save the <code>che.env</code> file to version control.</p>
+</li>
+<li>
+<p>Setup a new directory and copy the <code>che.env</code> file from version control into the directory you will mount to <code>:/data</code>.</p>
+</li>
+<li>
+<p>Run the <code>che config</code> or the <code>che start</code> command.</p>
+</li>
+</ol>
+</div>
+<div class="sect1">
+<h2 id="running-che-in-single-port-mode">Running Che in single-port mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, Che lets Docker publish exposed ports in a random manner. Docker chooses available ports from the ephemeral port range to expose workspace <a href="servers.html">servers</a>. This requires the opening of the ephemeral port range (and the Keycloak <code>5050</code> port for multi-user Che) to the world.</p>
+</div>
+<div class="paragraph">
+<p>To run Che in single-port mode, add <code>-e CHE_SINGLE_PORT=true</code> to the run syntax. In this case, a Traefik container will be used to route traffic through a single port.</p>
+</div>
+<div class="sect2">
+<h3 id="using-wildcard-dns">Using wildcard DNS</h3>
+<div class="paragraph">
+<p>In single-port mode, Che builds URLs of workspace services using the following pattern: <code>serviceName-machineName-ws-ID.IP.wildcardDNSProvider</code>. For example, with an external IP of <code>193.12.34.56</code>, the URL of a workspace agent will be <code>wsagent-http-dev-machine-workspace0bcgkgkvsqi31b4u.193.12.34.56.nip.io</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By default, <a href="http://nip.io/">nip.io</a> is used. This is an external wildcard DNS provider. The nip.io service must be available for networking in single-port Che to work correctly.</p>
+</li>
+<li>
+<p>You can use a different wildcard DNS provider with the <code>CHE_SINGLEPORT_WILDCARD__DOMAIN_HOST</code> environment variable.</p>
+</li>
+<li>
+<p>To exclude the external IP from the URL (<code>serviceName-machineName-ws-ID.wildcardDNSProvider</code>, for example to use a wildcard SSL certificate), specify <code>CHE_SINGLEPORT_WILDCARD_DOMAIN_IPLESS=true</code> with a custom wildcard DNS (example: <code>CHE_SINGLEPORT_WILDCARD_DOMAIN_HOST=domain.tld</code>). You must have a matching DNS entry for <code>*.domain.tld</code>. In multi-user mode, Keycloak will be provided at <code>keycloak.domain.tld</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-keycloak-in-multi-user-mode">Configuring Keycloak in multi-user mode</h3>
+<div class="paragraph">
+<p>Ensure that <code>webOrigins</code> and <code>redirectUris</code> in Keycloak client settings (<code>che-public</code> client) reference your <code>CHE_DOCKER_IP_EXTERNAL</code> value, that is the IP that external users will use to log in. Keycloak administration console in multi-user Che is available at <code><a href="http://keycloak.$IP.$wildcardDNSProvider:$chePort/auth/" class="bare">http://keycloak.$IP.$wildcardDNSProvider:$chePort/auth/</a></code>. Here, <code>$IP</code> is either your <code>docker0</code> IP or the <code>CHE_DOCKER_IP_EXTERNAL</code> value.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="accessing-logs-and-user-data">Accessing logs and user data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When Che initializes itself, it stores logs, user data, database data, and instance-specific configuration in the directory mounted to <code>:/data/instance</code> or an <code>instance</code> subdirectory of what you mounted to <code>:/data</code>.</p>
+</div>
+<div class="paragraph">
+<p>Che containers save their logs in the same location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/instance/logs/che/2016                 <i class="conum" data-value="1"></i><b>(1)</b>
+/instance/logs/che/che-machine-logs     <i class="conum" data-value="2"></i><b>(2)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Server logs</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Workspace logs</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There may be cases of logs encoding settings when Che master logs are not stored in the location above.</p>
+</div>
+<div class="paragraph">
+<p>User data is stored in:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/instance/data/che                      <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Project backups (synchronized projects from remote workspaces)</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Instance configuration is generated by Che and is updated by the internal configuration utilities. Do not modify these generated configuration files. Store them at:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/instance/che.ver.do_not_modify         <i class="conum" data-value="1"></i><b>(1)</b>
+/instance/docker-compose-container.yml  <i class="conum" data-value="2"></i><b>(2)</b>
+/instance/docker-compose.yml            <i class="conum" data-value="3"></i><b>(3)</b>
+/instance/config                        <i class="conum" data-value="4"></i><b>(4)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Version of che installed</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Docker compose to launch Che from within a container</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Docker compose to launch Che from the host without container</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Configuration files for Che, which are volume mounted into containers</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jdbc-configuration">Configuring JDBC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che uses the <a href="http://www.h2database.com/html/main.html">H2</a> database for single-user builds and PostgreSQL database in multi-user mode.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the used database, the JDBC Connection pool is initialized with respective default values. These values can be overridden in the <code>che.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Example of configuration for using the H2 database (default for single-user Che):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_JDBC_USERNAME=
+CHE_JDBC_PASSWORD=
+CHE_JDBC_DATABASE=jdbc:h2:che
+CHE_JDBC_URL=jdbc:postgresql://postgres:5432/dbche
+CHE_JDBC_DRIVER__CLASS__NAME=org.h2.Driver
+CHE_JDBC_MAX__TOTAL=8
+CHE_JDBC_MAX__IDLE=2
+CHE_JDBC_MAX__WAIT__MILLIS=-1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example of configuration for using the PostgreSQL database (default for multi-user Che):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_JDBC_USERNAME=pgche
+CHE_JDBC_PASSWORD=pgchepassword
+CHE_JDBC_DATABASE=dbche
+CHE_JDBC_URL=jdbc:postgresql://postgres:5432/dbche
+CHE_JDBC_DRIVER__CLASS__NAME=org.postgresql.Driver
+CHE_JDBC_MAX__TOTAL=20
+CHE_JDBC_MAX__IDLE=10
+CHE_JDBC_MAX__WAIT__MILLIS=-1</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="oauth">Configuring OAuth</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure using Google, GitHub, Microsoft, or BitBucket OAuth for Git operations. See: <a href="version-control.html#github-oauth">Version Control</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stacks-and-samples">Creating stacks and samples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="stacks.html">Stacks</a> define the recipes used to create workspace runtimes. They appear in the stack library of the dashboard. You can create your own stacks.</p>
+</div>
+<div class="paragraph">
+<p>The <code>CHE_PREDEFINED_STACKS_RELOAD<em>ON</em>START</code> variable (set to <code>false</code> by default) defines the stack loading policy. When set to <code>false</code>, stacks are loaded from a JSON file only once during database initialization. When set to <code>true</code>, the JSON file is sourced every time the Che server starts.</p>
+</div>
+<div class="paragraph">
+<p>Code samples allow you to define sample projects that are cloned into a workspace if the user chooses it when creating a new project. You can add your own code samples. In your <code>${LOCAL_DATA_DIR}/instance/data/templates</code> directory, create a JSON file with your custom samples. It will be sourced each time the Che server starts. For an example of a default Che <code>samples.json</code> file, see <a href="https://github.com/eclipse/che/blob/master/ide/che-core-ide-templates/src/main/resources/samples.json">samples.json</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="workspace-limits">Placing workspace limits</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can place limits on how users interact with the system to control the overall system resource usage. You can define the number of workspaces created, RAM consumed, idle timeout, and a variety of other parameters.</p>
+</div>
+<div class="paragraph">
+<p>You can also set limits on Docker’s allocation of CPU to workspaces, which may be necessary if you have a very dense workspace population where users are competing for limited physical resources.</p>
+</div>
+<div class="paragraph">
+<p>Workspace idle timeout can be configured in the <code>che.env</code> file so that the inactive workspaces are stopped automatically over this length of time in milliseconds. By default, this value is set to <code>3600000</code> (1 hour). If set to <code>0</code>, workspaces will not stop automatically. Currently, keyboard and mouse interactions in the IDE and HTTP requests to the <code>ws-agent</code> count as activity.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-the-java-opts-environment-variable">Setting the JAVA_OPTS environment variable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There can be several Java processes running in a workspace machine. Some Java agents are special purpose agents started in a machine to provide core and additional IDE functionalities. These are workspace agents and a <a href="dependency-management.html">Maven plugin</a> that are both started in the JVM. You can run your own Java programs and use build tools like Maven. A set of the following environment variables can help optimize RAM consumption:</p>
+</div>
+<div class="sect2">
+<h3 id="user-defined-environment-variables">User-defined environment variables</h3>
+<div class="paragraph">
+<p>You can provide your own <a href="env-variables.html">environment variables</a> per workspace machine.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>JAVA_OPTS</code></dt>
+<dd>
+<p>machine-wide java opts</p>
+</dd>
+<dt class="hdlist1"><code>MAVEN_OPTS</code></dt>
+<dd>
+<p>machine-wide maven opts</p>
+</dd>
+<dt class="hdlist1"><code>CHE_WORKSPACE_WSAGENT__JAVA__OPTIONS</code></dt>
+<dd>
+<p>java opts to adjust java opts of ws-agent</p>
+</dd>
+<dt class="hdlist1"><code>CHE_WORKSPACE_MAVEN__SERVER__JAVA__OPTIONS</code></dt>
+<dd>
+<p>java opts to adjust java opts of the maven server</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Che administrators (anyone with access to the <code>che.env</code> file or the Che server environment directly) can override the following user-defined environment variables:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>CHE_WORKSPACE_JAVA__OPTIONS</code></dt>
+<dd>
+<p>Overrides the default value of JAVA_OPTS of all workspaces</p>
+</dd>
+<dt class="hdlist1"><code>CHE_WORKSPACE_MAVEN__OPTIONS</code></dt>
+<dd>
+<p>Overrides the default value of MAVEN_OPTS of all workspaces</p>
+</dd>
+<dt class="hdlist1"><code>CHE_WORKSPACE_WSAGENT__JAVA__OPTIONS</code></dt>
+<dd>
+<p>Overrides the default value of JAVA_OPTS of all ws-agents</p>
+</dd>
+<dt class="hdlist1"><code>CHE_WORKSPACE_MAVEN__SERVER__JAVA__OPTIONS</code></dt>
+<dd>
+<p>Overrides the default value of JAVA_OPTS of all maven servers</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>For default values of the environment variables, see the <a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/manifests/che.env#L127-L141">che.env</a> file.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hostname">Hostname</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hostname is the IP address or DNS name where the Che endpoint provides service to the users.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When run on a local system, the value of the hostname is auto-detected as the IP address of your Docker daemon.</p>
+</li>
+<li>
+<p>On many systems, especially those from cloud hosting providers like DigitalOcean, you may have to explicitly set this to the external IP address or DNS entry provided by the provider.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can edit this value in the <code>che.env</code> file and restart Che, or you can pass it during initialization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run &lt;OTHER-DOCKER_OPTIONS&gt; -e CHE_HOST=&lt;ip-addr-or-dns&gt; eclipse/che:&lt;version&gt; start</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="networking">Networking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che makes connections between three entities: the browser, the Che server running in a Docker container, and a workspace running in a Docker container.</p>
+</div>
+<div class="paragraph">
+<p>To distribute these components on different nodes, hosts, or IP addresses, add additional configuration parameters to bridge the different networks.</p>
+</div>
+<div class="paragraph">
+<p>The Che server and your Che workspaces are within containers governed by the Docker daemon. You must ensure that these components have bridges to communicate with the daemon.</p>
+</div>
+<div class="paragraph">
+<p>Your browser, the Che server, and the Che workspace being on the same node ensures that the <code>localhost</code> configuration works correctly.</p>
+</div>
+<div class="sect2">
+<h3 id="websockets">WebSockets</h3>
+<div class="paragraph">
+<p>Che relies on WebSockets to stream content between workspaces and the browser. There are many networks and firewalls that block portions of the WebSocket communication. If there are any initial configuration issues, this is a likely cause of the problem.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="topology">Topology</h3>
+<div class="paragraph">
+<p>The Che server runs in its own Docker-formatted container, <code>Che Docker Container</code>. Each workspace has an embedded runtime that can be a set of additional Docker containers, <code>Docker Container(n)</code>. All containers are managed by a common Docker daemon, <code>docker-ip</code>, making them siblings of each other. This includes the Che server and its workspaces. Each workspace runtime environment has a set of containers that is a sibling to the Che server and is not a child.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connectivity">Connectivity</h3>
+<div class="paragraph">
+<p>The browser client initiates communication with the Che server by connecting to <code>che-ip</code>. This IP address must be accessible by your browser clients. Internally, Che runs on Tomcat that is bound to port <code>8080</code>. This port can be altered by setting the <code>CHE_PORT</code> variable during start or in the <code>che.env</code> file.</p>
+</div>
+<div class="paragraph">
+<p>When a user creates a workspace, the Che server connects to the Docker daemon at <code>docker-ip</code> and uses the daemon to launch a new set of containers that power the workspace. These workspace containers have a Docker-configured IP address, <code>workspace-container-ip</code>. The <code>workspace-container-ip</code> is not usually reachable by your browser host. <code>docker-ip</code> is used to establish the connections between the browser and workspace containers.</p>
+</div>
+<div class="paragraph">
+<p>The Che server provides workspace containers with the following environment variables:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>CHE_API_INTERNAL</code></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Points to the internal API endpoint that is accessible across other machines within the workspace.</p>
+</li>
+<li>
+<p>Its value is taken from the Che server <code>CHE_INFRA_DOCKER_MASTER<em>API</em>ENDPOINT</code> variable that can be initialized either by the CLI or the default value defined in the <code>che.properties</code> file.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>CHE_API_EXTERNAL</code></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Points to the external API endpoint that is used by the browser clients.</p>
+</li>
+<li>
+<p>Its value is taken from the Che server <code>CHE_API</code> variable.</p>
+</li>
+<li>
+<p>Its default value is defined in the <code>che.properties</code> file.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>CHE_API</code></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Points to the same value as <code>CHE_API_INTERNAL</code> for backward compatibility.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>CHE_API</code> environment variable will be deprecated in a future release.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When Che is booting or starting a workspace, Che goes through a progression algorithm to establish the protocol, IP address, and port to establish communication. You can override certain parameters in Che’s configuration to overcome issues with the Docker daemon, workspaces, or browsers being on different networks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="browser-che-server">Browser &#8594; Che server</h3>
+<div class="paragraph">
+<p>The <code>${CHE_HOST}:${SERVER_PORT}/wsmaster/api</code> variable is the default. However, requests are sent to the IP or hostname in your browser address bar. You can also use the value of <code>che.api</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="che-server-docker-daemon-progression">Che server &#8594; Docker daemon progression</h3>
+<div class="paragraph">
+<p>Use the value of the <code>che.infra.docker.daemon_url</code> variable. You can also use one of the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The value of the <code>DOCKER_HOST</code> system variable</p>
+</li>
+<li>
+<p>The Unix socket over <code>unix:///var/run/docker.sock</code></p>
+</li>
+<li>
+<p>The default <code>docker0</code> IP address - <code>172.17.42.1</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="che-server-workspace-connection">Che Server &#8594; Workspace Connection</h3>
+<div class="paragraph">
+<p>Use the value of the <code>che.docker.ip</code> variable. Or, use the address of the docker0 bridge network, if available.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="browser-workspace-connection">Browser &#8594; Workspace Connection</h3>
+<div class="paragraph">
+<p>Use the value of the <code>che.docker.ip.external</code> variable. Or, use the <code>che.docker.ip</code> value, or the value provided by the <code>ws container inspect</code> command.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="workspace-agent-che-server">Workspace Agent &#8594; Che Server</h3>
+<div class="paragraph">
+<p>If set, use the value of the <code>CHE_INFRA_DOCKER_MASTER__API__ENDPOINT</code> variable. The default value is <code><a href="http://che-host:${SERVER_PORT}/api" class="bare">http://che-host:${SERVER_PORT}/api</a></code>; here, <code>che-host</code> is the IP of docker0 (Linux) or the VM IP (macOS and Windows).</p>
+</div>
+<div class="paragraph">
+<p>When Che is configured with firewalls, routers, networks, and hosts, the default values detected, as a known behavior, establish faulty connections. To run a test that makes connections between simulated components reflect the networking setup of Che as it is configured, execute the <code>docker run &lt;DOCKER_OPTIONS&gt; eclipse/che info --network</code> command. It is acceptable that all connections may not pass for Che to be properly configured. For example, on a Windows machine, this output may exist indicating that <code>localhost</code> is not an acceptable domain for communication but the IP address <code>10.0.75.2</code> is.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>INFO: ---------------------------------------
+INFO: --------   CONNECTIVITY TEST   --------
+INFO: ---------------------------------------
+INFO: Browser    =&gt; Workspace Agent (localhost): Connection failed
+INFO: Browser    =&gt; Workspace Agent (10.0.75.2): Connection succeeded
+INFO: Server     =&gt; Workspace Agent (External IP): Connection failed
+INFO: Server     =&gt; Workspace Agent (Internal IP): Connection succeeded</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also perform additional tests against an already-running Che server. Use the <code>docker ps</code> and <code>docker inspect</code> commands to get the container name and IP address of your Che server. Then, you can run additional tests:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Browser &#8658; Workspace Agent (External IP):</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl http://&lt;che-ip&gt;:&lt;che-port&gt;/wsagent/ext/</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Server &#8658; Workspace Agent (External IP):</p>
+<div class="listingblock">
+<div class="content">
+<pre>docker exec -ti &lt;che-container-name&gt; curl http://&lt;che-ip&gt;:&lt;che-port&gt;/wsagent/ext/</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Server &#8658; Workspace Agent (Internal IP):</p>
+<div class="listingblock">
+<div class="content">
+<pre>docker exec -ti &lt;che-container-name&gt; curl http://&lt;workspace-container-ip&gt;:4401/wsagent/ext/</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dns-resolution">DNS resolution</h3>
+<div class="paragraph">
+<p>Che and its workspaces, by default, inherit DNS resolver servers from the host. You can override these resolvers by setting the <code>CHE_DNS_RESOLVERS</code> variable in the <code>che.env</code> file and restarting Che. DNS resolvers allow programs and services that are deployed within a user workspace to perform DNS lookups with public or internal resolver servers. In some environments, custom resolution of DNS entries (usually to an internal DNS provider) is required to enable the Che server and the workspace runtimes to have lookup ability for internal services.</p>
+</div>
+<div class="paragraph">
+<p>To update your <code>che.env</code> file with a comma-separated list of resolvers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DNS_RESOLVERS=10.10.10.10,8.8.8.8</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="single-port-routing">Single-port routing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Single-port routing is currently not supported in Che 6.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="private-images">Private images</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When users create a workspace in Eclipse Che, they must select a container image to power the workspace. Che provides stacks that reference images hosted at the public DockerHub that do not require any authenticated access to pull. You can provide your own images that are stored in a local private registry or at Docker Hub. The images may be publicly or privately visible, even if they are a part of a private registry.</p>
+</div>
+<div class="paragraph">
+<p>If the stack images that Che wants to pull require authenticated access to any registry then you must configure registry authentication.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>che.env</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DOCKER_REGISTRY_AUTH_REGISTRY1_URL=url1
+CHE_DOCKER_REGISTRY_AUTH_REGISTRY1_USERNAME=username1
+CHE_DOCKER_REGISTRY_AUTH_REGISTRY1_PASSWORD=password1
+
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_ID=id1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_REGION=region1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_ACCESS__KEY__ID=key_id1
+CHE_DOCKER_REGISTRY_AWS_REGISTRY1_SECRET__ACCESS__KEY=secret1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are different configurations for AWS EC2 and the Docker registry. Using the numerical indicator in the environment variable, you can define as many different registries as you want. To add several registries, copy the set of properties and append <code>REGISTRY[n]</code> for each variable.</p>
+</div>
+<div class="sect2">
+<h3 id="pulling-private-images-in-stacks">Pulling private images in stacks</h3>
+<div class="paragraph">
+<p>After you have configured private registry access, any Che stack that has <code>FROM &lt;registry&gt;/&lt;repository&gt;</code> that requires authenticated access will use the credentials provided in the <code>che.env</code> file to access the registry.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Syntax
+FROM &lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;
+
+# Example:
+FROM my.registry.url:9000/image:latest</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To read more about registries, see <a href="https://docs.docker.com/registry/">Docker documentation</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="privileged-mode">Enabling privileged mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Docker privileged mode allows a container to have root-level access to the host from within the container. This enables containers to do more than they normally can but also presents security risks. You can enable your workspaces to have privileged mode, giving your users root-level access to the host where Che is running (in addition to root access of their workspaces). Privileged mode is necessary if you want to enable certain features such as Docker in Docker.</p>
+</div>
+<div class="paragraph">
+<p>By default, Che workspaces powered by a Docker container are not configured with Docker privileged mode. There are many security risks associated with activating this feature. Review the various issues mentioned in the blogs posted online.</p>
+</div>
+<div class="paragraph">
+<p>To update the <code>che.env</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DOCKER_PRIVILEGED=true</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mirroring-dockerhub">Mirroring DockerHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you run a private registry internal to your company, you can <a href="https://docs.docker.com/registry/recipes/mirror/">optionally mirror DockerHub</a>. Your private registry will download and cache any images that your users reference from the public DockerHub. You must <a href="https://docs.docker.com/registry/recipes/mirror">configure your Docker daemon to make use of mirroring</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-docker-in-workspaces">Using Docker in workspaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To allow your users to work with projects that have their own container images and Docker build capabilities inside of their workspaces, you must configure the workspaces to work with Docker. Following are the three options to configure the workspaces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Activate Docker privileged mode where your user workspaces have access to the host. Update your <code>che.env</code> to allow all Che workspace machines and containers to have privileged rights:</p>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DOCKER_PRIVILEGED=true;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure Che workspaces to mount the host Docker daemon socket file. Update your <code>che.env</code> to allow all Che workspaces to mount their host daemon when starting:</p>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_WORKSPACE_VOLUME=/var/run/docker.sock:/var/run/docker.sock;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the Docker daemon to listen to the TCP socket and specify the <code>DOCKER_HOST</code> environment variable in the workspace machine. Each host environment will have different network topology and configuration. The following is an example.</p>
+<div class="paragraph">
+<p>To configure your Docker daemon to listen on TCP:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the following to your Docker configuration file (on Ubuntu, the file is located at <code>/etc/default/docker</code>. For location of the Docker configuration file for your OS, see the <a href="https://docs.docker.com/engine/reference/commandline/dockerd/">Docker documentation</a>). Listen using the default unix socket on a specific IP address on the host. This varies depending on your host OS.</p>
+<div class="listingblock">
+<div class="content">
+<pre># dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that the Docker API is responding at: <code><a href="http://$IP:2375/containers/json" class="bare">http://$IP:2375/containers/json</a></code>.</p>
+</div>
+</li>
+<li>
+<p>Export the <code>DOCKER_HOST</code> variable in your workspace. You can do this in the terminal or make it permanent by adding <code>ENV DOCKER_HOST=tcp://$IP:2375</code> to a workspace recipe; here, <code>$IP</code> is the IP address of the Docker daemon machine.</p>
+<div class="paragraph">
+<p>On a workspace machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker -H tcp://$IP:2375 ps</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ export DOCKER_HOST="tcp://$IP:2375"
+$ docker ps</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These three options allow user workspaces to perform <code>docker</code> commands from within their workspace to create and work with containers that will be outside the workspace. This means that your users' workspaces are now equivalent to their personal computers where they would normally perform the <code>docker build</code> and <code>docker run</code> commands.</p>
+</div>
+<div class="paragraph">
+<p>You must ensure that your user workspaces are powered from a stack that has Docker installed inside of it. Che&#8217;s default Docker recipe images do not have Docker installed, but you can build your own image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="development-mode">Debugging in development mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can debug the Che binaries that are running within the Che server. You can debug either the binaries that are included within the <code>eclipse/che-server</code> image that you download from DockerHub or you can mount a local Che Git repository to debug binaries built in a local assembly. By using local binaries, Che developers can perform a rapid edit-build-run cycle without having to rebuild Che’s Docker images.</p>
+</div>
+<div class="paragraph">
+<p>To activate development mode, pass the <code>--debug</code> argument to any command on the CLI.</p>
+</div>
+<div class="paragraph">
+<p>To activate development mode with embedded binaries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                      -v &lt;local-path&gt;:/data \
+                         eclipse/che:&lt;version&gt; [COMMAND] --debug</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can replace the binaries in your local image with local binaries by mounting the Che Git repository to <code>:/repo</code> in your <code>docker run</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                      -v &lt;local-path&gt;:/data \
+                      -v &lt;local-repo&gt;:/repo \
+                         eclipse/che:&lt;version&gt; [COMMAND] --debug</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally, you can use your local binaries in production mode by mounting <code>:/repo</code> without passing the <code>--debug</code> argument. Files from two locations from your Che source repository will be used instead of those in the image:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>During the <code>che config</code> phase, the source repository’s <code>/dockerfiles/init/modules</code> and <code>/dockerfiles/init/manifests</code> will be used instead of the ones that are included in the <code>eclipse/che-init</code> container.</p>
+</li>
+<li>
+<p>During the <code>che start</code> phase, a local assembly from <code>assembly/assembly-main/target/</code> is mounted into the <code>eclipse/che-server</code> runtime container. You must run the <code>mvn clean install</code> on the <code>assembly/assembly-main/</code> directory prior to activating development mode.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Mounting <code>:/repo</code> will also make use of your repository’s Puppet manifests and other files (replacing those that are stored within the <code>eclipse/che-server</code> base image). To only mount a new set of assemblies and ignore the other items in a repository, mount <code>:/assembly</code> to a directory that is the base of a binary. Mounting a <code>.tgz</code> file is not supported as yet.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock \
+                      -v <em>&lt;local-path&gt;</em>:/data \
+                      -v <em>&lt;local-assembly-directory&gt;</em>:/assembly \
+                         eclipse/che:<em>&lt;version&gt;</em> <em>[COMMAND]</em></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To activate JPDA suspend mode for debugging Che server initialization, add the following in the <code>che.env</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DEBUG_SUSPEND=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To change the Che debug port, add the following in the <code>che.env</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DEBUG_PORT=8000</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="production-mode">Building images in production mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To build your own <code>INIT</code> and <code>SERVER</code> images to have custom configuration and binaries, take the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone the <a href="https://github.com/eclipse/che">Che repository</a>.</p>
+</li>
+<li>
+<p>Copy the <code>dockerfiles</code> directory to the root of your custom assembly.</p>
+</li>
+<li>
+<p>Configure your Che server:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>To have no custom configuration in your custom Che server, build the Che server image by executing the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ dockerfiles/build.sh</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Tag the resulted image as needed.</p>
+</li>
+<li>
+<p>To customize the configuration for your custom Che server and to allow users to override these custom configuration, in the <code>che.env</code> file, build your own <code>INIT</code> image with a custom <a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/manifests/che.env"><code>che.env</code></a> file.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Start the custom binaries.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -ti -v '/var/run/docker.sock:/var/run/docker.sock \
+                 -v /local/data/path:/data \
+                 -e "IMAGE_CHE=your/che-server" \
+                 -e "IMAGE_INIT=your/init-image" eclipse/che::6.19.0 start'</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have built <code>IMAGE_CHE</code> in <code>dockerfiles/che</code> and <code>IMAGE_INIT</code> is the one from <code>dockerfiles/init</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="docker-unix-socket-mounting-vs-tcp-mode">Docker Unix socket mounting vs TCP mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>-v /var/run/docker.sock:/var/run/docker.sock</code> command is used for mounting a Unix socket, so that when a process inside the container communicates with the Docker daemon, the process is redirected to the same socket on the host system.</p>
+</div>
+<div class="paragraph">
+<p>However, peculiarities of file systems and permissions may make it impossible to invoke Docker processes from inside a container. If this happens, the Che startup scripts will print an error about being unable to reach the Docker daemon with guidance on how to resolve the issue.</p>
+</div>
+<div class="paragraph">
+<p>An alternative solution is to run the Docker daemon in TCP mode on the host and export the <code>DOCKER_HOST</code> environment variable in the container. You can make the Docker daemon listen on both Unix sockets and TCP. On the host running the Docker daemon, run the following commands:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set this environment variable and restart the Docker daemon.</p>
+<div class="listingblock">
+<div class="content">
+<pre>DOCKER_OPTS=" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Docker API is responding at the following address: <code><a href="http://localhost:2375/info" class="bare">http://localhost:2375/info</a></code>.</p>
+</li>
+<li>
+<p>Run the Che container with the <code>DOCKER_HOST</code> environment variable set to the IP address of the <code>docker0</code> or the <code>eth0</code> network interface. If <code>docker0</code> is running on 1.1.1.1, run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -ti -e DOCKER_HOST=tcp://1.1.1.1:2375 \
+                 -v /var/run/docker.sock:/var/run/docker.sock \
+                 -v ~/Documents/che-data1:/data eclipse/che:6.19.0 start</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Alternatively, you can save this environment variable in the <code>che.env</code> file and restart Che.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="proxiesfirewallsports">Installing Che behind a proxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To install and operate Che behind a proxy, take the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Configure each physical node’s Docker daemon with proxy access.</p>
+</li>
+<li>
+<p>Optionally, to restrict the users' Internet access, override the workspace proxy settings for them.</p>
+</li>
+<li>
+<p>Before starting Che, configure the <a href="https://docs.docker.com/engine/admin/systemd/#/http-proxy">Docker daemon for proxy access</a>. When installing Che while having Docker for Windows or Docker for macOS installed on your desktop, these utilities have a GUI in their settings that let you set the proxy settings directly.</p>
+</li>
+<li>
+<p>Ensure that your <code>HTTP_PROXY</code> and <code>HTTPS_PROXY</code> that you set in the Docker daemon have a protocol and port number. Ensure that you provide a fully qualified proxy location.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you configure <code>HTTP_PROXY</code> or <code>HTTPS_PROXY</code> in your Docker daemon, Che adds <code>localhost,127.0.0.1,CHE_HOST</code> to your <code>NO_PROXY</code> value; here, <code>CHE_HOST</code> is the DNS or IP address. We recommend that you add the short and long form DNS entry to your Docker’s <code>NO_PROXY</code> setting if it is not already set.</p>
+</div>
+<div class="paragraph">
+<p>The following is an example of adding some values to the <code>che.env</code> file that contain some proxy overrides. You can optionally modify these with overrides.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_HTTP_PROXY=&lt;YOUR_PROXY_FROM_DOCKER&gt;
+CHE_HTTPS_PROXY=&lt;YOUR_PROXY_FROM_DOCKER&gt;
+CHE_NO_PROXY=localhost,127.0.0.1,&lt;YOUR_CHE_HOST&gt;
+CHE_HTTP_PROXY_FOR_WORKSPACES=&lt;YOUR_PROXY_FROM_DOCKER&gt;
+CHE_HTTPS_PROXY_FOR_WORKSPACES=&lt;YOUR_PROXY_FROM_DOCKER&gt;
+CHE_NO_PROXY_FOR_WORKSPACES=localhost,127.0.0.1,&lt;YOUR_CHE_HOST&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The last three entries are injected into workspaces created by your users. This gives your users access to the Internet from within their workspaces. You can comment out these entries to disable access. If that access is turned off, the default templates with source code fail to be created in workspaces as those projects are cloned from GitHub. Your workspaces are still functional and only  template cloning is prevented.</p>
+</div>
+<div class="paragraph">
+<p>On Linux, a firewall may block inbound connections from within Docker containers to your localhost network. As a result, the workspace agent is unable to ping the Che server. You can check for a firewall and configure it to allow ther required connections.</p>
+</div>
+<div class="paragraph">
+<p>Firewalls typically cause traffic problems when starting a new workspace. There are certain network configurations where we direct networking traffic between workspaces and Che through external IP addresses that can flow through routers or firewalls. If ports or protocols are blocked, certain functions will be unavailable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-che-behind-firewall">Running Che behind a firewall</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Check whether required ports are open and, if necessary, configure the firewall to keep the ports open.</p>
+</div>
+<div class="sect2">
+<h3 id="configuring-firewall-on-linux">Configuring firewall on Linux</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check if a firewall is running:</p>
+<div class="listingblock">
+<div class="content">
+<pre># systemctl status firewalld</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the list of open ports, and verify that ports <code>8080/tcp</code> and <code>32768-65535/tcp</code> are open:</p>
+<div class="listingblock">
+<div class="content">
+<pre># firewall-cmd --list-ports</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optionally, open ports on your local firewall. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre># firewall-cmd --permanent --add-port=8080/tcp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use this command to open other ports, too.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-firewall-on-macos">Configuring firewall on macOS</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Verify that ports <code>8080/tcp</code> and <code>32768</code>--<code>65535/tcp</code> are open:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ nmap -Pn -p T:8080,T:32768-65535 localhost</pre>
+</div>
+</div>
+</li>
+<li>
+<p>If a port is closed, open it by editing the <code>/etc/pf.conf</code> file. For example, to open port <code>8080</code> for TCP for all interfaces, add the following line to the file:</p>
+<div class="listingblock">
+<div class="content">
+<pre>pass in proto tcp from any port to any port 8080</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Test the settings:</p>
+<div class="listingblock">
+<div class="content">
+<pre># pfctl -vnf /etc/pf.conf</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restart the firewall: <strong>System Preferences &gt; Security &amp; Privacy &gt; Firewall &gt; Turn Off Firewall</strong>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-firewall-on-windows">Configuring firewall on Windows</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are many third-party firewall services. Different versions of Windows also have different firewall configurations. The built-in Windows firewall can be configured in the <strong>Control Panel</strong> under <strong>System and Security</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the left pane, right-click <strong>Inbound Rules</strong>, and then click <strong>New Rule</strong> in the action pane.</p>
+</li>
+<li>
+<p>In the <strong>Rule Type</strong> dialog box, select <strong>Port</strong>, and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Protocol and Ports</strong> dialog box, select <strong>TCP</strong>.</p>
+</li>
+<li>
+<p>Select specific local ports, enter the port number to be opened, and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Action</strong> dialog box, select <strong>Allow the Connection</strong>, and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Name</strong> dialog box, type a name and description for this rule, and click <strong>Finish</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="limiting-che-ports">Limiting Che ports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che uses Docker to power its workspaces. Docker uses the <a href="https://en.wikipedia.org/wiki/Ephemeral_port">ephemeral port range</a> when exposing ports for services running in the container. So when a Tomcat server is started on port <code>8080</code> inside a Che workspace, Docker automatically selects an available port from the ephemeral range at runtime to map to that Tomcat instance.</p>
+</div>
+<div class="paragraph">
+<p>Docker will select its ports from anywhere in the ephemeral range. To reduce the size of the ephemeral range to improve security you can do so. Note that each Che workspace will use at least two ports and, additionally, ports are required for the services that the user adds to their workspace.</p>
+</div>
+<div class="paragraph">
+<p>Limiting the ephemeral range can only be done at the host level. To read more about it and some of the risks in doing so, see the <a href="http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html">Ephemeral Port Range</a>.</p>
+</div>
+<div class="paragraph">
+<p>To change the ephemeral range:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Linux, see <a href="http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html#Linux">changing ephemeral ports on Linux</a>.</p>
+</li>
+<li>
+<p>On Windows, see <a href="http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html#Windows">changing epemeral ports on Windows</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_installation.html" class="btn btn-default navbar-btn cursorNorm" role="button">installation</a>
+        
+        
+        
+        <a href="tag_docker.html" class="btn btn-default navbar-btn cursorNorm" role="button">docker</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
