@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Publishing Che-Theia plug-ins | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Publishing Che-Theia plug-ins page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Publishing Che-Theia plug-ins">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 7</li>
+  
+  <div class="sidebarSubtitle">Overview</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/introduction-to-eclipse-che">Introduction to Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che quick-starts</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-quick-starts">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-the-chectl-management-tool">Installing the chectl management tool</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/running-che-locally">Running Che locally</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/deploying-che-on-kubernetes-on-aws">Che on Amazon Web Services</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-3-using-the-operator">Che on OpenShift 3</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-4-from-operatorhub">Che on OpenShift 4</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-google-cloud-platform">Che on Google Cloud Platform</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-eclipse-che-on-microsoft-azure">Che on Microsoft Azure</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/hosted-che">Hosted Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che architecture</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-architecture">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/high-level-che-architecture">High-level Che architecture</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspace-controller">Che workspace controller</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspaces-architecture">Che workspaces architecture</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">End-user Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/navigating-che-using-the-dashboard">Navigating Che: dashboard</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che-Theia IDE basics</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-ide-basics">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/defining-custom-commands-for-che-theia">Defining custom commands for Che-Theia</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/version-control">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-troubleshooting">Che-Theia Troubleshooting</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Using developer workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/workspaces-overview">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-a-workspace-using-a-devfile">Configuring a workspace using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/making-a-workspace-portable-using-a-devfile">Making a workspace portable using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 Workspace to a Che 7 devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-and-configuring-a-new-che-7-workspace">Creating and configuring a new Che 7 workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/importing-a-kubernetes-application-into-a-che-workspace">Importing a Kubernetes application into a Che workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/remotely-accessing-che-workspaces">Remotely accessing workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-from-code-sample">Creating a workspace from code sample</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-by-importing-source-code-of-a-project">Creating a workspace by importing source code of a project</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-workspace-exposure-strategies">Configuring workspace exposure strategies</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing developer environments</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-developer-environments">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/what-is-a-che-theia-plug-in">What is a Che-Theia plug-in</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-alternative-ides-in-che">Using alternative IDEs in Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-a-visual-studio-code-extension-in-che">Using a VS Code extension in Che</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Installation Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/updating-che">Updating Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/advanced-configuration-options">Advanced configuration options</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Administration Guide</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing devfile and plug-in registries</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-the-devfile-and-plug-in-registries">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/building-and-running-a-custom-registry-image">Building and running a custom registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/including-the-plug-in-binaries-in-the-registry-image">Including the plug-in binaries in the registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/editing-a-devfile-and-plug-in-at-runtime">Editing a devfile and plug-in at runtime</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Retrieving Che logs</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/retrieving-che-logs">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-kubernetes-events">Viewing Kubernetes events</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-server-logs">Viewing Che server logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-external-service-logs">Viewing external service logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-workspaces-logs">Viewing Che workspaces logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-plug-in-broker-logs">Viewing the plug-in broker logs</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/monitoring-che">Monitoring Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/tracing-che">Tracing Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Securing Che</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/securing-che">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authenticating-users">Authenticating users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authorizing-users">Authorizing users</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Contributor Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/developing-che-theia-plug-ins">Developing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/testing-che-theia-plug-ins">Testing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/publishing-che-theia-plug-ins">Publishing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-language">Adding support for a new language</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-debugger">Adding support for a new debugger</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che extensibility reference</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extensibility-reference">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extension-points">Che extension points</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-plug-in-api">Che-Theia plug-in API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/debug-adapter-protocol">Debug Adapter Protocol</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/language-server-protocol">Language Server Protocol</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Extensions</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Eclipse Che4z</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/eclipse-che4z">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-release-information">Release Information</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-installing">Installing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-using-explorer-for-zos">Using z/OS Resource Explorer</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-product-accessibility-features">Product Accessibility Features</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Publishing Che-Theia plug-ins</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="che-theia-plug-in-registries_publishing-che-theia-plug-ins">Che-Theia plug-in registries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A plug-in registry is a simple service that hosts information (metadata) about the plug-ins.</p>
+</div>
+<div class="paragraph">
+<p>To retrieve a full list of plug-ins hosted in a registry, navigate to the following address: <code>&lt;registry-base-uri&gt;/plugins/index.json</code>.</p>
+</div>
+<div class="paragraph">
+<p>Each plug-in item in the list is represented by a JSON definition:</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample plug-in definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">che-dummy-plugin</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>version</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">0.0.1</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Che Plugin</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Che Samples Hello World Plugin</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>description</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">A hello world theia plug-in wrapped into a Che Plug-in</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>links</span><span style="color:#404">&quot;</span></span>: {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>self</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/plugins/che-dummy-plugin/0.0.1/meta.yaml</span><span style="color:#710">&quot;</span></span>                  <i class="conum" data-value="1"></i><b>(1)</b>
+ }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Points to a more complete plug-in description (<code>meta.yaml</code>).</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Sample plug-in <code>meta.yaml</code> file</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span style="color:#606">id</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">che-dummy-plugin</span></span>
+<span style="color:#606">version</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">0.0.1</span></span>
+<span style="color:#606">type</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">Che Plugin</span></span>
+<span style="color:#606">name</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">Che Samples Hello World Plugin</span></span>
+<span style="color:#606">title</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">Che Samples Hello World Plugin</span></span>
+<span style="color:#606">description</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">A hello world theia plug-in wrapped into a Che Plug-in</span></span>
+<span style="color:#606">icon</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">https://www.eclipse.org/che/images/logo-eclipseche.svg</span></span>
+<span style="color:#606">url</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">https://github.com/ws-skeleton/che-dummy-plugin/releases/download/untagged-8f3e198285a2f3b6b2db/che-dummy-plugin.tar.gz </span></span><i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Points to the plug-in configuration. Typically, it is a TAR archive with the plug-in YAML file. It is also possible to have a link to the raw content of a plug-in YAML file.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For a VS Code extension, the <code>url</code> field is replaced with an <code>attributes</code> section.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample <code>attributes</code> section of <code>meta.yaml</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span style="color:#606">attributes</span>:
+<span style="color:#606">extension</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">vscode:extension/extension.id</span><span style="color:#710">&quot;</span></span>             <i class="conum" data-value="1"></i><b>(1)</b>
+<span style="color:#606">container-image</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">my.docker.registry/remote-theia:tag</span><span style="color:#710">&quot;</span></span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>VS Code extension ID with a <code>vscode:extension/</code> prefix</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Points to a container image in which the extension runs. Note that the image should contain an appropriate Node.js version with installed dependencies for Che-Theia remote plug-ins.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more details about the <code>meta.yaml</code> structure, see <a href="#che-theia-plug-in-metadata_what-is-a-che-theia-plug-in">[che-theia-plug-in-metadata_what-is-a-che-theia-plug-in]</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="official-plug-in-registry_publishing-che-theia-plug-ins">Official plug-in registry</h3>
+<div class="paragraph">
+<p>The official Che plug-in registry is at <a href="https://che-plugin-registry.openshift.io">che-plugin-registry.openshift.io</a>. By default, the Che dashboard shows editors and plug-ins from this registry.</p>
+</div>
+<div class="paragraph">
+<p>The source is located at link: <a href="https://github.com/eclipse/che-plugin-registry">github.com/eclipse/che-plugin-registry</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-plug-in-registries_publishing-che-theia-plug-ins">Custom plug-in registries</h3>
+<div class="paragraph">
+<p>For more information about setting up a custom registry, see the description of the <a href="https://github.com/eclipse/che-plugin-registry">official registry repository</a>.</p>
+</div>
+<div class="paragraph">
+<p>There are two ways of using plug-ins from a custom registry:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Specify a link to the plug-in in the configuration of a workspace. See <a href="#adding-a-plug-in-by-configuring-a-workspace_publishing-che-theia-plug-ins">Adding a plug-in into a workspace via configuration</a>.</p>
+</li>
+<li>
+<p>Replace the default official registry with a custom one in your Che instance. To do that, set the <code>PLUGIN_REGISTRY_IMAGE</code> environment variable in your Che configuration. Note that plug-ins from the official registry are not available from the dashboard interface. To include them, add references into your registry from the official registry.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="#che-theia-plug-in-metadata_what-is-a-che-theia-plug-in">[che-theia-plug-in-metadata_what-is-a-che-theia-plug-in]</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-a-che-theia-plug-in-to-the-che-plug-in-registry_publishing-che-theia-plug-ins">Adding a Che-Theia plug-in to the Che plug-in registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To have a Che-Theia plug-in available in the default Che plug-in registry, submit a pull request to the registry GitHub repository.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Che-Theia plug-in definition file: <code>meta.yaml</code></p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Submit a PR with the <code>meta.yaml</code> file of your Che-Theia plug-in in the <code>plugins/&lt;your-plug-in-id&gt;/&lt;version&gt;/</code> directory to the Che plug-in registry GitHub repository at <a href="https://github.com/eclipse/che-plugin-registry/">che-plugin-registry</a>.</p>
+<div class="paragraph">
+<p>For example, SonarLint Che-Theia plug-in is located in the <code>plugins/org.eclipse.che.vscode-sonarlint/0.0.1/meta.yaml</code> file.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After the new Che-Theia plug-ins are added and merged into the repository, the list of available plug-ins in the registry is updated.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://che-plugin-registry.openshift.io/plugins/">Che plug-in registry</a></p>
+</li>
+<li>
+<p><a href="https://github.com/eclipse/che-plugin-registry/">che-plugin-registry GitHub repository</a></p>
+</li>
+<li>
+<p><a href="#converting-a-visual-studio-code-extension-to-a-che-theia-plug-in_developing-che-theia-plug-ins">[converting-a-visual-studio-code-extension-to-a-che-theia-plug-in_developing-che-theia-plug-ins]</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-a-che-theia-plug-in-into-a-workspace_publishing-che-theia-plug-ins">Adding a Che-Theia plug-in into a workspace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are three ways to add a Che-Theia plug-in into the Che-Theia IDE:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using the Che-Theia dashboard</p>
+</li>
+<li>
+<p>By configuring a workspace</p>
+</li>
+<li>
+<p>At runtime</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="adding-a-plug-in-through-the-dashboard_publishing-che-theia-plug-ins">Adding a plug-in through the dashboard</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <strong>Workspaces</strong> tab in the dashboard.</p>
+</li>
+<li>
+<p>Select the workspace to which you want to add the plug-in.</p>
+</li>
+<li>
+<p>In <strong>Workspace &gt; <em>&lt;workspace-name&gt;</em></strong> window, click the <strong>Plugins</strong> tab, and select the required plug-ins.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/extensibility/adding-plug-ins-in-dashboard.png"><img src="/che/docs/images/extensibility/adding-plug-ins-in-dashboard.png" alt="adding plug ins in dashboard"></a>
+</div>
+<div class="title">Figure 1. Adding plug-ins through the dashboard</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-plug-in-by-configuring-a-workspace_publishing-che-theia-plug-ins">Adding a plug-in by configuring a workspace</h3>
+<div class="paragraph">
+<p>This method is useful when you need to add plug-ins from a non-default registry.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <strong>Workspaces</strong> tab in the dashboard.</p>
+</li>
+<li>
+<p>Select the workspace to which you want to add the plug-in.</p>
+</li>
+<li>
+<p>Switch to the <strong>Config</strong> tab, and find the <code>attributes.plugins</code> section.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/extensibility/adding-plug-ins-in-workspace-configuration.png"><img src="/che/docs/images/extensibility/adding-plug-ins-in-workspace-configuration.png" alt="adding plug ins in workspace configuration"></a>
+</div>
+<div class="title">Figure 2. Adding plug-ins by configuring a workspace</div>
+</div>
+<div class="paragraph">
+<p>Plug-ins are separated by commas (<code>,</code>).</p>
+</div>
+</li>
+<li>
+<p>To add plug-ins, append new records after the separator. A record has the following format:</p>
+<div class="listingblock">
+<div class="content">
+<pre> &lt;registry-base-uri&gt;/plugins/&lt;plugin-name&gt;:&lt;version&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>https://custom-registry/plugins/org.name.plugin.theia:1.0.0</p>
+</li>
+<li>
+<p>https://raw.githubusercontent.com/username/che-custom-plugins/master/plugins/org.name.plugin.theia:0.0.1</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-plug-in-at-runtime_publishing-che-theia-plug-ins">Adding a plug-in at runtime</h3>
+<div class="paragraph">
+<p>This method adds a plug-in to an already running workspace. The plug-in is not added permanently; it is removed when the workspace stops. This is a good method to test a plug-in without affecting the permanent workspace configuration.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>Deploy Plugin by Id</code> command, and specify the ID of the plug-in that you want to add to the workspace. A plug-in ID can be:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A local directory with plug-ins. All the plug-in binaries (<code>.theia</code> files) in the specified directory would be loaded. Example: <code>local-dir:///home/theia/plugins/</code>.</p>
+</li>
+<li>
+<p>VS Code extension link. To obtain the link, go to the VS Code marketplace, find the needed extension, copy its ID, and append the ID to the <code>vscode:extension/</code> prefix.</p>
+<div class="paragraph">
+<p>For example, for the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml">XML language server</a> plug-in, it is: <code>vscode:extension/redhat.vscode-xml</code>.</p>
+</div>
+</li>
+<li>
+<p>Link to plug-in binaries (<code>.theia</code> files). Can be both HTTP and HTTPS. Example: <code><a href="https://domain.net/path/plugin.theia" class="bare">https://domain.net/path/plugin.theia</a></code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To check if the plug-in loaded successful, open the <strong>Plugins panel</strong> (<strong>View</strong> &gt; <strong>Plugins</strong> in the main menu) and search for the plug-in in the list.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sharing-your-che-theia-plug-in-with-a-factory_publishing-che-theia-plug-ins">Sharing your Che-Theia plug-in with a factory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to use a Che-Theia factory to share a plug-in in development environment with other users.</p>
+</div>
+<div class="sect2">
+<h3 id="sharing-a-factory-with-a-plug-in-development-environment_publishing-che-theia-plug-ins">Sharing a factory with a plug-in development environment</h3>
+<div class="paragraph">
+<p>This approach brings an advantage of other users being able to contribute to the development, provided they have write access to the repository with the plug-in.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a factory with the plug-in development environment, and share it. The reviewers get the exact same environment. They must then build and run the plug-in to test it (a script or instructions on how to build should be included in the plug-in repository).</p>
+</li>
+<li>
+<p>The reviewer should start a hosted plug-in instance and specify the path to the plug-in project inside the workspace. For instructions on how to start a hosted instance of Che-Theia for plug-in testing, see <a href="#testing-che-theia-plug-ins_extending-che">[testing-che-theia-plug-ins_extending-che]</a>.</p>
+</li>
+<li>
+<p>To make the reviewers' work easier, it is possible to invoke a command to build the plug-in after the loading of the factory is completed. For more details, see the factory documentation.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sharing-a-factory-with-plug-in-configuration_publishing-che-theia-plug-ins">Sharing a factory with plug-in configuration</h3>
+<div class="paragraph">
+<p>This method provides a workspace with a ready-to-use plug-in. The author of the plug-in must host the plug-in binaries in a custom registry.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a factory.</p>
+</li>
+<li>
+<p>Go to the factory details, and scroll to the <strong>Configuration</strong> section.</p>
+</li>
+<li>
+<p>Add the plug-in to the <code>workspace.attributes.plugins</code> field. The format is the same as described in <a href="#adding-a-che-theia-plug-in-into-a-workspace_publishing-che-theia-plug-ins">Adding a Che-Theia plug-in into a workspace</a>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/extensibility/sharing-plug-in-with-factory.png"><img src="/che/docs/images/extensibility/sharing-plug-in-with-factory.png" alt="sharing plug in with factory"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Share the factory link.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Only accept factories from trusted sources. Malicious factories can potentially steal data that is accessible from within your workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="#adding-a-che-theia-plug-in-into-a-workspace_publishing-che-theia-plug-ins">Adding a Che-Theia plug-in into a workspace</a></p>
+</li>
+<li>
+<p><a href="#testing-che-theia-plug-ins_extending-che">[testing-che-theia-plug-ins_extending-che]</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overriding-ram-of-a-che-theia-plug-in_publishing-che-theia-plug-ins">Overriding RAM of a Che-Theia plug-in</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes, a plug-in consumes more memory than what has been allocated to it by the plug-in author or Che defaults. An example of such a case is the use of a language server with a project that has many source files (&amp;8gt;&#160;10&#160;000). RAM consumption in such circumstanes needs to be tuned, otherwise the machine that runs the Che workspaces kills the process with an out-of-memory error (OOM) error.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>Users can override the RAM limit for a particular plug-in in their workspace configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the workspace attribute <code>sidecar.&lt;plugin ID&gt;.memory_limit</code> to <code>1000M</code> or <code>10Gi</code>, or any other value formatted as a number and a unit (<code>b, k, ki, m, mi, g, gi</code>). When no unit is specified, the number is in bytes.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Using this notation, units that contain the character <code>i</code>, denote a number that is of the power 2, such as 1024 (as opposed to numbers that use a power of 10, such as 1000).
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Limiting RAM use for a plug-in</div>
+<div class="content">
+<div class="paragraph">
+<p>Example of an attribute that sets the RAM limit for the <a href="https://github.com/eclipse/che-plugin-registry/blob/master/plugins/redhat.vscode-yaml/0.3.0/meta.yaml">YAML language server plug-in</a> to 768 mebibytes (1073741824 bytes):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span>: {
+   <span style="color:#606"><span style="color:#404">&quot;</span><span>Sidecar.redhat.vscode-yaml.memory_limit</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">768mi</span><span style="color:#710">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

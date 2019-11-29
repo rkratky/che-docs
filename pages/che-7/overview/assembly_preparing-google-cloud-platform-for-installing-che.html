@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title> | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the  page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main"></h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="creating-a-google-kubernetes-engine-instance_preparing-google-cloud-platform-for-installing-che">Creating a Google Kubernetes Engine instance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to create a Google Kubernetes Engine instance.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>The Google Cloud SDK is installed. See <a href="https://cloud.google.com/sdk/install">Installing Google Cloud SDK</a>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To install the SDK on macOS, use the <code>$ brew cask install google-cloud-sdk</code> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a Kubernetes, version 1.9 or higher, cluster. For details, see <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster">Creating a cluster</a>.</p>
+</li>
+<li>
+<p>Create a new project with the <code>eclipse-che-1</code> ID in the Google Cloud Platform (GCP) web console.</p>
+</li>
+<li>
+<p>Configure the different default options (such as using the <code>europe-wes1-b</code> zone) in the shell:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud config set project eclipse-che-1
+$ gcloud config set compute/zone europe-west1-b
+$ gcloud config set compute/region europe-west1</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check if all the components are up-to-date:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud components update
+All components are up to date.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a cluster with the name <code>eclipse-che</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud container clusters create eclipse-che --zone europe-west1-b</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait for the cluster to be ready.</p>
+</li>
+<li>
+<p>The Kubernetes context is defined automatically. To verify it:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl config current-context
+gke_eclipse-che-1_europe-west1-b_eclipse-che</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-ingress-on-kubernetes_preparing-google-cloud-platform-for-installing-che">Installing Ingress on Kubernetes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eclipse Che uses Ingress.</p>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To install Ingress-nginx:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the default configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl apply \
+  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the configuration for cloud:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl apply \
+  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud-generic.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following output confirms that the Ingress controller is running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl get pods --namespace ingress-nginx
+NAME                                        READY   STATUS    RESTARTS   AGE
+nginx-ingress-controller-76c86d76c4-gswmg   1/1     Running   0          9m3s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the container to run.</p>
+</div>
+</li>
+<li>
+<p>Wait for the external IP. Note that a <code>&lt;pending&gt;</code> status for the external IP is shown before the exact external IP address is displayed.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl get services  --namespace ingress-nginx
+NAME           TYPE          CLUSTER-IP   EXTERNAL-IP    PORT(S)                     AGE
+ingress-nginx  LoadBalancer  10.0.97.244  40.89.129.194  80:31107/TCP,443:30629/TCP  8m59s</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get the external IP of Ingress-nginx.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl get services --namespace ingress-nginx \
+  -o jsonpath='{.items[].status.loadBalancer.ingress[0].ip}'
+40.89.129.194</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-dns-on-google-cloud-platform_preparing-google-cloud-platform-for-installing-che">Installing DNS on Google Cloud Platform</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Using the Cloud DNS, create a zone called <strong>eclipse-che</strong> and, for example, a DNS name <strong>gcp.my-ide.cloud</strong>. Click the <b class="button">Create</b> button.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/creating-dns-zone-on-gcp.png"><img src="/che/docs/images/installation/creating-dns-zone-on-gcp.png" alt="creating dns zone on gcp"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The Cloud DNS zone is created.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/cloud-dns-zone-on-gcp.png"><img src="/che/docs/images/installation/cloud-dns-zone-on-gcp.png" alt="cloud dns zone on gcp"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Registrar Setup</strong> link in the top-right corner of the window. The name servers (NS) to be added to the registrar are displayed.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/registrar-setup-gcp.png"><img src="/che/docs/images/installation/registrar-setup-gcp.png" alt="registrar setup gcp"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Update the DNS zone (example: <code>ovh</code> domain).</p>
+</li>
+<li>
+<p>Add the <code>*.gcp.my-ide.cloud</code> entry to the external Ingress IP on the cloud DNS.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/dns-settings-gcp.png"><img src="/che/docs/images/installation/dns-settings-gcp.png" alt="dns settings gcp"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-the-tls-dns-challenge-on-google-cloud-platform_preparing-google-cloud-platform-for-installing-che">Enabling the TLS and DNS challenge on Google Cloud Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To use the Cloud DNS and TLS, service accounts must be enabled, and cert-manager must manage the DNS challenge for the <em>Let’s Encrypt</em> service.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a service account with the given name:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud iam service-accounts create dns01-solver --display-name "dns01-solver"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the policy binding to the IAM policy of the <strong>eclipse-che-1</strong> project (replace the <strong>eclipse-che-1</strong> project name with the name of your project):</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud projects add-iam-policy-binding eclipse-che-1 \
+  --member serviceAccount:dns01-solver@eclipse-che-1.iam.gserviceaccount.com \
+  --role roles/dns.admin</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following is the output of this command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Updated IAM policy for project [eclipse-che-1].
+
+bindings:
+- members:
+ - serviceAccount:service-779451692063@compute-system.iam.gserviceaccount.com
+ role: roles/compute.serviceAgent
+- members:
+ - serviceAccount:service-779451692063@container-engine-robot.iam.gserviceaccount.com
+ role: roles/container.serviceAgent
+- members:
+ - serviceAccount:dns01-solver@eclipse-che-1.iam.gserviceaccount.com
+ role: roles/dns.admin
+- members:
+ - serviceAccount:779451692063-compute@developer.gserviceaccount.com
+ - serviceAccount:779451692063@cloudservices.gserviceaccount.com
+ - serviceAccount:service-779451692063@containerregistry.iam.gserviceaccount.com
+ role: roles/editor
+- members:
+ - user:&lt;email-address&gt;
+ role: roles/owner
+etag: &lt;some-tag&gt;
+version: 1</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-service-account-secret-on-google-cloud-platform_preparing-google-cloud-platform-for-installing-che">Creating a Service Account Secret on Google Cloud Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To access the service account, cert-manager uses a key stored in a Kubernetes Secret.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a key for the service account and download it as a JSON file:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ gcloud iam service-accounts keys create key.json \
+  --iam-account mailto:dns01-solver@eclipse-che-1.iam.gserviceaccount.com[_dns01-solver@eclipse-che-1.iam.gserviceaccount.com_]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following is the output of the preceding command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>created key [05e94ca2e7754b94a63049605ee8d2813d16ff37] of type [json] as [key.json] for [dns01-solver@eclipse-che-1.iam.gserviceaccount.com]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The key file is generated:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ ls -la key.json
+-rw------- 1 joe staff 2318 Jul 29 12:13 key.json</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Keep the key file safe, and do not share it with anyone because it can be used to gain access to your cloud resources. The key file can be deleted after it has been used to generate the Secret.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Create a Secret from this file.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl create secret generic clouddns-dns01-solver-svc-acct --from-file=key.json --namespace=cert-manager</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-cert-manager-on-kubernetes_preparing-google-cloud-platform-for-installing-che">Installing cert-manager on Kubernetes</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>To install cert-manager:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl create namespace cert-manager
+namespace/cert-manager created
+
+$ kubectl label namespace cert-manager certmanager.k8s.io/disable-validation=true
+
+$ kubectl apply \
+  -f https://github.com/jetstack/cert-manager/releases/download/v0.8.1/cert-manager.yaml --validate=false</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <strong>che</strong> namespace if it does not exist already:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl create namespace che
+namespace/che created</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the certificate issuer. Replace your email address in the <code>email</code> field:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: che-certificate-issuer
+spec:
+  acme:
+    dns01:
+      providers:
+      - clouddns:
+          project: eclipse-che-1
+          serviceAccountSecretRef:
+            key: key.json
+            name: clouddns-dns01-solver-svc-acct
+        name: clouddns
+    email: joe@example.com
+    privateKeySecretRef:
+      name: letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
+EOF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the certificate. Edit the domain name:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+ name: che-tls
+ namespace: che
+spec:
+ secretName: che-tls
+ issuerRef:
+   name: che-certificate-issuer
+   kind: ClusterIssuer
+ dnsNames:
+   - '*.gcp.my-ide.cloud'
+ acme:
+   config:
+     - dns01:
+         provider: clouddns
+       domains:
+         - '*.gcp.my-ide.cloud'
+EOF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check that the <code>issuerRef</code> name is the same as the <code>ClusterIssuer</code>. A new DNS challenge is added to the DNS zone for <em>Let’s Encrypt</em>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/dns-challenge-gcp.png"><img src="/che/docs/images/installation/dns-challenge-gcp.png" alt="dns challenge gcp"></a>
+</div>
+</div>
+</li>
+<li>
+<p>The cert-manager logs should contain information about the DNS challenge. To get the logs (here, <code>cert-manager-8d478bb45-2924h</code> is the name of the cert-manager pod):</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl logs -f -n cert-manager cert-manager-8d478bb45-2924h
+
+I0729 13:50:39.414729 1 dns.go:112] Checking DNS propagation for "gcp.my-ide.cloud" using name servers: [10.112.0.10:53]
+
+E0729 13:50:39.422521 1 sync.go:180] cert-manager/controller/challenges "msg"="propagation check failed" "error"="DNS record for \"gcp.my-ide.cloud\" not yet propagated" "dnsName"="gcp.my-ide.cloud" "resource_kind"="Challenge" "resource_name"="che-tls-3529929423-0" "resource_namespace"="che" "type"="dns-01"
+
+I0729 13:50:39.422598 1 controller.go:219] cert-manager/controller/challenges "level"=0 "msg"="finished processing work item" "key"="che/che-tls-3529929423-0"
+
+I0729 13:50:49.406767 1 controller.go:213] cert-manager/controller/challenges "level"=0 "msg"="syncing resource" "key"="che/che-tls-3529929423-0"
+
+I0729 13:50:49.409802 1 dns.go:112] Checking DNS propagation for "gcp.my-ide.cloud" using name servers: [10.112.0.10:53]
+
+E0729 13:50:49.420131 1 sync.go:180] cert-manager/controller/challenges "msg"="propagation check failed" "error"="DNS record for \"gcp.my-ide.cloud\" not yet propagated" "dnsName"="gcp.my-ide.cloud" "resource_kind"="Challenge" "resource_name"="che-tls-3529929423-0" "resource_namespace"="che" "type"="dns-01"
+
+I0729 13:50:49.420198 1 controller.go:219] cert-manager/controller/challenges "level"=0 "msg"="finished processing work item" "key"="che/che-tls-3529929423-0"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the certificate is ready:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl describe certificate/che-tls -n che
+
+Status:
+ Conditions:
+ Last Transition Time: 2019-07-29T13:50:35Z
+ Message: Certificate issuance in progress. Temporary certificate issued.
+ Reason: TemporaryCertificate
+ Status: False
+ Type: Ready
+Events:
+ Type Reason Age From Message
+ ---- ------ ---- ---- -------
+ Normal Generated 47s cert-manager Generated new private key
+ Normal GenerateSelfSigned 47s cert-manager Generated temporary self signed certificate
+ Normal OrderCreated 47s cert-manager Created Order resource "che-tls-3529929423"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wait for the <code>Status</code> to become <code>OK</code>, and ensure that the log contains the following entry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>I0729 13:56:26.140886 1 conditions.go:143] Found status change for Certificate "che-tls" condition "Ready": "False" -&gt; "True"; setting lastTransitionTime to 2019-07-29 13:56:26.140866531 +0000 UTC m=+4557.134131468</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the status is up-to-date:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl describe certificate/che-tls -n che
+
+Status:
+ Conditions:
+ Last Transition Time: 2019-07-29T13:56:26Z
+ Message: Certificate is up to date and has not expired
+ Reason: Ready
+ Status: True
+ Type: Ready
+ Not After: 2019-10-27T12:56:24Z</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

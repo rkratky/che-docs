@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Deploying Che on Kubernetes on AWS | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Deploying Che on Kubernetes on AWS page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Deploying Che on Kubernetes on AWS">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 7</li>
+  
+  <div class="sidebarSubtitle">Overview</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/introduction-to-eclipse-che">Introduction to Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che quick-starts</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-quick-starts">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-the-chectl-management-tool">Installing the chectl management tool</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/running-che-locally">Running Che locally</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/deploying-che-on-kubernetes-on-aws">Che on Amazon Web Services</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-3-using-the-operator">Che on OpenShift 3</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-4-from-operatorhub">Che on OpenShift 4</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-google-cloud-platform">Che on Google Cloud Platform</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-eclipse-che-on-microsoft-azure">Che on Microsoft Azure</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/hosted-che">Hosted Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che architecture</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-architecture">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/high-level-che-architecture">High-level Che architecture</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspace-controller">Che workspace controller</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspaces-architecture">Che workspaces architecture</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">End-user Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/navigating-che-using-the-dashboard">Navigating Che: dashboard</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che-Theia IDE basics</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-ide-basics">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/defining-custom-commands-for-che-theia">Defining custom commands for Che-Theia</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/version-control">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-troubleshooting">Che-Theia Troubleshooting</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Using developer workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/workspaces-overview">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-a-workspace-using-a-devfile">Configuring a workspace using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/making-a-workspace-portable-using-a-devfile">Making a workspace portable using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 Workspace to a Che 7 devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-and-configuring-a-new-che-7-workspace">Creating and configuring a new Che 7 workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/importing-a-kubernetes-application-into-a-che-workspace">Importing a Kubernetes application into a Che workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/remotely-accessing-che-workspaces">Remotely accessing workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-from-code-sample">Creating a workspace from code sample</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-by-importing-source-code-of-a-project">Creating a workspace by importing source code of a project</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-workspace-exposure-strategies">Configuring workspace exposure strategies</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing developer environments</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-developer-environments">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/what-is-a-che-theia-plug-in">What is a Che-Theia plug-in</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-alternative-ides-in-che">Using alternative IDEs in Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-a-visual-studio-code-extension-in-che">Using a VS Code extension in Che</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Installation Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/updating-che">Updating Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/advanced-configuration-options">Advanced configuration options</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Administration Guide</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing devfile and plug-in registries</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-the-devfile-and-plug-in-registries">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/building-and-running-a-custom-registry-image">Building and running a custom registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/including-the-plug-in-binaries-in-the-registry-image">Including the plug-in binaries in the registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/editing-a-devfile-and-plug-in-at-runtime">Editing a devfile and plug-in at runtime</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Retrieving Che logs</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/retrieving-che-logs">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-kubernetes-events">Viewing Kubernetes events</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-server-logs">Viewing Che server logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-external-service-logs">Viewing external service logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-workspaces-logs">Viewing Che workspaces logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-plug-in-broker-logs">Viewing the plug-in broker logs</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/monitoring-che">Monitoring Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/tracing-che">Tracing Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Securing Che</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/securing-che">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authenticating-users">Authenticating users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authorizing-users">Authorizing users</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Contributor Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/developing-che-theia-plug-ins">Developing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/testing-che-theia-plug-ins">Testing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/publishing-che-theia-plug-ins">Publishing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-language">Adding support for a new language</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-debugger">Adding support for a new debugger</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che extensibility reference</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extensibility-reference">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extension-points">Che extension points</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-plug-in-api">Che-Theia plug-in API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/debug-adapter-protocol">Debug Adapter Protocol</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/language-server-protocol">Language Server Protocol</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Extensions</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Eclipse Che4z</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/eclipse-che4z">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-release-information">Release Information</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-installing">Installing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-using-explorer-for-zos">Using z/OS Resource Explorer</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-product-accessibility-features">Product Accessibility Features</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Deploying Che on Kubernetes on AWS</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="preparing-the-aws-system-for-installing-che_deploying-che-on-kubernetes-on-aws">Preparing the AWS system for installing Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections describe how to set up Kubernetes for Eclipse Che
+on Amazon Elastic Compute Cloud (Amazon EC2).</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A running instance of Kubernetes, version 1.9 or higher, and Ingress</p>
+</li>
+<li>
+<p>The <code>kubectl</code> tool installed</p>
+</li>
+<li>
+<p>The <code>chectl</code> tool installed</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="installing-kubernetes-on-amazon-ec2">Installing Kubernetes on Amazon EC2</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set up the AWS Command Line Interface (AWS CLI). For detailed installation instructions, see <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">Installing the AWS CLI</a>.</p>
+</li>
+<li>
+<p>Check the <code>PATH</code> environment variable if the <code>aws</code> tool is not available.</p>
+</li>
+<li>
+<p>Install Kubernetes on EC2. There are several ways to have a running Kubernetes instance on EC2. Here, the <strong>kops</strong> tool is used to install Kubernetes. For details, see <a href="https://kubernetes.io/docs/setup/production-environment/tools/kops/">Installing Kubernetes with kops</a>.</p>
+</li>
+<li>
+<p>Set up <code>IAM</code> user for <strong>kops</strong>. For detailed instructions, see <a href="https://github.com/kubernetes/kops/blob/master/docs/aws.md#setup-iam-user">Set up IAM user</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This document assumes that Eclipse Che must be configured to run at <a href="http://che.aws.my-ide.cloud">Che AWS Cloud</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-dns">Setting up DNS</h3>
+<div class="paragraph">
+<p>One way to set up Domain Name System (DNS) is to create the Amazon Route53 to manage the <code>aws.my-ide.cloud</code> domain.</p>
+</div>
+<div class="paragraph">
+<p>To set up DNS:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the zone on AWS:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ aws route53 create-hosted-zone --name aws.my-ide.cloud --caller-reference 1
+
+\{
+ "Location": "https://route53.amazonaws.com/2013-04-01/hostedzone/<em>&lt;ZONE-ID&gt;</em>",
+ "HostedZone": \{
+ "Id": "/hostedzone/<em>&lt;ZONE-ID&gt;</em>",
+ "Name": "aws.my-ide.cloud.",
+ "CallerReference": "1",
+ "Config": \{
+ "PrivateZone": false
+ },
+ "ResourceRecordSetCount": 2
+ },
+ "ChangeInfo": \{
+ "Id": "/change/C1ZNLBU45DJUJL",
+ "Status": "PENDING",
+ "SubmittedAt": "2019-07-08T08:14:39.772Z"
+ },
+ "DelegationSet": \{
+ "NameServers": [
+ "ns-1693.awsdns-19.co.uk",
+ "ns-1133.awsdns-13.org",
+ "ns-150.awsdns-18.com",
+ "ns-965.awsdns-56.net"
+ ]
+ }
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the four DNS nameservers on the <code>my-ide.cloud</code> DNS. Note that when a custom DNS provider, updating the record takes a few hours.</p>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/installation/dns-nameservers.png" alt="dns nameservers">
+</div>
+</div>
+</li>
+<li>
+<p>Create the Simple Storage Service (s3) storage to store the kops configuration.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ aws s3 mb s3://clusters.aws.my-ide.cloud
+make_bucket: clusters.aws.my-ide.cloud</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inform kops of this new service:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ export KOPS_STATE_STORE=s3://clusters.aws.my-ide.cloud</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the kops cluster by providing the cluster zone. For example, for Europe, the zone is <code>eu-west-1c</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kops create cluster --zones=eu-west-1c eu.aws.my-ide.cloud</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ kops update cluster eu.aws.my-ide.cloud --yes</pre>
+</div>
+</div>
+</li>
+<li>
+<p>After the cluster is ready, validate it:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kops validate cluster
+
+Using cluster from kubectl context: eu.aws.my-ide.cloud
+
+Validating cluster eu.aws.my-ide.cloud
+
+INSTANCE GROUPS
+NAME                ROLE    MACHINETYPE  MIN  MAX  SUBNETS
+master-eu-west-1c   Master  m3.medium    1    1    eu-west-1c
+nodes               Node    t2.medium    2    2    eu-west-1c
+
+NODE STATUS
+NAME                                         ROLE    READY
+ip-172-20-38-26.eu-west-1.compute.internal   node    True
+ip-172-20-43-198.eu-west-1.compute.internal  node    True
+ip-172-20-60-129.eu-west-1.compute.internal  master  True
+
+Your cluster eu.aws.my-ide.cloud is ready</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the cluster using the <code>kubectl</code> command. The <code>kubectl</code> context is also configured automatically by the kops tool:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl config current-context
+eu.aws.my-ide.cloud
+
+$ kubectl get pods --all-namespaces
+
+All the pods in the running state are displayed.</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-ingress-nginx">Installing Ingress-nginx</h3>
+<div class="paragraph">
+<p>To install Ingress-nginx:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the default configuration.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl apply \
+  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the configuration for AWS.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl apply \
+  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/aws/service-l4.yaml
+$ kubectl apply \
+  -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/aws/patch-configmap-l4.yaml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following output confirms that the Ingress controller is running.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl get pods --namespace ingress-nginx
+NAME                                        READY   STATUS    RESTARTS   AGE
+nginx-ingress-controller-76c86d76c4-gswmg   1/1     Running   0          9m3s</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Find the external IP of ingress-nginx.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl get services --namespace ingress-nginx -o jsonpath='{.items[].status.loadBalancer.ingress[0].hostname}'
+Ade9c9f48b2cd11e9a28c0611bc28f24-1591254057.eu-west-1.elb.amazonaws.com</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Troubleshooting</strong>: If the output is empty, it implies that the cluster has configuration issues. Use the following command to find the cause of the issue:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl describe service -n ingress-nginx ingress-nginx</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Output similar to the following means a needed role must be created manually:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">arn:aws:sts::269287474311:assumed-role...4bff is not authorized to perform: iam:CreateServiceLinkedRole on resource: arn:aws:iam::269287474311:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the following command to create the role:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add hosts on route 53 with this given hostname https://console.aws.amazon.com/route53/home?region=eu-west-1#hosted-zones:. Ensure that you include the colon (<code>:</code>) at the end of this URL.</p>
+</li>
+<li>
+<p>Create the wildcard DNS <code><strong></code> (for <code></strong>.aws-my-ide.cloud</code>) with the previous hostname and ensure to add the dot (<code>.</code>) at the end of the hostname. In the <strong>Type</strong> drop-down list, select <strong>CNAME</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/create-record-set.png"><img src="/che/docs/images/installation/create-record-set.png" alt="create record set"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The following is an example of the resulting window after adding all the values.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/create-record-set-all-values.png"><img src="/che/docs/images/installation/create-record-set-all-values.png" alt="create record set all values"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>che.aws.my-ide.cloud</code> address must resolve to an IP address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ host che.aws.my-ide.cloud
+che.aws.my-ide.cloud is an alias for ade9c9f48b2cd11e9a28c0611bc28f24-1591254057.eu-west-1.elb.amazonaws.com.
+ade9c9f48b2cd11e9a28c0611bc28f24-1591254057.eu-west-1.elb.amazonaws.com has address 54.77.155.195</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It is now possible to install Eclipse Che on this existing Kubernetes instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enabling-the-tls-and-dns-challenge">Enabling the TLS and DNS challenge</h3>
+<div class="paragraph">
+<p>To use the Cloud DNS and TLS, some service accounts must be enabled to have cert-manager managing the DNS challenge for the <em>Let&#8217;s Encrypt</em> service.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new <code>permission</code> file.</p>
+</li>
+<li>
+<p>Use the following command to obtain the zone ID:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ aws route53 list-hosted-zones
+{
+    "HostedZones": [
+        {
+            "Id": "/hostedzone/ABCDEFGH",
+            "Name": "aws.my-ide.cloud.",
+            "CallerReference": "1",
+            "Config": {
+                "PrivateZone": false
+            },
+            "ResourceRecordSetCount": 5
+        }
+    ]
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the following content and replace <code>INSERT_ZONE_ID</code> with the route53 zone ID:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:GetChange",
+                "route53:ListHostedZonesByName"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource": [
+                "arn:aws:route53:::hostedzone/&lt;INSERT_ZONE_ID&gt;"
+            ]
+        }
+    ]
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>EC2 Dashboard</strong>, identify the <strong>IAM role</strong> used by the master node.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/aws-lauch-instance.png"><img src="/che/docs/images/installation/aws-lauch-instance.png" alt="aws lauch instance"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>It is located under the <strong>Description</strong> tab, in the <strong>IAM role</strong> field.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/describtion-tab-iam-role.png"><img src="/che/docs/images/installation/describtion-tab-iam-role.png" alt="describtion tab iam role"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>IAM role</strong> link (<code>masters.eu.aws.my-ide.cloud</code>, in this case).</p>
+</li>
+<li>
+<p>Click the <strong>Add inline policy</strong> link at the bottom of the window.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/aws-summary-iam-role.png"><img src="/che/docs/images/installation/aws-summary-iam-role.png" alt="aws summary iam role"></a>
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Create policy</strong> window, on the <strong>JSON</strong> tab, paste the content of the JSON file created earlier and click the <strong>Review policy</strong> button.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/aws-create-policy.png"><img src="/che/docs/images/installation/aws-create-policy.png" alt="aws create policy"></a>
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Name</strong> field, type <code>eclipse-che-route53</code> and click <strong>Create Policy</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/create-policy-review-policy.png"><img src="/che/docs/images/installation/create-policy-review-policy.png" alt="create policy review policy"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-cert-manager">Installing cert-manager</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To install cert-manager, run the following commands (for details, see <a href="https://docs.cert-manager.io/en/latest/getting-started/install/kubernetes.html">Installing Cert on Kubernetes</a>):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl create namespace cert-manager
+namespace/cert-manager created
+$ kubectl label namespace cert-manager certmanager.k8s.io/disable-validation=true
+namespace/cert-manager labeled</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set <code>validate=false</code>. If set to <code>true</code>, it will only work with the latest Kubernetes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl apply \
+  -f https://github.com/jetstack/cert-manager/releases/download/v0.8.1/cert-manager.yaml \
+  --validate=false</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the Che namespace if it does not already exist:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl create namespace che
+namespace/che created</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <strong>cert-manager</strong> user:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ aws iam create-user --user-name cert-manager
+{
+    "User": {
+        "Path": "/",
+        "UserName": "cert-manager",
+        "UserId": "ABCDEF",
+        "Arn": "arn:aws:iam::1234:user/cert-manager",
+        "CreateDate": "2019-07-30T13:50:48Z"
+    }
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the access key:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ aws iam create-access-key --user-name cert-manager
+{
+    "AccessKey": {
+        "UserName": "cert-manager",
+        "AccessKeyId": "ABCDEF",
+        "Status": "Active",
+        "SecretAccessKey": "mySecret",
+        "CreateDate": "2019-07-30T13:52:59Z"
+    }
+}</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Remember the access key for later use.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Create a secret from the <code>SecretAccessKey</code> content.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl create secret generic aws-cert-manager-access-key \
+  --from-literal=CLIENT_SECRET=&lt;REPLACE WITH SecretAccessKey content&gt; -n cert-manager</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the <strong>Add inline policy</strong> link to add the inline policy to <a href="https://console.aws.amazon.com/iam/home#/users/cert-manager">AWS Cert-Manager</a>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/aws-summary-iam-role.png"><img src="/che/docs/images/installation/aws-summary-iam-role.png" alt="aws summary iam role"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Paste the following inline policy in the <strong>JSON</strong> tab:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "route53:GetChange",
+            "Resource": "arn:aws:route53:::change/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ChangeResourceRecordSets",
+            "Resource": "arn:aws:route53:::hostedzone/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ListHostedZonesByName",
+            "Resource": "*"
+        }
+    ]
+}</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/json-review-policy.png"><img src="/che/docs/images/installation/json-review-policy.png" alt="json review policy"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Review policy</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/create-policy-review.png"><img src="/che/docs/images/installation/create-policy-review.png" alt="create policy review"></a>
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Name</strong> field, type <code>route53</code>, and click <strong>Create policy</strong>.</p>
+</li>
+<li>
+<p>To create the certificate issuer, change the email address and specify the <code>accessKeyID</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: che-certificate-issuer
+spec:
+  acme:
+    dns01:
+      providers:
+      - route53:
+          region: eu-west-1
+          accessKeyID: &lt;USE ACCESS_KEY_ID_CREATED_BEFORE&gt;
+          secretAccessKeySecretRef:
+            name: aws-cert-manager-access-key
+            key: CLIENT_SECRET
+        name: route53
+    email: florent@example.com
+    privateKeySecretRef:
+      name: letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
+EOF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the certificate by editing the domain name value (<code>aws.my-ide.cloud</code>, in this case) and the <code>dnsName</code> value:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+ name: che-tls
+ namespace: che
+spec:
+ secretName: che-tls
+ issuerRef:
+   name: che-certificate-issuer
+   kind: ClusterIssuer
+ dnsNames:
+   - '*.aws.my-ide.cloud'
+ acme:
+   config:
+     - dns01:
+         provider: route53
+       domains:
+         - '*.aws.my-ide.cloud'
+EOF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check if the <code>issuerRef</code> name is the same as the <code>ClusterIssuer</code>. A new DNS challenge is being added to the DNS zone for <em>Let’s encrypt</em>.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/aws-hosted-zones-dns.png"><img src="/che/docs/images/installation/aws-hosted-zones-dns.png" alt="aws hosted zones dns"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The cert-manager logs should contain information about the DNS challenge.</p>
+</div>
+</li>
+<li>
+<p>Obtain the name of the pods:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl get pods --namespace cert-manager
+NAME                                       READY   STATUS    RESTARTS   AGE
+cert-manager-6587688cb8-wj68p              1/1     Running   0          6h
+cert-manager-cainjector-76d56f7f55-zsqjp   1/1     Running   0          6h
+cert-manager-webhook-7485dd47b6-88m6l      1/1     Running   0          6h</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Obtain the logs using the following command (here, <code>cert-manager-8d478bb45-sdfmz</code> is the name of the cert-manager pod):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl logs -f cert-manager-8d478bb45-sdfmz -n cert-manager
+I0730 14:46:25.382385       1 sync.go:274] Need to create 0 challenges
+I0730 14:46:25.382401       1 sync.go:319] Waiting for all challenges for order "che-tls-3365293372" to enter 'valid' state
+I0730 14:46:25.382431       1 controller.go:204] cert-manager/controller/orders "level"=0 "msg"="finished processing work item" "key"="che/che-tls-3365293372"
+I0730 14:46:25.382813       1 controller.go:219] cert-manager/controller/challenges "level"=0 "msg"="finished processing work item" "key"="che/che-tls-3365293372-0"
+I0730 14:46:25.382843       1 controller.go:213] cert-manager/controller/challenges "level"=0 "msg"="syncing resource" "key"="che/che-tls-3365293372-0"
+I0730 14:46:25.383037       1 dns.go:101] Presenting DNS01 challenge for domain "aws.my-ide.cloud"
+I0730 14:47:03.061546       1 dns.go:112] Checking DNS propagation for "aws.my-ide.cloud" using name servers: [100.64.0.10:53]
+I0730 14:47:03.220952       1 dns.go:124] Waiting DNS record TTL (60s) to allow propagation of DNS record for domain "_acme-challenge.aws.my-ide.cloud.”</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the certificate is ready:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl describe certificate/che-tls -n che
+Status:
+  Conditions:
+    Last Transition Time:  2019-07-30T14:46:23Z
+    Message:               Certificate issuance in progress. Temporary certificate issued.
+    Reason:                TemporaryCertificate
+    Status:                False
+    Type:                  Ready
+Events:
+  Type    Reason        Age   From          Message
+  ----    ------        ----  ----          -------
+  Normal  OrderCreated  50s   cert-manager  Created Order resource "che-tls-3365293372"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait for the status to become <code>OK</code> and ensure that the log contains the following entry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">I0729 13:56:26.140886       1 conditions.go:143] Found status change for Certificate "che-tls" condition "Ready": "False" -&gt; "True"; setting lastTransitionTime to 2019-07-29 13:56:26.140866531 +0000 UTC m=+4557.134131468</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the status is up-to-date using the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ kubectl describe certificate/che-tls -n che
+
+Status:
+  Conditions:
+    Last Transition Time:  2019-07-30T14:48:07Z
+    Message:               Certificate is up to date and has not expired
+    Reason:                Ready
+    Status:                True
+    Type:                  Ready
+  Not After:               2019-10-28T13:48:05Z
+Events:
+  Type    Reason         Age    From          Message
+  ----    ------         ----   ----          -------
+  Normal  OrderCreated   5m29s  cert-manager  Created Order resource "che-tls-3365293372"
+  Normal  OrderComplete  3m46s  cert-manager  Order "che-tls-3365293372" completed successfully
+  Normal  CertIssued     3m45s  cert-manager  Certificate issued successfully</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-che-on-kubernetes-using-the-chectl-command_deploying-che-on-kubernetes-on-aws">Installing Che on Kubernetes using the chectl command</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><code>chectl</code> management tool is installed. See <a href="/che-docs/che-7/installing-the-chectl-management-tool/">Installing the <code>chectl</code> management tool</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Procedure</div>
+<p>To install Che:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ chectl server:start --platform=k8s --installer=helm --domain=aws.my-ide.cloud --multiuser --tls
+  ✔ ✈️  Kubernetes preflight checklist
+    ✔ Verify if kubectl is installed
+    ✔ Verify remote kubernetes status...done.
+    ✔ Verify domain is set...set to aws.my-ide.cloud.
+  ✔ 🏃‍  Running Helm to install Che
+    ✔ Verify if helm is installed
+    ✔ Check for TLS secret prerequisites...che-tls secret found.
+    ✔ Create Tiller Role Binding...it already exist.
+    ✔ Create Tiller Service Account...it already exist.
+    ✔ Create Tiller RBAC
+    ✔ Create Tiller Service...it already exist.
+    ✔ Preparing Che Helm Chart...done.
+    ✔ Updating Helm Chart dependencies...done.
+    ✔ Deploying Che Helm Chart...done.
+  ✔ ✅  Post installation checklist
+    ✔ PostgreSQL pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Keycloak pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Che pod bootstrap
+      ✔ scheduling...done.
+      ✔ downloading images...done.
+      ✔ starting...done.
+    ✔ Retrieving Che Server URL...https://che-che.aws.my-ide.cloud
+    ✔ Che status check
+Command server:start has completed successfully.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The certificate generated by Let’s Encrypt is a valid certificate.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/certificate-generate-lets-encrypt.png"><img src="/che/docs/images/installation/certificate-generate-lets-encrypt.png" alt="certificate generate lets encrypt"></a>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="/che/docs/images/installation/eclipse-che-welcome-to-your-workspace.png"><img src="/che/docs/images/installation/eclipse-che-welcome-to-your-workspace.png" alt="eclipse che welcome to your workspace"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

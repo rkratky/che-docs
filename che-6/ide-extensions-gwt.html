@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="extensionsassemblydev-docs,  framework, extensions, gwt, client side">
+<title>IDE Extensions: GWT | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the IDE Extensions: GWT page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="IDE Extensions: GWT">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">IDE Extensions: GWT</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="ide-extension-structure">IDE Extension Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let’s take a closer look at how an IDE extension should be structured:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ide
+├─ src                                              // sources folder
+│  └─ main
+│     ├─ java
+│     │  └─ org.eclipse.che.plugin.menu.ide
+│     │     ├─ ...
+│     │     ├─ inject
+│     │     │  └─ SampleMenuGinModule.java          // GIN module
+│     │     └─ SampleMenuExtension.java             // IDE extension class
+│     ├─ resources
+│     │  └─ org.eclipse.che.ide.ext.demo.client
+│     └─ module.gwt.xml                             // template for generating GWT module [1]
+├─ target                                           // build output
+│  └─ classes
+│     ├─ META-INF
+│     │  └─ gwt
+│     │     └─ mainModule                           // contains GWT module name [2]
+│     └─ org.eclipse.che.plugin.menu
+│        ├─ ...
+│        └─ SampleMenuExtension.gwt.xml             // generated GWT module [3]
+└─ pom.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Links: <a href="https://tbroyer.github.io/gwt-maven-plugin/generate-module-mojo.html">1</a> <a href="https://tbroyer.github.io/gwt-maven-plugin/generate-module-metadata-mojo.html">2</a> <a href="https://tbroyer.github.io/gwt-maven-plugin/generate-module-mojo.html">3</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pom.xml">pom.xml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are several important parts in the pom.xml of the Che IDE plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Packaging of the Maven project is <code>gwt-lib</code> which triggers <a href="https://tbroyer.github.io/gwt-maven-plugin/lifecycles.html#GWT_Library:_gwt-lib"><code>gwt-lib</code></a> Maven lifecycle that will build a <a href="https://tbroyer.github.io/gwt-maven-plugin/artifact-handlers.html#GWT_Library:_gwt-lib">GWT library</a>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;packaging&gt;</span>gwt-lib<span style="color:#070;font-weight:bold">&lt;/packaging&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Dependency on the Che IDE API library that provides a <a href="https://docs.google.com/spreadsheets/d/1ijapDnl1G7svy7sIKgTntyTuVsnd9nFcH0-357C0MxE/edit#gid=0">set of APIs</a> for extending Che IDE:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;dependency&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;groupId&gt;</span>org.eclipse.che.core<span style="color:#070;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;artifactId&gt;</span>che-core-ide-api<span style="color:#070;font-weight:bold">&lt;/artifactId&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Name of the GWT module is defined in the configuration of <code>gwt-maven-plugin</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;plugin&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;groupId&gt;</span>net.ltgt.gwt.maven<span style="color:#070;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;artifactId&gt;</span>gwt-maven-plugin<span style="color:#070;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;extensions&gt;</span>true<span style="color:#070;font-weight:bold">&lt;/extensions&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;configuration&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;moduleName&gt;</span>org.eclipse.che.plugin.menu.SampleMenuExtension<span style="color:#070;font-weight:bold">&lt;/moduleName&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/configuration&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/plugin&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For details on the generating GWT module, read the <code>gwt:generate-module</code> <a href="https://tbroyer.github.io/gwt-maven-plugin/generate-module-mojo.html">mojo description</a>. GWT library is a JAR that contains compiled classes, project’s (re-)sources, GWT module descriptor (<code>*.gwt.xml</code>) and possibly other GWT-specific files.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gwt.xml">gwt.xml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Project’s <code>*.gwt.xml</code> file is generated within the <code>gwt-lib</code> Maven lifecycle and contains:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the declarations for the default source folders:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;source</span> <span style="color:#b48">path</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">client</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">/&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;source</span> <span style="color:#b48">path</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">shared</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">/&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;super-source</span> <span style="color:#b48">path</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">super</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">/&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>&lt;inherits/&gt;</code> directives for the project’s <em>direct</em> dependencies which were packaged as a <code>gwt-lib</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>Optional</em> template may be provided in <code>src/main/module.gwt.xml</code> for generating project’s <code>*.gwt.xml</code> file.</p>
+</div>
+<div class="paragraph">
+<p>The most common cases when you may require a template:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>need to override the default source folders, like <a href="https://github.com/eclipse/che/blob/f15fbf1cb1248d18acc3ee6fdc41766946ea4a3b/plugins/plugin-java/che-plugin-java-ext-lang-client/src/main/module.gwt.xml#L18">here</a>;</p>
+</li>
+<li>
+<p>need to add <code>&lt;inherits/&gt;</code> directive for a GWT lib that isn’t packaged as a <code>gwt-lib</code> artifact (doesn’t contain GWT-specific meta information).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="consuming-shared-libs">Consuming Shared Libs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The shared libraries don’t require any GWT-specific files or configuration in pom.xml to be consumed by a GWT library.</p>
+</div>
+<div class="paragraph">
+<p>To use shared code in a GWT library:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>declare a dependency on the "normal" artifact (JAR with compiled classes);</p>
+</li>
+<li>
+<p>declare a dependency on the "sources" artifact (with <code>&lt;classifier&gt;sources&lt;/classifier&gt;</code>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See an example <a href="https://github.com/eclipse/che/blob/19f5fd1f5ae8f165b7306e71cb0d58c2082fafab/plugins/plugin-python/che-plugin-python-lang-ide/pom.xml#L49-L57">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ide-extension-class">IDE extension class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che IDE plugin has an entry point - Java class annotated with an <a href="https://github.com/eclipse/che/blob/master/ide/che-core-ide-api/src/main/java/org/eclipse/che/ide/api/extension/Extension.java"><code>@org.eclipse.che.ide.api.extension.Extension</code></a> annotation. Plugin entry point is called immediately after initializing the core part of the Che IDE.</p>
+</div>
+<div class="paragraph">
+<p>Here’s an entry point of the plugin that will add a new top level menu group using <a href="actions.html">IDE actions</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#080;font-weight:bold">package</span> <span style="color:#707;font-weight:bold">org.eclipse.che.plugin.menu.ide</span>;
+
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">static</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.IdeActions.GROUP_HELP</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">static</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.IdeActions.GROUP_MAIN_MENU</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">static</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.constraints.Anchor.AFTER</span>;
+
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.inject.Inject</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.ActionManager</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.DefaultActionGroup</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.constraints.Constraints</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.extension.Extension</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.plugin.menu.ide.action.SampleAction</span>;
+
+<span style="color:#007">@Extension</span>(title = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sample Menu</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">SampleMenuExtension</span> {
+
+  <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#088;font-weight:bold">final</span> <span style="color:#0a8;font-weight:bold">String</span> SAMPLE_GROUP_MAIN_MENU = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sample</span><span style="color:#710">&quot;</span></span>;
+
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">private</span> <span style="color:#339;font-weight:bold">void</span> prepareActions(SampleAction sampleAction, ActionManager actionManager) {
+
+    DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(GROUP_MAIN_MENU);
+
+    DefaultActionGroup sampleGroup =
+        <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(SAMPLE_GROUP_MAIN_MENU, <span style="color:#069">true</span>, actionManager);
+    actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">sampleGroup</span><span style="color:#710">&quot;</span></span>, sampleGroup);
+    mainMenu.add(sampleGroup, <span style="color:#080;font-weight:bold">new</span> Constraints(AFTER, GROUP_HELP));
+
+    actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">sayHello</span><span style="color:#710">&quot;</span></span>, sampleAction);
+    sampleGroup.add(sampleAction, Constraints.FIRST);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dependency-injection">Dependency Injection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che IDE use <a href="https://code.google.com/archive/p/google-gin/">Google GIN</a> for dependency injection. Che IDE plugin can provide a GIN module. In order to be picked-up by IDE, plugin’s GIN module should be annotated with an <a href="https://github.com/eclipse/che/blob/master/ide/che-core-ide-api/src/main/java/org/eclipse/che/ide/api/extension/ExtensionGinModule.java"><code>@org.eclipse.che.ide.api.extension.ExtensionGinModule</code></a> annotation.</p>
+</div>
+<div class="paragraph">
+<p>Here’s a GIN module of the plugin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#080;font-weight:bold">package</span> <span style="color:#707;font-weight:bold">org.eclipse.che.plugin.menu.ide.inject</span>;
+
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.gwt.inject.client.AbstractGinModule</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.extension.ExtensionGinModule</span>;
+
+<span style="color:#007">@ExtensionGinModule</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">SampleMenuGinModule</span> <span style="color:#088;font-weight:bold">extends</span> AbstractGinModule {
+
+  <span style="color:#007">@Override</span>
+  <span style="color:#088;font-weight:bold">protected</span> <span style="color:#339;font-weight:bold">void</span> configure() {}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example an extension GIN module isn’t really necessary since the plugin does not really need to put anything in a container. Read more about <a href="guice.html">dependency injection</a> and take a look at <a href="https://github.com/eclipse/che/blob/master/plugins/plugin-csharp/che-plugin-csharp-lang-ide/src/main/java/org/eclipse/che/plugin/csharp/ide/inject/CSharpGinModule.java">example Gin modules</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extension-points">Extension Points</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can provide or customize existing <a href="actions.html">actions</a>, <a href="parts.html">parts</a>, <a href="themes.html">themes</a> and <a href="editor.html">editor</a>. This example has registered a new action.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-with-super-devmode">Debugging With Super DevMode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are two options available to launch GWT Super DevMode, depending on the state of the Che sources: whether it’s built or not since a lot of sources are generated during the Maven build.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Case 1: Che sources have been already built. Use the following command:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>mvn gwt:codeserver -pl :che-ide-gwt-app -am -Dmaven.main.skip -Dmaven.resources.skip -Dche.dto.skip -Dskip-enforce -Dskip-validate-sources</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Case 2: Che sources haven’t been built, e.g. freshly cloned or after executing <code>mvn clean</code> or you just don’t need to build the whole project. Use the following command:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>mvn gwt:codeserver -pl :che-ide-gwt-app -am -Dskip-enforce -Dskip-validate-sources</code></p>
+</div>
+<div class="paragraph">
+<p>The second one requires <em>more time</em> to launch GWT CodeServer since it executes <code>process-classes</code> build phase for each maven module. Thus, using the first command is preferable.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>, both commands have to be performed in the root folder of the Che project.</p>
+</div>
+<div class="paragraph">
+<p>Once codeserver is started, open the prompted URL, drag bookmarks on your bookmarks bar. Note that you may face the error saying there are no GWT modules on the page. It happens because the IDE is opened in an iframe. Just, cut <code>dashboard/#/ide/</code> from the URL. To debug client side code, follow instructions from <a href="che-in-che-quickstart.html#develop-and-debug-client-side">quickstart</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run-in-che">Run in Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once your extension is ready, you can build, run and debug it in <a href="che-in-che-quickstart.html">Che itself</a>. Just use an existing sample and add a custom plugin with its dependencies.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-to-a-custom-assembly">Add to a Custom Assembly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can build your custom <a href="assemblies.html">Che assembly</a> outside Che and/or use any IDE to develop extensions. Once done, run <code>mvn clean install</code> in the root of the assembly to get a Tomcat bundle that is ready to be run either in <a href="docker-config.html#development-mode">Docker</a> or deployed to <a href="openshift-config.html#development-mode">OpenShift</a>.</p>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_extensions.html" class="btn btn-default navbar-btn cursorNorm" role="button">extensions</a>
+        
+        
+        
+        <a href="tag_assembly.html" class="btn btn-default navbar-btn cursorNorm" role="button">assembly</a>
+        
+        
+        
+        <a href="tag_dev-docs.html" class="btn btn-default navbar-btn cursorNorm" role="button">dev-docs</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

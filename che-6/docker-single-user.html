@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="installationdocker,  docker, installation">
+<title>Single-User&#58 Installation on Docker | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Single-User&#58 Installation on Docker page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Single-User&amp;#58 Installation on Docker">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Single-User&#58 Installation on Docker</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>This section walks you through the single-user installation of Che on Docker.</p>
+</div>
+<div class="paragraph">
+<p><strong>Prerequisites</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use Docker version 17 or higher. Older versions are untested but may work (1.13 or higher). To install the latest Docker version, see <a href="https://docs.docker.com/install/" class="bare">https://docs.docker.com/install/</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>wget -qO- https://get.docker.com/ | sh</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Operating Systems: Linux, macOS, Windows.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>macOS users must create an IP alias using the <code>sudo ifconfig lo0 alias $IP</code> command. Here, <code>$IP</code> is the IP that you can obtain from Docker for the Mac application from <strong>Preferences</strong> &#8594; <strong>Advanced</strong> &#8594; <strong>Docker subnet</strong> or by running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run --rm --net host eclipse/che-ip:6.19.0</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Minimum one CPU, 2GB of RAM, 3GB disk space.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The default port required to run Che is <code>8080</code>. When Che starts, it performs a check to verify that the port is available. Pass the <code>-e CHE_PORT=&lt;port&gt;</code> argument in the Docker portion of the start command to change the port that you want Che to start on.</p>
+</div>
+<div class="paragraph">
+<p>Ports used by Che must be open and must not be blocked by firewalls or other applications already using the same ports.</p>
+</div>
+<div class="paragraph">
+<p>In this context, we recognize two types of ports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Internal ports: These are ports within a local network, such as when Che is installed on the user&#8217;s local desktop or laptop.</p>
+</li>
+<li>
+<p>External ports: These are ports outside a local network, such as when using a remote Che server on a cloud host provider.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All ports are TCP unless otherwise noted.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Port</th>
+<th class="tableblock halign-left valign-top">Service</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Che server default port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server Debug Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users developing Che extensions and custom assemblies use this debug port to connect a remote debugger to the Che server.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32768-65535</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker and Che Agents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users who launch servers in their workspace bind to ephemeral ports in this range. This range can be limited.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect1">
+<h2 id="known-issues">Known issues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To view the <a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug">known issues</a>, search GitHub issues for Che having the <strong>kind/bug</strong> label.</p>
+</div>
+<div class="paragraph">
+<p>Following are the two known issues in which features work on Docker 1.13 and higher but do not work on Docker 1.12:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SELinux: <a href="https://github.com/eclipse/che/issues/4747" class="bare">https://github.com/eclipse/che/issues/4747</a></p>
+</li>
+<li>
+<p><code>CHE_DOCKER_ALWAYS__PULL__IMAGE</code>: <a href="https://github.com/eclipse/che/issues/5503" class="bare">https://github.com/eclipse/che/issues/5503</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Fedora and RHEL or CentOS users may encounter issues with SElinux. To fix the issue, disable SElinux using the <code>setenforce 0</code> command. If using the latest Docker version and disabling SElinux does not fix the issue, file a ticket on the <a href="https://github.com/eclipse/che/issues">issues</a> page.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start">Quickstart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To start Che, run the following command where <code>&lt;path&gt;</code> is a local directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v &lt;path&gt;:/data eclipse/che:6.19.0 start</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following is an example of the output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ docker run -ti -v /var/run/docker.sock:/var/run/docker.sock -v ~/Documents/che-data1:/data eclipse/che:6.19.0 start
+INFO: (che cli): 6.19.0 - using docker 17.10.0-ce / native
+INFO: (che config): Generating che configuration...
+INFO: (che config): Customizing docker-compose for running in a container
+INFO: (che start): Preflight checks
+         mem (1.5 GiB):           [OK]
+         disk (100 MB):           [OK]
+         port 8080 (http):        [AVAILABLE]
+         conn (browser =&gt; ws):    [OK]
+         conn (server =&gt; ws):     [OK]
+
+INFO: (che start): Starting containers...
+INFO: (che start): Services booting...
+INFO: (che start): Server logs at "docker logs -f che"
+INFO: (che start): Booted and reachable
+INFO: (che start): Ver: 6.19.0
+INFO: (che start): Use: http://172.19.20.180:8080
+INFO: (che start): API: http://172.19.20.180:8080/swagger</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can run the <code>docker run -it eclipse/che:6.19.0 start</code> command, which will fail by default. But, it will print options on how to proceed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>eclipse/che</code> is a Docker image that manages the other Docker images and supporting utilities that Che uses during its configuration or operational phases. It is recommended to install Che using the <code>eclipse/che</code> image. To run the <code>che-server</code> image directly, see <a href="#run-without-cli">Run Che-Server directly</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="versions">Versions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each version of Che is available as a Docker image tagged with a label that matches the version, such as <code>eclipse/che:6.0.0</code>. For a list of the available versions, browse <a href="https://hub.docker.com/r/eclipse/che/tags/">Docker Hub</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following table lists the <em>redirection</em> labels that reference special versions of Che:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nightly</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The nightly build.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The software referenced by these labels can change over time. Because Docker will cache images locally, the <code>eclipse/che:&lt;version&gt;</code> image that you are running locally may not be current with the one cached on Docker Hub. Additionally, the <code>eclipse/che:&lt;version&gt;</code> image that you are running references a manifest of Docker images that Che depends upon, which can also change if you are using these special redirection tags.</p>
+</div>
+<div class="paragraph">
+<p>If you use a CLI version that mismatches with the one that was installed, you will encounter an error.</p>
+</div>
+<div class="paragraph">
+<p>To avoid issues caused by using the <code>nightly</code> redirections, ensure that you adhere to the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the <code>docker pull eclipse/che:6.19.0</code> command to ensure that you have the most recent Docker version.</p>
+</li>
+<li>
+<p>When using the CLI, commands that use other Docker images have an optional <code>--pull</code> and <code>--force</code> command line option <a href="https://hub.docker.com/r/eclipse/che/">that instructs the CLI to check Docker Hub</a> for a newer version and pull it. Using these flags slows down performance, but it ensures that your local cache is up-to-date.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you run Che using a tagged version that is not a redirection label, such as <code>6.0.0</code>, you will not encounter the caching issues because the installed software is tagged and specific to the particular version and does not change over time.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="volume-mounts">Configuring Che using volume mounts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use volume mounts to configure certain parts of Che. The presence or absence of certain volume mounts triggers certain behaviors in the system. For example, you can mount a Che source git repository with <code>:/repo</code> to use the Che source code instead of the binaries and the configuration that is shipped with the Docker images.</p>
+</div>
+<div class="paragraph">
+<p>At a minimum, you must mount a local path to <code>:/data</code>. Che installs its configuration, user data, version, and log information at this location. Che creates a <code>cli.log</code> file in this location to debug unexpected behavior while running the system. You can also create a <code>che.env</code> file in this directory. This file contains all the administrative configurations that you can set or override in a single location.</p>
+</div>
+<div class="paragraph">
+<p>You can also use volume mounts to override the location of where the user or backup data is stored. By default, these directories are created as sub-directories of the location that you mount to <code>:/data</code>. However, if you do not want the <code>instance/</code> and <code>backup/</code> directories to be sub-directories, you can set them individually with separate overrides.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
+                    -v &lt;local-path&gt;:/data
+                    -v &lt;a-different-path&gt;:/data/instance
+                    -v &lt;another-path&gt;:/data/backup
+                       eclipse/che:&lt;version&gt; [COMMAND]</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Local Location</th>
+<th class="tableblock halign-left valign-top">Container Location</th>
+<th class="tableblock halign-left valign-top">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/var/run/docker.sock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/var/run/docker.sock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is how Che gets access to the Docker daemon. This instructs the container to use your local Docker daemon when Che wants to create its own containers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/&lt;your-path&gt;/lib</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/data/lib</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inside the container, a copy of important libraries that your workspaces will need are made and are placed into the <code>lib/</code> directory. When Che creates a workspace container, that container uses your local Docker daemon and the Che workspace looks for these libraries in your local <code>lib/</code> directory. This helps in getting the files from inside the container out on your local host.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/&lt;your-path&gt;/workspaces</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/data/workspaces</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location of your workspace and project files.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/&lt;your-path&gt;/storage</code>  </p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/data/storage</code>  </p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location where Che stores the meta information that describes the various workspaces, projects, and user preferences.  </p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hosting">Hosting Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To host Che on a cloud service like DigitalOcean, AWS, or Scaleways, the <code>CHE_HOST</code> variable must be set to the public IP address of the server or its DNS.</p>
+</div>
+<div class="paragraph">
+<p>You can automatically set the <code>CHE_HOST</code> variable by running the internal utility <code>docker run --net=host eclipse/che-ip:6.19.0</code> command. This utility is usually accurate on desktops, but it usually fails on hosted servers. You can explicitly set this value to the IP address of your server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock
+                    -v &lt;local-path&gt;:/data
+                    -e CHE_HOST=&lt;your-ip-or-host&gt;
+                       eclipse/che:&lt;version&gt; [COMMAND]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run-on-different-port">Running Che on different ports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Either set the <code>CHE_PORT=$your_port</code> variable in the <a href="docker-config.html#saving-configuration-in-version-control">che.env</a> file or pass it as an environment variable in your <code>docker run</code> syntax: <code>-e CHE_PORT=$your_port</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run-as-user">Running Che as different users</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On Linux or macOS, you can run the Eclipse Che container with different user identities. By default, you run the Che container as the <code>root</code> user. You can pass the <code>--user uid:gid</code> or the <code>-e CHE_USER=uid:gid</code> argument as a <code>docker run</code> parameter before the <code>eclipse/che</code> Docker image. The CLI starts the <code>eclipse/che-server</code> image with the same <code>uid:gid</code> combination and mounts the <code>/etc/group</code> and <code>etc/passwd</code> files. When Che is run as a custom user, all files written from within the Che server to the host (such as <code>che.env</code> or <code>cli.log</code> files) are written to the disk with the custom user as the owner of the files. This feature is not available on Windows.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="offline-installation">Installing Che when offline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che supports offline (disconnected from the Internet) installation and operation. This is helpful for restricted environments, regulated datacenters, or offshore installations. The offline installation downloads the CLI, core system images, and any stack images while you are within a network DMZ with Docker Hub access. You can then move those files to a secure environment and start Che.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save Che images.</p>
+<div class="paragraph">
+<p>While connected to the Internet, download Che Docker images:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run &lt;docker-goodness&gt; eclipse/che:&lt;version&gt; offline</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The CLI downloads images and saves them to the <code>/backup/*.tar</code> file with each image saved as its own file. You can save these files at a different location by mounting a local directory to the <code>:/data/backup</code> directory. The version tag of the CLI Docker image is used to determine the versions of dependent images that must be downloaded. Approximately, 1 GB of data is saved.</p>
+</div>
+<div class="paragraph">
+<p>The default execution does not download any optional stack images that are needed to launch workspaces of a particular type. There are many stacks for different programming languages and some of them are over 1 GB in size.</p>
+</div>
+<div class="paragraph">
+<p>For a list of available stack images, run the <code>eclipse/che offline --list</code> command.</p>
+</div>
+<div class="paragraph">
+<p>To download a specific stack, run the <code>eclipse/che offline --image:&lt;image-name&gt;</code> command. You can use the <code>--image</code> flag repeatedly on a single command line.</p>
+</div>
+</li>
+<li>
+<p>Start Che in offline mode.</p>
+<div class="paragraph">
+<p>Place the TAR files in a directory in the offline computer. If the files are placed in a directory named <code>/tmp/offline/</code>, run Che in offline mode using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Load the CLI
+docker load &lt; /tmp/offline/eclipse_che:&lt;version&gt;.tar
+
+# Start Che in offline mode
+docker run &lt;other-properties&gt; -v /tmp/offline:/data/backup eclipse/che:&lt;version&gt; start --offline</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>--offline</code> parameter instructs the Che CLI to load all the TAR files located in the directory mounted to the <code>/data/backup/</code> directory. These images are then used instead of routing to the Internet to check for Docker Hub. The preboot sequence takes place before any CLI functions use the Docker daemon. The <code>eclipse/che start</code>, <code>eclipse/che download</code>, and <code>eclipse/che init</code> commands support the <code>--offline</code> parameter, which triggers this preboot sequence.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="upgrade">Upgrading Che</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can upgrade Che by downloading a <code>eclipse/che-cli:&lt;version&gt;</code> image that is newer than the version that you currently have installed. For a list of available versions that you can upgrade to, run the <code>eclipse/che-cli version</code> command .</p>
+</div>
+<div class="paragraph">
+<p><strong>Example</strong></p>
+</div>
+<div class="paragraph">
+<p>To upgrade to 6.0.1 from 6.0.0:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get the new version of Che: <code>docker pull eclipse/che-cli:6.0.0</code>.</p>
+<div class="paragraph">
+<p>You now have two <code>eclipse/che-cli</code> images (one for each version).</p>
+</div>
+</li>
+<li>
+<p>Use the new image to upgrade the old installation: <code>docker run &lt;volume-mounts&gt; eclipse/che-cli:6.0.1 upgrade</code>.</p>
+<div class="paragraph">
+<p>The upgrade command has numerous checks to prevent you from upgrading Che if the new image and the old one are not compatible. For the upgrade procedure to advance, the CLI image must be newer than the one in the <code>/instance/che.ver</code> file.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The upgrade command performs the following steps in the background:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Performs a version compatibility check.</p>
+</li>
+<li>
+<p>Downloads the new Docker images that are needed to run the new version of Che.</p>
+</li>
+<li>
+<p>If it is running, stops Che .</p>
+</li>
+<li>
+<p>Triggers a maintenance window.</p>
+</li>
+<li>
+<p>Backs up your installation.</p>
+</li>
+<li>
+<p>Initializes the new version.</p>
+</li>
+<li>
+<p>Starts Che.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To save the stacks packaged into the new binaries in the database, set the <code>CHE_PREDEFINED_STACKS_RELOAD<em>ON</em>START</code> variable to <code>true</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="backup">Backing up your Che installation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>To create a copy of relevant configuration information, user data, projects, and workspaces, run the <code>che backup</code> command. The <code>che backup</code> command does not save workspace snaphots.</p>
+</li>
+<li>
+<p>To recover Che from a particular backup snapshot, run the <code>che restore</code> command. The backup is saved as a TAR file that you can keep in your records. You can then use the <code>che restore</code> command to recover your user data and configuration.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che CLI supports configuring the port, hostname, OAuth, Docker, Git, and resolving networking issues. For details, see <a href="docker-config.html">Che configuration on Docker</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run-without-cli">Running Che without the CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can run the Che server directly by launching a Docker image. This approach bypasses the CLI that has additional utilities to simplify administration and operation. The <code>eclipse/che-server</code> Docker image is appropriate for running Che within clusters, orchestrators, or by third-party tools with automation.</p>
+</div>
+<div class="paragraph">
+<p>To run Che directly by launching a Docker image, take the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the latest released version of Che 6.x: 6.19.0.</p>
+</li>
+<li>
+<p>Replace <code>&lt;LOCAL_PATH&gt;</code> with any host directory. Che places the backup files (configurable properties, workspaces, lib, storage) in this directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -p 8080:8080 \
+           --name che \
+           --rm \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following is a selection of commands:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To run the nightly version of Che, replace <code>eclipse/che-server:6.19.0</code> with <code>eclipse/che-server:nightly</code>.</p>
+</li>
+<li>
+<p>To run a specific tagged version of Che, replace <code>eclipse/che-server:6.19.0</code> with <code>eclipse/che-server:&lt;_version_&gt;</code>.</p>
+</li>
+<li>
+<p>To stop the container running Che, use the <code>docker stop che</code> command.</p>
+</li>
+<li>
+<p>To restart the container running Che and restart the Che server, use the <code>docker restart che</code> command.</p>
+</li>
+<li>
+<p>To upgrade to a newer version, use the following commands in order:</p>
+<div class="listingblock">
+<div class="content">
+<pre>docker pull eclipse/che-server:6.19.0
+docker restart che</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <strong>Server startup in <mark>#</mark> ms</strong> message confirms that Che has started. After starting, Che is available at <code>localhost:8080</code> or at a remote IP if you started Che remotely.</p>
+</div>
+<div class="paragraph">
+<p><strong>Running Che on SELinux</strong></p>
+</div>
+<div class="paragraph">
+<p>If SELinux is enabled, run the following command instead of the preceding one:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Run the latest released version of Che
+docker run -p 8080:8080 \
+           --name che \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data:Z \
+           --security-opt label:disable \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Running Che on ports</strong></p>
+</div>
+<div class="paragraph">
+<p>Tomcat inside the container will bind itself to port <code>8080</code> by default. You must map this port to be exposed in your container using the <code>-p 8080:8080</code> parameter. If you want to change the port to which your browsers connect, change the first value, such as <code>-p 9000:8080</code>. This routes requests from port <code>9000</code> to the internal Tomcat bound to port <code>8080</code>. To change the internal port that Tomcat is bound to, you must update the port binding and set the <code>CHE_PORT</code> variable to the new value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="text">docker run -p 9000:9500 \
+           --name che \
+           -e CHE_PORT=9500 \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           eclipse/che-server:6.19.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Configuring properties</strong></p>
+</div>
+<div class="paragraph">
+<p>The most important configuration properties are defined as environment variables that you can pass to the container. For example, to have Che listen on port <code>9000</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -p:9000:9000 \
+           --name che \
+           -e CHE_SERVER_ACTION=stop \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table contains a list of variables that can be set.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_SERVER_ACTION</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The command to send to Tomcat. It can be <code>run</code>, <code>start</code> , <code>stop</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>run</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_ASSEMBLY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The path to a Che assembly that is on your host to be used instead of the assembly packaged within the <code>che-server</code> image. If you set this variable, you must also volume mount the same directory to <code>/home/user/che</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/home/user/che</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_IN_VM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to <code>true</code> if this container is running inside a VM providing Docker such as boot2docker, Docker for Mac, or Docker for Windows. This is auto-detected in most situations, but it is not always perfect.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">auto-detection</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_LOG_LEVEL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logging level of output for Che server. Can be <code>debug</code> or <code>info</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>info</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_HOST</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address/hostname that the Che server will bind to. Used by browsers to contact workspaces. You must set this IP address if you want to bind the Che server to an external IP address that is not the same as Docker’s.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address set to the Docker host. This covers 99% of situations, but on rare occassions this IP address is not discovered and you must provide it.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_DEBUG_SERVER</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code>, it will launch the Che server with JPDA activated so that a Java debugger can attach to the Che server for debugging plugins, extensions, and core libraries.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_DEBUG_SERVER_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port that the JPDA debugger will listen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>8000</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_DEBUG_SERVER_SUSPEND</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code>, then activates the <code>JPDA_SUSPEND</code> flag for Tomcat running the Che server. Used for advanced internal debugging of extensions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CHE_PORT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port that the Che server will bind itself to within the Che container.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>8080</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For a list of environment variables, see <a href="https://github.com/eclipse/che/blob/master/dockerfiles/init/manifests/che.env">che.env</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can create a file with the environment variables that you want to pass to the <code>che-server</code> image:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -p:8080:8080 \
+           --name che \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           --env-file /home/user/che.env \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Running Che on a public IP address</strong></p>
+</div>
+<div class="paragraph">
+<p>To connect the remote browser clients to the Che server (as opposed to the local browser clients) and override the defaults that are detected, set the <code>CHE_IP</code> variable to the Docker host IP address that will have requests forwarded to the <code>che-server</code> container.</p>
+</div>
+<div class="paragraph">
+<p>Run an auto-detection algorithm within the <code>che-server</code> container to determine this IP.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Docker is running on the <code>boot2docker</code> tool, this is usually the <code>eth1</code> interface.</p>
+</li>
+<li>
+<p>You are running Docker for Windows or Docker for macOS, this is usually the <code>eth0</code> interface.</p>
+</li>
+<li>
+<p>You are running Docker natively on Linux, this is the <code>docker0</code> interface.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To allow access of the remote clients to this container when your host that is running Docker has its IP 10.0.75.4:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -p:8080:8080 \
+           --name che \
+           -e CHE_HOST=10.0.75.4 \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Running Che as a daemon</strong></p>
+</div>
+<div class="paragraph">
+<p>Pass the <code>--restart always</code> parameter to the <code>docker</code> command syntax to have the Docker daemon restart the container on any exit event, including when your host is initially booting. You can also run Che in the background with the <code>-d</code> option.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker run -p:8080:8080 \
+           --name che \
+           --restart always \
+           -e CHE_HOST=10.0.75.4 \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v &lt;LOCAL_PATH&gt;:/data \
+           eclipse/che-server:6.19.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Running Che with Docker Compose</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yaml"><span style="color:#606">che</span>:
+   <span style="color:#606">image</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">eclipse/che-server:6.19.0</span></span>
+   <span style="color:#606">port</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">8080:8080</span></span>
+   <span style="color:#606">restart</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">always</span></span>
+   <span style="color:#606">volumes</span>:
+     - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">/var/run/docker.sock:/var/run/docker.sock</span></span>
+     - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">&lt;LOCAL_PATH&gt;:/data</span></span>
+   <span style="color:#606">container_name</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">che</span></span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save this in a file named <code>Composefile</code>.</p>
+</li>
+<li>
+<p>Run this with Docker Compose using the <code>docker-compose -f Composefile -d --env-file=che.env</code> command.</p>
+<div class="paragraph">
+<p>The <code>Environment</code> file must contain the following required environment variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># $IP is a public IP of your server
+CHE_HOST=$IP</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_installation.html" class="btn btn-default navbar-btn cursorNorm" role="button">installation</a>
+        
+        
+        
+        <a href="tag_docker.html" class="btn btn-default navbar-btn cursorNorm" role="button">docker</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

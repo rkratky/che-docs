@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="extensionsassemblydev-docs,  framework, UI, actions">
+<title>IDE UI: Actions | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the IDE UI: Actions page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="IDE UI: Actions">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">IDE UI: Actions</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>Actions allow you to add custom behavior to the Che IDE. They can be placed in menus, toolbars or context menus. An Action is a Java class, which implements the behavior to be executed. Additionally, it defines a text to be shown, a tooltip and an icon. In the following section, we describe the implementation of Actions more in detail. To make Actions available in the Che IDE, they need to be registered and placed into ActionGroups. Thereby, you specify the location (e.g. a menu or toolbar), where the actions is shown. The registration of actions is described in the subsequent section <a href="#registering-actions">Registering Actions</a>.</p>
+</div>
+<div class="sect1">
+<h2 id="authoring-actions">Authoring Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simple <code>Actions</code> directly inherit from <code>org.eclipse.che.ide.api.action.Action</code>. In the constructor, we use the super class to configure our action with the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>text</strong> (String): The name of the action shown in the UI, in our case defined by concrete Actions (sub classes).</p>
+</li>
+<li>
+<p>Optional: <strong>description</strong> (String): The description of the action shown in the UI, in our case defined by concrete Actions (sub classes).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the example action below, the constructor also gets the <code>NotificationManager</code> injected, which is used to display a "Hello World" message. A custom <code>Action</code> need to implement the <code>#actionPerformed</code> method, which is called when it is invoked. Actions can be associated with a variety of triggers within the system such as buttons, menu item selections, or user input (see following section).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Singleton</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">HelloWorldAction</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">Action</span> {
+
+  <span style="color:#088;font-weight:bold">private</span> NotificationManager notificationManager;
+
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">public</span> HelloWorldAction(NotificationManager notificationManager) {
+      <span style="color:#950">super</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World Action</span><span style="color:#710">&quot;</span></span>);
+      <span style="color:#950">this</span>.notificationManager = notificationManager;
+  }
+
+  <span style="color:#007">@Override</span>
+  <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> actionPerformed(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+      <span style="color:#950">this</span>.notificationManager.notify(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello World</span><span style="color:#710">&quot;</span></span>, StatusNotification.Status.SUCCESS, StatusNotification.DisplayMode.FLOAT_MODE);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, you can optionally define an icon for an Action. This is done by calling an alternative constructor including the following two parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>imageResource</strong>: An icon for the action shown in the UI, in our case defined by concrete Actions, we pass in null, as we alternatively use svgResource.</p>
+</li>
+<li>
+<p><strong>svgResource</strong> (SVGResource): An Icon for the the action shown in the UI, in our case defined by concrete Actions (sub classes).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following code example defines another "Hello World" action including a corresponding icon:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Singleton</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">HelloWorldActionWithIcon</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">Action</span> {
+
+    <span style="color:#088;font-weight:bold">private</span> NotificationManager notificationManager;
+
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">public</span> HelloWorldActionWithIcon(
+            NotificationManager notificationManager) {
+        <span style="color:#950">super</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World Action</span><span style="color:#710">&quot;</span></span>, <span style="color:#069">null</span>, SampleActionsResources.INSTANCE.icon());
+        <span style="color:#950">this</span>.notifpricationManager = notificationManager;
+    }
+
+    /...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="registering-actions">Registering Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once we have implemented a custom action, we must register it. This is done in the custom <code>Extension</code> class , which is used for other extensions, too (see <a href="guice.html">Dependency Injection Basics</a>).</p>
+</div>
+<div class="paragraph">
+<p>As a first step, we register the <code>HelloWorldAction</code> itself at the <code>ActionManager</code>. Thereby, Che is aware of the action to be executed. Along with the registration, an action must be associated with a unique ID, which allows to reference the <code>Action</code>.</p>
+</div>
+<div class="paragraph">
+<p>Second, to define a place in the IDE where the Action is visible to the user, we place the Action in an existing <code>ActionGroup</code>. Actions are organized into groups, which, in turn, can contain other groups. A group of actions can form a toolbar or a menu. Subgroups of the group can form submenus of the menu. You can directly place an <code>Action</code> into an existing group. Alternatively, you can crea]te a custom group containing your action and add this group into Che. In the following example, a custom group is created (<code>SampleGroup</code>), the <code>HelloWorldAction</code> is added to it and the Group is placed in the main menu of Che. Additionally, the <code>HelloWorldActionWithIcon</code> is directly placed into the main menu.</p>
+</div>
+<div class="paragraph">
+<p>Please see the following section on more details about existing action locations (i.e. groups) in Che and how to specify the order of actions within those groups.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#007">@Extension</span>(title = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sample Actions Extension</span><span style="color:#710">&quot;</span></span>, version = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">1.0.0</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">SampleActionsExtensions</span> {
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">public</span> SampleActionsExtensions(HelloWorldAction helloWorldAction, ActionManager actionManager) {
+
+      actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">helloWorldAction</span><span style="color:#710">&quot;</span></span>, helloWorldAction);
+      actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">helloWorldActionWithIcon</span><span style="color:#710">&quot;</span></span>, helloWorldActionWithIcon);
+      /...
+
+      DefaultActionGroup sampleGroup = <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sample actions</span><span style="color:#710">&quot;</span></span>, <span style="color:#069">true</span>, actionManager);
+
+      sampleGroup.add(helloWorldAction);
+
+      <span style="color:#777">// add sample group after help menu entry</span>
+      DefaultActionGroup mainMenu = (DefaultActionGroup)actionManager.getAction(GROUP_MAIN_MENU);
+        mainMenu.add(sampleGroup);
+
+      <span style="color:#777">// add the sample group to the beginning of the toolbar as well</span>
+      DefaultActionGroup toolbar = (DefaultActionGroup)actionManager.getAction(IdeActions.GROUP_MAIN_TOOLBAR);
+      toolbar.add(helloWorldActionWithIcon);
+      /...
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="action-locations">Action Locations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we describe more in detail, how actions can be placed at specific locations within Che and how the order within toolbars and menus can be specified. Both, the location and the order is specified along with the registration of an action.</p>
+</div>
+<div class="paragraph">
+<p>Every action and action group in Che has a unique identifier. This allows to reference existing groups and actions when registering a new element and thereby specify its location. In the example registration in the previous section, we have used the ID of the Che main menu to place our custom action group and action in it. All existing identifiers for existing che action groups can be found in <a href="https://github.com/eclipse/che/blob/master/ide/che-core-ide-api/src/main/java/org/eclipse/che/ide/api/action/IdeActions.java">org.eclipse.che.ide.api.action.IdeActions</a>. Additionally, you can find an example in a <a href="https://github.com/che-samples/che-ide-server-extension/blob/master/plugins/plugin-serverservice/plugin-serverservice-ide/src/main/java/org/eclipse/che/sample/ide/action/MyAction.java">sample extension</a>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to placing actions in groups, you can define a relative order for actions and groups within their parent container. Therefore, a constraint needs to be specified when adding an element to a group. The constraint defines an anchor (ID of an existing element) and a relation to it (<code>BEFORE</code> or <code>AFTER</code>). Alternatively, you can use <code>Constraints.FIRST</code> and <code>Constraints.LAST</code> (default) to add an element at the beginning or at the end, respectively.</p>
+</div>
+<div class="paragraph">
+<p>The following code example shows the registration of the group containing <code>HelloWorldAction</code> after the existing help menu, as well as the action itself at the beginning of the main toolbar.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">DefaultActionGroup sampleGroup = <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Sample actions</span><span style="color:#710">&quot;</span></span>, <span style="color:#069">true</span>, actionManager);
+sampleGroup.add(helloWorldAction);
+
+<span style="color:#777">// add sample group after help menu entry</span>
+DefaultActionGroup mainMenu = (DefaultActionGroup)actionManager.getAction(GROUP_MAIN_MENU);
+mainMenu.add(sampleGroup, <span style="color:#080;font-weight:bold">new</span> Constraints(AFTER, GROUP_HELP));
+
+<span style="color:#777">// add the sample group to the beginning of the toolbar as well</span>
+DefaultActionGroup toolbar = (DefaultActionGroup)actionManager.getAction(IdeActions.GROUP_MAIN_TOOLBAR);
+toolbar.add(helloWorldActionWithIcon, Constraints.FIRST);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="visibility-and-enablement">Visibility and Enablement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, actions will always be visible to the user and enabled. However, certain actions shall only be visible or enabled based on the current state of Che. The implementation of an action is responsible for managing its visibility and enabled state.</p>
+</div>
+<div class="paragraph">
+<p>Therefore, you need to implement the method <code>Action.update()</code> in a custom action. The method is periodically called by the IDE for updating the state. The object of type <code>ActionEvent</code> passed to this method carries the information about the current context for the action, e.g. the current perspective of the current selection. Additional information about the current state of the IDE can be retrieved form the service <code>AppContext</code>. See an example <a href="#projectperspective-specific-actions-json-example">here</a></p>
+</div>
+<div class="paragraph">
+<p>The <code>ActionEvent</code> allows access to the specific presentation which needs to be updated. As every action can be included in multiple groups and appear in multiple places within the IDE user interface, the visibility and enabled state can not centrally be controlled for an action. For every place where the action appears, a new Presentation is created on which the visibility and enabled state is set alternatively. Please note, that the <code>ActionEvent</code> instance is also passed to the <code>actionPerformed()</code> method, when the action is executed.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows the <code>OnProjectHelloWorldAction</code>, which is placed in the main menu of Che. It controls its visibility based on the state and is only visible if a project is selected in the navigator.</p>
+</div>
+<div class="paragraph">
+<p><em>che/samples/sample-plugin-actions/che-sample-plugin-actions-ide/src/main/java/org/eclipse/che/plugin/sampleactions/ide/action/OnProjectHelloWorldAction.java</em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">OnProjectHelloWorldAction</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">Action</span> {
+
+    <span style="color:#088;font-weight:bold">private</span> AppContext appContext;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> NotificationManager notificationManager;
+
+    <span style="color:#777">/**
+     * Constructor.
+     * @param appContext
+     *           the application context
+     * @param notificationManager
+     *           the notification manager
+     */</span>
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">public</span> OnProjectHelloWorldAction(
+            <span style="color:#088;font-weight:bold">final</span> AppContext appContext,
+            <span style="color:#088;font-weight:bold">final</span> NotificationManager notificationManager) {
+        <span style="color:#950">super</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Project specific Hello World</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">We have a project</span><span style="color:#710">&quot;</span></span>);
+        <span style="color:#950">this</span>.appContext = appContext;
+        <span style="color:#950">this</span>.notificationManager = notificationManager;
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> actionPerformed(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+        <span style="color:#950">this</span>.notificationManager.notify(
+                <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello World in the context of a project</span><span style="color:#710">&quot;</span></span>,
+                StatusNotification.Status.SUCCESS,
+                StatusNotification.DisplayMode.FLOAT_MODE);
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> update(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+        e.getPresentation().setEnabledAndVisible(appContext.getRootProject() != <span style="color:#069">null</span>);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reusable-actions">Reusable Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For common operations such as creating files, Che provides reusable default actions. Custom implementations can inherit from those and thereby only need to specify their specifics, while reusing most of the default behavior. In this section, we provide an overview of the most common reusable actions in Che.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-file-actions">Create File Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Che provides a template implementation for actions to create new resources (i.e. files). When using the template, you only need to specify the name of the action as well as the file extension to be created (as shown in the following code example).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">org.eclipse.che.plugin.myextension.ide.action.CreateMyFileAction
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CreateMyFileAction</span> <span style="color:#088;font-weight:bold">extends</span> AbstractNewResourceAction {
+
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">public</span> CreateMyFileAction(MyResources myResources) {
+    <span style="color:#950">super</span>(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Create my File</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Create a new file </span><span style="color:#710">&quot;</span></span>, myResources.icon());
+  }
+
+  <span style="color:#007">@Override</span>
+  <span style="color:#088;font-weight:bold">protected</span> <span style="color:#0a8;font-weight:bold">String</span> getExtension() {
+    <span style="color:#080;font-weight:bold">return</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">my</span><span style="color:#710">&quot;</span></span>;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="projectperspective-specific-actions">Project/Perspective-specific Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this part of the tutorial, as part of the this JSON example we describe how to add project- and perspective-specific actions, meaning actions that are only available for a specific project type and within specific perspectives. As we want to define several actions of this type, we will create a template implementation and then inherit from it for the implementation of several actions.</p>
+</div>
+<div class="paragraph">
+<p>These example actions will be placed in the context menu on the specific JSON project type defined before. The following diagram shows all components of a project type registration. The classes highlighted in dark grey are to be implemented for the extension.</p>
+</div>
+<div class="paragraph">
+<p>First, our actions must determine whether they are available based on the current app context, in our case, based on the current project type. As we want to add several project specific actions, it makes sense to extract this behavior into an abstract class, in our case <code>MyAbstractProjectSpecificAction</code>. By inheriting from this abstract base class, we can now easily add project specific actions implementing the actual behavior to be executed.</p>
+</div>
+<div class="paragraph">
+<p>As described before, to make an action available in Che, it needs to be registered at the <code>ActionManager</code>. This is done in an <code>Extension</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/devel/my_plugin.png" alt="my plugin">
+</div>
+</div>
+<div class="paragraph">
+<p>In the following example, we first define the perspective- and project specific template action. Then, we define a simple action for the JSON example and register it in the context menu of the JSON project type. The action itself will trigger a simple notification once executed. However, the action could be adapted to execute any kind of behavior.</p>
+</div>
+<div class="paragraph">
+<p>To make our abstract template action perspective-specific, we inherit from a reusable action implementation <code>AbstractPerspectiveAction</code> provided by Che. Compared to the basic <code>Action</code> its constructor allows the definition of a list of perspectives, in which the action is visible, referenced by ID. Null or empty list means the action is enabled everywhere. In the example, the project perspective, only.</p>
+</div>
+<div class="paragraph">
+<p>The constructor also gets the <code>AppContext</code> injected, which is used in the following to control the project-specific visibility of the action (see description below).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">org.eclipse.che.plug.plugin.jsonexample.ide.action.JsonExampleProjectAction
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#088;font-weight:bold">abstract</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">JsonExampleProjectAction</span> <span style="color:#088;font-weight:bold">extends</span> AbstractPerspectiveAction {
+
+  <span style="color:#088;font-weight:bold">private</span> AppContext appContext;
+
+  <span style="color:#088;font-weight:bold">public</span> JsonExampleProjectAction(AppContext appContext,
+                                  <span style="color:#007">@NotNull</span> <span style="color:#0a8;font-weight:bold">String</span> text,
+                                  <span style="color:#007">@NotNull</span> <span style="color:#0a8;font-weight:bold">String</span> description,
+                                  <span style="color:#007">@Nullable</span> SVGResource svgResource) {
+
+    <span style="color:#950">super</span>(<span style="color:#0a8;font-weight:bold">Collections</span>.singletonList(ProjectPerspective.PROJECT_PERSPECTIVE_ID),
+              text,
+              description,
+              <span style="color:#069">null</span>,
+              svgResource);
+    <span style="color:#950">this</span>.appContext = appContext;
+  }
+
+  <span style="color:#007">@Override</span>
+  <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> updateInPerspective(<span style="color:#007">@NotNull</span> <span style="color:#0a8;font-weight:bold">ActionEvent</span> event) {
+    CurrentProject currentProject = appContext.getCurrentProject();
+    event.getPresentation().setEnabledAndVisible(
+                  isJsonExampleProjectType(currentProject));
+  }
+
+  <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#339;font-weight:bold">boolean</span> isJsonExampleProjectType(CurrentProject currentProject)  {
+    <span style="color:#080;font-weight:bold">if</span> (currentProject == <span style="color:#069">null</span>) {
+      <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span>;
+    }
+    <span style="color:#080;font-weight:bold">return</span> Constants.JSON_EXAMPLE_PROJECT_TYPE_ID.equals(
+              currentProject.getProjectConfig().getType());
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>#updateInPerspective</code> method is responsible for updating the enablement and the visibility of the action. In this example, we only want to show the action, if the current project is a JSON project. Therefore, we retrieve the current project from the <code>AppContext</code>, check whether there is a current project and if so, whether it has the expected project type. Calling <code>event.getPresentation().setEnabledAndVisible(true/false)</code> will set the enablement and the visibility accordingly.</p>
+</div>
+<div class="paragraph">
+<p>After defining a project specific action, we can now define an arbitrary number of concrete implementations to add custom behavior. The example below inherits from our <code>JsonExampleProjectAction</code> and uses the super constructor to configure the specificity of the action. Further, the constructor gets the <code>NotificationManager</code> injected, which is used in the implementation of the action below. The method <code>#actionPerformed</code> will be called once the user has clicked on an action.</p>
+</div>
+<div class="paragraph">
+<p>In the example, we trigger a simple notification. However, this simple behavior could be replaced with any custom operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">org.eclipse.che.plug.plugin.jsonexample.ide.action.HelloAction
+<span style="color:#007">@Singleton</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">HelloWorldAction</span> <span style="color:#088;font-weight:bold">extends</span> JsonExampleProjectAction {
+
+  <span style="color:#088;font-weight:bold">private</span> NotificationManager notificationManager;
+
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">public</span> HelloWorldAction(AppContext appContext,
+                          NotificationManager notificationManager) {
+        <span style="color:#950">super</span>(appContext,
+              <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World</span><span style="color:#710">&quot;</span></span>,
+              <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Say Hello World Action</span><span style="color:#710">&quot;</span></span>,
+              <span style="color:#069">null</span>);
+        <span style="color:#950">this</span>.notificationManager = notificationManager;
+  }
+
+
+   <span style="color:#007">@Override</span>
+  <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> actionPerformed(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+        <span style="color:#950">this</span>.notificationManager.notify(
+              <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Hello World</span><span style="color:#710">&quot;</span></span>,
+              StatusNotification.Status.SUCCESS,
+              StatusNotification.DisplayMode.FLOAT_MODE
+        );
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once we have implemented a custom action, we must register it. This is done in the custom extension class <code>JsonExampleExtension</code>, which has been used for other extensions before (see <a href="guice.html">Dependency Injection Basics</a>).</p>
+</div>
+<div class="paragraph">
+<p>To keep all JSON example related actions together, we define a new <code>ActionGroup</code> called "JSON Example". The second parameter defines that the group is displayed as a popup. After registering the new group at the <code>ActionManager</code>, we add our custom <code>HelloWorldAction</code> to it.</p>
+</div>
+<div class="paragraph">
+<p>To define a place in the IDE where the Action is visible to the user, we further place the Action in an existing <code>ActionGroup</code>, in our case, the context menu of a project.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">org.eclipse.che.plugin.jsonexample.ide.JsonExampleExtension
+<span style="color:#007">@Extension</span>(title = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">JSON Example Extension</span><span style="color:#710">&quot;</span></span>, version = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">0.0.1</span><span style="color:#710">&quot;</span></span>)
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">JsonExampleExtension</span> {
+  <span style="color:#007">@Inject</span>
+  <span style="color:#088;font-weight:bold">public</span> JsonExampleExtension(
+          ActionManager actionManager,
+          HelloWorldAction helloWorldAction,
+          JsonExampleResources jsonExampleResources,
+          IconRegistry iconRegistry) {
+
+    actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">helloWorldAction</span><span style="color:#710">&quot;</span></span>, helloWorldAction);
+
+    DefaultActionGroup jsonGroup = <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">JSON Example</span><span style="color:#710">&quot;</span></span>,
+         <span style="color:#069">true</span>, actionManager);
+    actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">jsonExample</span><span style="color:#710">&quot;</span></span>, jsonGroup);
+    jsonGroup.add(helloWorldAction);
+
+    DefaultActionGroup mainContextMenuGroup = (DefaultActionGroup) actionManager.getAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">resourceOperation</span><span style="color:#710">&quot;</span></span>);
+    mainContextMenuGroup.add(jsonGroup);
+
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, we can open the context menu on our custom project type and trigger the example action.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="further-example-actions">Further Example Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we provide a collection of existing example actions to demonstrate the variety of possible locations and behavior to be executed.</p>
+</div>
+<div class="paragraph">
+<p>The following example creates a <code>RedirectToDashboardWorkspacesAction</code> which is the behavior that redirects the IDE back into the user dashboard application.</p>
+</div>
+<div class="paragraph">
+<p><em><a href="https://github.com/eclipse/che/blob/master/core/ide/che-core-ide-app/src/main/java/org/eclipse/che/ide/actions/RedirectToDashboardWorkspacesAction.java" class="bare">https://github.com/eclipse/che/blob/master/core/ide/che-core-ide-app/src/main/java/org/eclipse/che/ide/actions/RedirectToDashboardWorkspacesAction.java</a></em></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#080;font-weight:bold">package</span> <span style="color:#707;font-weight:bold">org.eclipse.che.ide.actions</span>;
+
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.gwt.user.client.Window</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">com.google.inject.Inject</span>;
+
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.CoreLocalizationConstant</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.Action</span>;
+<span style="color:#080;font-weight:bold">import</span> <span style="color:#B44;font-weight:bold">org.eclipse.che.ide.api.action.ActionEvent</span>;
+
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">RedirectToDashboardWorkspacesAction</span> <span style="color:#088;font-weight:bold">extends</span> <span style="color:#0a8;font-weight:bold">Action</span> {
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">static</span> <span style="color:#088;font-weight:bold">final</span> <span style="color:#0a8;font-weight:bold">String</span> REDIRECT_URL = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/dashboard/#/workspaces</span><span style="color:#710">&quot;</span></span>;
+
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">public</span> RedirectToDashboardWorkspacesAction(CoreLocalizationConstant localization) {
+        <span style="color:#950">super</span>(localization.actionRedirectToDashboardWorkspacesTitle(),
+              localization.actionRedirectToDashboardWorkspacesDescription(),
+              <span style="color:#069">null</span>,
+              <span style="color:#069">null</span>);
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> actionPerformed(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+        <span style="color:#0a8;font-weight:bold">Window</span>.open(REDIRECT_URL, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">_blank</span><span style="color:#710">&quot;</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#710">&quot;</span></span>);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following example executes a server call to retrieve and display the number of lines of code from all JSON files within a project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span style="color:#777">/**
+ * Action for counting lines of code of all JSON files within the current project.
+ * Line counting is implemented by consuming a RESTful service.
+ */</span>
+<span style="color:#007">@Singleton</span>
+<span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">class</span> <span style="color:#B06;font-weight:bold">CountLinesAction</span> <span style="color:#088;font-weight:bold">extends</span> JsonExampleProjectAction {
+
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> AppContext            appContext;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> StringMapUnmarshaller unmarshaller;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> AsyncRequestFactory   asyncRequestFactory;
+    <span style="color:#088;font-weight:bold">private</span> <span style="color:#088;font-weight:bold">final</span> NotificationManager   notificationManager;
+
+    <span style="color:#777">/**
+     * Constructor
+     *
+     * @param appContext
+     *         the IDE application context
+     * @param resources
+     *         the JSON Example resources that contain the action icon
+     * @param asyncRequestFactory
+     *         asynchronous request factory for creating the server request
+     * @param notificationManager
+     *         the notification manager used to display the lines of code per file
+     */</span>
+    <span style="color:#007">@Inject</span>
+    <span style="color:#088;font-weight:bold">public</span> CountLinesAction(AppContext appContext,
+                            JsonExampleResources resources,
+                            AsyncRequestFactory asyncRequestFactory,
+                            NotificationManager notificationManager) {
+
+        <span style="color:#950">super</span>(appContext,
+              <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Count JSON Lines of Code</span><span style="color:#710">&quot;</span></span>,
+              <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Counts lines of code for all JSON Files in the project</span><span style="color:#710">&quot;</span></span>,
+              resources.icon());
+
+        <span style="color:#950">this</span>.appContext = appContext;
+        <span style="color:#950">this</span>.asyncRequestFactory = asyncRequestFactory;
+        <span style="color:#950">this</span>.notificationManager = notificationManager;
+        <span style="color:#950">this</span>.unmarshaller = <span style="color:#080;font-weight:bold">new</span> StringMapUnmarshaller();
+    }
+
+    <span style="color:#007">@Override</span>
+    <span style="color:#088;font-weight:bold">public</span> <span style="color:#339;font-weight:bold">void</span> actionPerformed(<span style="color:#0a8;font-weight:bold">ActionEvent</span> e) {
+
+      <span style="color:#0a8;font-weight:bold">String</span> url = <span style="color:#950">this</span>.appContext.getDevMachine().getWsAgentBaseUrl() + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/json-example/</span><span style="color:#710">&quot;</span></span> + <span style="color:#950">this</span>.appContext.getWorkspaceId() +
+<span style="color:#950">this</span>.appContext.getCurrentProject().getRootProject().getPath();
+
+      asyncRequestFactory.createGetRequest(url, <span style="color:#069">false</span>).send(
+        <span style="color:#080;font-weight:bold">new</span> AsyncRequestCallback&lt;<span style="color:#0a8;font-weight:bold">Map</span>&lt;<span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#0a8;font-weight:bold">String</span>&gt;&gt;(unmarshaller) {
+
+        <span style="color:#007">@Override</span>
+        <span style="color:#088;font-weight:bold">protected</span> <span style="color:#339;font-weight:bold">void</span> onSuccess(<span style="color:#0a8;font-weight:bold">Map</span>&lt;<span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#0a8;font-weight:bold">String</span>&gt; linesPerFile) {
+          <span style="color:#080;font-weight:bold">for</span> (<span style="color:#0a8;font-weight:bold">Map</span>.Entry&lt;<span style="color:#0a8;font-weight:bold">String</span>, <span style="color:#0a8;font-weight:bold">String</span>&gt; entry : linesPerFile.entrySet()) {
+            <span style="color:#0a8;font-weight:bold">String</span> fileName = entry.getKey();
+            <span style="color:#0a8;font-weight:bold">String</span> loc = entry.getValue();
+            notificationManager.notify(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">File </span><span style="color:#710">&quot;</span></span> + fileName + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> has </span><span style="color:#710">&quot;</span></span> + loc + <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> lines.</span><span style="color:#710">&quot;</span></span>, StatusNotification.Status.SUCCESS,                                   StatusNotification.DisplayMode.FLOAT_MODE);
+          }
+         }
+
+         <span style="color:#007">@Override</span>
+         <span style="color:#088;font-weight:bold">protected</span> <span style="color:#339;font-weight:bold">void</span> onFailure(<span style="color:#0a8;font-weight:bold">Throwable</span> exception) {
+          notificationManager.notify(exception.getMessage(), StatusNotification.Status.FAIL, StatusNotification.DisplayMode.FLOAT_MODE);
+         }
+       });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following example shows how Che registers all of the actions for the <a href="https://github.com/eclipse/che/blob/master/plugins/plugin-git/che-plugin-git-ext-git/src/main/java/org/eclipse/che/ide/ext/git/client/GitExtension.java">Git menu</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">DefaultActionGroup git = <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(GIT_GROUP_MAIN_MENU, <span style="color:#069">true</span>, actionManager);
+actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">git</span><span style="color:#710">&quot;</span></span>, git);
+mainMenu.add(git, <span style="color:#080;font-weight:bold">new</span> Constraints(BEFORE, GROUP_HELP));
+
+DefaultActionGroup commandGroup = <span style="color:#080;font-weight:bold">new</span> DefaultActionGroup(COMMAND_GROUP_MAIN_MENU, <span style="color:#069">false</span>, actionManager);
+actionManager.registerAction(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">gitCommandGroup</span><span style="color:#710">&quot;</span></span>, commandGroup);
+git.add(commandGroup);
+git.addSeparator();</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_extensions.html" class="btn btn-default navbar-btn cursorNorm" role="button">extensions</a>
+        
+        
+        
+        <a href="tag_assembly.html" class="btn btn-default navbar-btn cursorNorm" role="button">assembly</a>
+        
+        
+        
+        <a href="tag_dev-docs.html" class="btn btn-default navbar-btn cursorNorm" role="button">dev-docs</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

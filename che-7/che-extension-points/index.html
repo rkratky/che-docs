@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=",  ">
+<title>Che extension points | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Che extension points page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Che extension points">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 7</li>
+  
+  <div class="sidebarSubtitle">Overview</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/introduction-to-eclipse-che">Introduction to Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che quick-starts</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-quick-starts">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-the-chectl-management-tool">Installing the chectl management tool</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/running-che-locally">Running Che locally</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/deploying-che-on-kubernetes-on-aws">Che on Amazon Web Services</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-3-using-the-operator">Che on OpenShift 3</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-openshift-4-from-operatorhub">Che on OpenShift 4</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-che-on-google-cloud-platform">Che on Google Cloud Platform</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/installing-eclipse-che-on-microsoft-azure">Che on Microsoft Azure</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/hosted-che">Hosted Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che architecture</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-architecture">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/high-level-che-architecture">High-level Che architecture</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspace-controller">Che workspace controller</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-workspaces-architecture">Che workspaces architecture</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">End-user Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/navigating-che-using-the-dashboard">Navigating Che: dashboard</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che-Theia IDE basics</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-ide-basics">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/defining-custom-commands-for-che-theia">Defining custom commands for Che-Theia</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/version-control">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-troubleshooting">Che-Theia Troubleshooting</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Using developer workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/workspaces-overview">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-a-workspace-using-a-devfile">Configuring a workspace using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/making-a-workspace-portable-using-a-devfile">Making a workspace portable using a devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/converting-a-che-6-workspace-to-a-che-7-devfile">Converting a Che 6 Workspace to a Che 7 devfile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-and-configuring-a-new-che-7-workspace">Creating and configuring a new Che 7 workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/importing-a-kubernetes-application-into-a-che-workspace">Importing a Kubernetes application into a Che workspace</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/remotely-accessing-che-workspaces">Remotely accessing workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-from-code-sample">Creating a workspace from code sample</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/creating-a-workspace-by-importing-source-code-of-a-project">Creating a workspace by importing source code of a project</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/configuring-workspace-exposure-strategies">Configuring workspace exposure strategies</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing developer environments</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-developer-environments">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/what-is-a-che-theia-plug-in">What is a Che-Theia plug-in</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-alternative-ides-in-che">Using alternative IDEs in Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/using-a-visual-studio-code-extension-in-che">Using a VS Code extension in Che</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Installation Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/updating-che">Updating Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/advanced-configuration-options">Advanced configuration options</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Administration Guide</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Customizing devfile and plug-in registries</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/customizing-the-devfile-and-plug-in-registries">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/building-and-running-a-custom-registry-image">Building and running a custom registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/including-the-plug-in-binaries-in-the-registry-image">Including the plug-in binaries in the registry image</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/editing-a-devfile-and-plug-in-at-runtime">Editing a devfile and plug-in at runtime</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Retrieving Che logs</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/retrieving-che-logs">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-kubernetes-events">Viewing Kubernetes events</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-server-logs">Viewing Che server logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-external-service-logs">Viewing external service logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-che-workspaces-logs">Viewing Che workspaces logs</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/viewing-plug-in-broker-logs">Viewing the plug-in broker logs</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/monitoring-che">Monitoring Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/tracing-che">Tracing Che</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Securing Che</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/securing-che">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authenticating-users">Authenticating users</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/authorizing-users">Authorizing users</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Contributor Guide</div>
+  
+  
+  <li>
+      
+      <a href="/che-docs/che-7/developing-che-theia-plug-ins">Developing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/testing-che-theia-plug-ins">Testing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/publishing-che-theia-plug-ins">Publishing Che-Theia plug-ins</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-language">Adding support for a new language</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="/che-docs/che-7/adding-support-for-a-new-debugger">Adding support for a new debugger</a>
+      
+      <ul>
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che extensibility reference</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extensibility-reference">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-extension-points">Che extension points</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che-theia-plug-in-api">Che-Theia plug-in API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/debug-adapter-protocol">Debug Adapter Protocol</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/language-server-protocol">Language Server Protocol</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+  <div class="sidebarSubtitle">Extensions</div>
+  
+  
+  <li>
+      
+      <a href="#" class="expandable">Eclipse Che4z</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-7/eclipse-che4z">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-release-information">Release Information</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-installing">Installing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-using-explorer-for-zos">Using z/OS Resource Explorer</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-7/che4z-product-accessibility-features">Product Accessibility Features</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Che extension points</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to using API methods and events, each plug-in can bring new components into Che-Theia. These components include visual, such as panels, menus, and others. Other types of components are language servers, debuggers, and others.</p>
+</div>
+<div class="paragraph">
+<p>The mechanism for adding additional components into Che-Theia is called extension points. An extension point is a section in a Che-Theia plug-in configuration into which the meta-information about a new component is added. This chapter contains the full list of available extension points in Che-Theia.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="syntax-highlighting-grammars_{context}">Syntax-highlighting grammars</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides syntax highlight rules for specified file types. To add syntax highlighting into Che-Theia using a plug-in, add a record that describes the new grammar into the <code>contributes.grammars</code> array of the <code>package.json</code> file of the plug-in.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of a grammar record</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>grammars</span><span style="color:#404">&quot;</span></span>: [
+  {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>language</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">lang</span><span style="color:#710">&quot;</span></span>,                      <i class="conum" data-value="1"></i><b>(1)</b>
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>scopeName</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">text.ext</span><span style="color:#710">&quot;</span></span>,                 <i class="conum" data-value="2"></i><b>(2)</b>
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>path</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">./path/to/lang.tmLanguage.json</span><span style="color:#710">&quot;</span></span> <i class="conum" data-value="3"></i><b>(3)</b>
+  }
+]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Specifies the language to which this syntax highlighting should be applied.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>TextMate scope name and grammar.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Syntax-highlighting rules.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See <a href="https://macromates.com/manual/en/language_grammars">TextMate documentation</a> for more details about syntax-highlighting rules. A full example: <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/xml-language-server-plugin">xml-language-server-plugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preferences-configuration_{context}">Preferences (configuration)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A plug-in can introduce new <strong>preferences</strong>. These are defined in the <code>"configuration"</code> sub-object of the <code>"contribution"</code> object in the <code>package.json</code> file. A preference is contributed as a JSON schema that describes what is actually contributed and allows users to get support when editing settings in the <strong>Preferences Editor</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of configuration contribution for a plug-in preference that defines a logging level</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+   <span style="color:#606"><span style="color:#404">&quot;</span><span>contributes</span><span style="color:#404">&quot;</span></span>: {
+       <span style="color:#606"><span style="color:#404">&quot;</span><span>configuration</span><span style="color:#404">&quot;</span></span>: {
+           <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">object</span><span style="color:#710">&quot;</span></span>,
+           <span style="color:#606"><span style="color:#404">&quot;</span><span>title</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">A plug-in configuration</span><span style="color:#710">&quot;</span></span>,
+           <span style="color:#606"><span style="color:#404">&quot;</span><span>properties</span><span style="color:#404">&quot;</span></span>: {
+               <span style="color:#606"><span style="color:#404">&quot;</span><span>myPlugin.logLevel</span><span style="color:#404">&quot;</span></span>: {
+                   <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">string</span><span style="color:#710">&quot;</span></span>,
+                   <span style="color:#606"><span style="color:#404">&quot;</span><span>default</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">error</span><span style="color:#710">&quot;</span></span>,
+                   <span style="color:#606"><span style="color:#404">&quot;</span><span>description</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Plug-in logging level</span><span style="color:#710">&quot;</span></span>
+               }
+           }
+       }
+   }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are three scopes of preferences defined in Che-Theia:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>default</strong> scope consists of values defined in the <code>"configuration"</code> sub-section in the <code>package.json</code> file. These are default values of the preferences contributed by the plug-in.</p>
+</li>
+<li>
+<p>The <strong>global</strong> or <strong>application-wide</strong> scope values can be set in <strong>User Preferences</strong>. They override the default ones.</p>
+</li>
+<li>
+<p>The <strong>workspace</strong> scope values, which are applied only when a Che-Theia workspace is opened, override default and global values. They can be set in <strong>Workspace Preferences</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A user can obtain preferences using <code>theia.workspace.getConfiguration(section)</code>. If a <code>section</code> is defined, only that subset of preferences is returned.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of preferences definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span style="color:#777">// all preferences contributed by a plug-in</span>
+theia.workspace.getConfiguration(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">myPlugin</span><span style="color:#710">'</span></span>); <span style="color:#777">// { &quot;logLevel&quot;: &quot;error&quot; }</span>
+
+<span style="color:#777">// or</span>
+theia.workspace.getConfiguration().get(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">myPlugin</span><span style="color:#710">'</span></span>); <span style="color:#777">// { &quot;logLevel&quot;: &quot;error&quot; }</span>
+
+<span style="color:#777">// or, `logLevel` value:</span>
+theia.workspace.getConfiguration().get(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">myPlugin</span><span style="color:#710">'</span></span>).get(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">logLevel</span><span style="color:#710">'</span></span>); <span style="color:#777">// &quot;error&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The plug-in API also allows to update preferences:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const pluginPrefs = theia.workspace.getConfiguration(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">myPlugin</span><span style="color:#710">'</span></span>);
+pluginPrefs.update(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">logLevel</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">debug</span><span style="color:#710">'</span></span>, theia.ConfigurationTarget.User);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get all information about a configuration setting, use the <code>inspect</code> method. The <code>inspect</code> method returns an object that consists of <code>default</code>, <code>global</code>, and <code>workspace</code> (if one exists) values of a preference key:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">pluginPrefs.inspect(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">logLevel</span><span style="color:#710">'</span></span>);
+<span style="color:#777">// {</span>
+<span style="color:#777">//     &quot;key&quot;: &quot;myPlugin.logLevel&quot;,</span>
+<span style="color:#777">//     &quot;defaultValue&quot;: &quot;error&quot;,</span>
+<span style="color:#777">//     &quot;globalValue&quot;: &quot;debug&quot;</span>
+<span style="color:#777">// }</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="view-containers_{context}">View containers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>view container</strong> is a container that holds <a href="#views_che-extensibility-reference">views</a>. In Che-Theia, views are usually in the form of panels. All view containers are divided in three sections: <strong>left</strong>, <strong>bottom</strong>, and <strong>right</strong>. The position of a view container depends on the section to which it belongs. This defines the default position of a view container, which can be changed at runtime by dragging and dropping.</p>
+</div>
+<div class="paragraph">
+<p>To add a view container into Che-Theia, add the appropriate record into the <code>viewsContainers</code> object located under the <code>contributes</code> object in the plug-in <code>package.json</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of a view-container definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>contributes</span><span style="color:#404">&quot;</span></span>: {
+   <span style="color:#606"><span style="color:#404">&quot;</span><span>viewsContainers</span><span style="color:#404">&quot;</span></span>: {
+     <span style="color:#606"><span style="color:#404">&quot;</span><span>bottom</span><span style="color:#404">&quot;</span></span>: [
+       {
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">view-container-id</span><span style="color:#710">&quot;</span></span>,                   <i class="conum" data-value="1"></i><b>(1)</b>
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>title</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">The title</span><span style="color:#710">&quot;</span></span>                         <i class="conum" data-value="2"></i><b>(2)</b>
+       },
+       {
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">another-view-container-id</span><span style="color:#710">&quot;</span></span>,
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>title</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Some title</span><span style="color:#710">&quot;</span></span>
+       }
+     ],
+     <span style="color:#606"><span style="color:#404">&quot;</span><span>right</span><span style="color:#404">&quot;</span></span>: [
+       {
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">view-container-on-the-right-side-id</span><span style="color:#710">&quot;</span></span>,
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>title</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Panel on the right</span><span style="color:#710">&quot;</span></span>
+       }
+     ]
+   }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The identifier of the view container. Used to attach to this view container.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Text displayed on the panel tab.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that a view container is only useful with views in it. See a full example at <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/tree-view-sample-plugin">tree-view-sample-plugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="views_{context}">Views</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>view</strong> is a visual component that should be placed into a <a href="#view-containers_che-extensibility-reference">view container</a>.</p>
+</div>
+<div class="paragraph">
+<p>To add a view into Che-Theia, add an appropriate record into the <code>contributes.views</code> object of a plug-in <code>package.json</code> file. Each view is defined by an object with two name:value pairs. Each view description should be included in an array within the <code>views</code> object, and the array name should be the same as the <code>view-container-id</code> value:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of a view definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>viewsContainers</span><span style="color:#404">&quot;</span></span>: {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>left</span><span style="color:#404">&quot;</span></span>: [
+        {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">view-container-id</span><span style="color:#710">&quot;</span></span>,    <i class="conum" data-value="1"></i><b>(1)</b>
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>title</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">The title</span><span style="color:#710">&quot;</span></span>          <i class="conum" data-value="2"></i><b>(2)</b>
+        }
+    ],
+},
+<span style="color:#606"><span style="color:#404">&quot;</span><span>views</span><span style="color:#404">&quot;</span></span>: {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>view-container-id</span><span style="color:#404">&quot;</span></span>: [
+        {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">tree-at-left-side</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">A list</span><span style="color:#710">&quot;</span></span>
+        },
+        {
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">widget-at-left-side</span><span style="color:#710">&quot;</span></span>,
+          <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">A widget</span><span style="color:#710">&quot;</span></span>
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>View identifier</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Name of the view, which is displayed as the widget title inside the view container</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Currently, only tree view is supported as a view widget.</p>
+</div>
+<div class="paragraph">
+<p>For more details, see a full example at <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/tree-view-sample-plugin">tree-view-sample-plugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="menus_{context}">Menus</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plug-ins can add new <strong>menu items</strong> into Che-Theia through the <code>contributes.menus</code> object in a plug-in <code>package.json</code> file. The <code>menus</code> object consists of menu names and menu items:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of a menu definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>menus</span><span style="color:#404">&quot;</span></span>: {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>editor/context</span><span style="color:#404">&quot;</span></span>: [
+        {
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>command</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">my.command.id</span><span style="color:#710">&quot;</span></span>,                                        <i class="conum" data-value="1"></i><b>(1)</b>
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>group</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">custom.group</span><span style="color:#710">&quot;</span></span>,                                           <i class="conum" data-value="2"></i><b>(2)</b>
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>when</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">view == widget-at-left-side &amp;&amp; config.namespace.property</span><span style="color:#710">&quot;</span></span> <i class="conum" data-value="3"></i><b>(3)</b>
+        },
+        {
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>command</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">core.about</span><span style="color:#710">&quot;</span></span>
+        }
+    ],
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>explorer/context</span><span style="color:#404">&quot;</span></span>: [
+        {
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>command</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">other.command.id</span><span style="color:#710">&quot;</span></span>,
+            <span style="color:#606"><span style="color:#404">&quot;</span><span>group</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">some.group</span><span style="color:#710">&quot;</span></span>
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The identifier of the Che-Theia command that is executed when the menu item is used. The handler receives the selected resource as the first argument.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>(optional) The name of the group in the menu to which the command is added. When omitted, the menu item is added to the common group in the specified menu.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>(optional) The condition that defines when this menu item is visible. When omitted, the menu item is always visible. The conditions are the same as in the <a href="https://code.visualstudio.com/docs/getstarted/keybindings#_when-clause-contexts">VS Code when clause</a>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Menus that support extending:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>explorer/context</code></p>
+</li>
+<li>
+<p><code>editor/context</code></p>
+</li>
+<li>
+<p><code>editor/title</code></p>
+</li>
+<li>
+<p><code>debug/callstack/context</code></p>
+</li>
+<li>
+<p><code>view/item/context</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A plug-in example that adds menu items: <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/menus-contribution-plugin">menus-contribution-plugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="key-bindings_{context}">Key bindings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plug-ins can add new <strong>keyboard shortcuts</strong> or redefine existing ones. To describe a new shortcut, add a definition in the <code>contributes.keybindings</code> object of a plug-in <code>package.json</code> file. Each key bonding is described by three values:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of a keyboard-shortcut definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>keybindings</span><span style="color:#404">&quot;</span></span>: [
+     {
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>key</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ctrl+b</span><span style="color:#710">&quot;</span></span>,                 <i class="conum" data-value="1"></i><b>(1)</b>
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>command</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ts.compile</span><span style="color:#710">&quot;</span></span>,         <i class="conum" data-value="2"></i><b>(2)</b>
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>when</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">resourceExtname == .ts</span><span style="color:#710">&quot;</span></span> <i class="conum" data-value="3"></i><b>(3)</b>
+     },
+     {
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>key</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">ctrl+f alt+b</span><span style="color:#710">&quot;</span></span>,
+         <span style="color:#606"><span style="color:#404">&quot;</span><span>command</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">some.command</span><span style="color:#710">&quot;</span></span>
+     }
+]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Defines the key combination for this shortcut. <a href="https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-rules">Rules for defining key combinations</a> are the same as for VS Code.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The identifier of the command, which should be invoked when the shortcut is pressed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>(optional) The condition that defines when this shortcut is available. When omitted, the shortcut is always available. The condition format is the same as in the <a href="https://code.visualstudio.com/docs/getstarted/keybindings#_when-clause-contexts">VS Code when clause</a>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that <code>ctrl+f alt+b</code> defines a <em>chord</em>: the command is invoked after pressing both combinations one after the other.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debuggers_{context}">Debuggers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plug-ins can add new <strong>debuggers</strong> by implementing the <a href="https://microsoft.github.io/debug-adapter-protocol/">Debagger Adapter Protocol</a> (DAP) for a specific debugger. The debugger can then register in the <code>contributes.debuggers</code> debuggers of a plug-in <code>package.json</code> file.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/">list of debuggers</a> from the official DAP site for reference and examples.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="languages-language-servers_{context}">Languages (language servers)</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is an experimental approach, which may change in the future.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To add a language server into Che-Theia using a plug-in:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Describe the server in the <code>contributes.languages</code> array in the plug-in <code>package.json</code> file:</p>
+<div class="listingblock">
+<div class="title">Example of a language-server definition</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>languages</span><span style="color:#404">&quot;</span></span>: [
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">lang</span><span style="color:#710">&quot;</span></span>,                                    <i class="conum" data-value="1"></i><b>(1)</b>
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>aliases</span><span style="color:#404">&quot;</span></span>: [                                     <i class="conum" data-value="2"></i><b>(2)</b>
+        <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Lang</span><span style="color:#710">&quot;</span></span>,
+        <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">LANG</span><span style="color:#710">&quot;</span></span>
+      ],
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>extensions</span><span style="color:#404">&quot;</span></span>: [                                  <i class="conum" data-value="3"></i><b>(3)</b>
+        <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">.ext</span><span style="color:#710">&quot;</span></span>
+      ],
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>firstLine</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">^#!/.*interpreter</span><span style="color:#710">&quot;</span></span>,                <i class="conum" data-value="4"></i><b>(4)</b>
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>configuration</span><span style="color:#404">&quot;</span></span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">./language-configuration.json</span><span style="color:#710">&quot;</span></span> <i class="conum" data-value="5"></i><b>(5)</b>
+    }
+]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The ID of the language for which the language server is created.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Other names for the language.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>File-name extensions for which this language server is added.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Hashbang (first line) for which this language server is added.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Path to a JSON file with the language configuration (TODO: our section or just link to <a href="https://code.visualstudio.com/api/language-extensions/language-configuration-guide">VS Code docs</a>?).</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Register the language server using the following API call:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="typescript">theia.languageServer.registerLanguageServerProvider(xLanguageServerInfo);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where <code>xLanguageServerInfo</code> is an object of <code>theia.LanguageServerInfo</code> and has to contain the following fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language ID; should be the same as <code>id</code> in the configuration JSON file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Human-readable name of the language server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>globPatterns</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File pattern that specifies files for which this language server is added</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>command</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The language server start executable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>args</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arguments for the language server start executable</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After the command above is invoked, the language server is started.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>See a full example at <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/xml-language-server-plugin">xml-language-server-plugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="web-view-api_{context}">Web view API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>web view API</strong> is not a contribution point by definition, but it behaves like one and allows to bring many new features to Che-Theia. Web view API plug-ins can add custom UI, graphical data, or anything that can be displayed in a web page. A web view API provides an HTML <code>iframe</code> to which a plug-in has access.</p>
+</div>
+<div class="paragraph">
+<p>To create an instance of web view:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the <code>createWebviewPanel</code> function:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="typescript">const webViewPanel = theia.window.createWebviewPanel('webViewId', 'Title',  theia.ViewColumn.One);</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="typescript">webViewPanel.webview.html ='&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello from web view&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;';</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Web view content is destroyed when hidden. To restore its state, register a serializer, or set the <code>retainContextWhenHidden</code> option for the web view. Even with this option set, hiding a web view pauses all scripts, and the web view will not process messages from the plug-in.</p>
+</div>
+<div class="paragraph">
+<p>The current state of a web view can be read from the web view panel object.</p>
+</div>
+<div class="paragraph">
+<p>It is possible to load resources and scripts into a web view and communicate with a plug-in by posting messages. See a full sample plug-in at <a href="https://github.com/eclipse/che-theia-samples/tree/master/samples/webview-sample-plugin">webview-sample-plugin</a> for more details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

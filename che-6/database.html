@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="dev-docs,  database,">
+<title>Databases | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Databases page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Databases">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Databases</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="sect1">
+<h2 id="currently-supported-dbs">Currently Supported Databases</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As of version 6.11, Eclipse Che currently supports following databases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>H2 (version 1.4.196)</p>
+</li>
+<li>
+<p>PostgreSQL (version 9.6)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>H2 database is used by default in Single-User Che, whereas postgresql is used for Multi-User installation.
+Both of these have been tested with Selenium Integration tests, as well as TCK integration tests.</p>
+</div>
+<div class="paragraph">
+<p>There is also experimental support of the MySQL DB - currently only TCK test are confirmed to be working without any major issues, but the whole product wasn&#8217;t checked yet.</p>
+</div>
+<div class="paragraph">
+<p>It is possible to connect own DB to datasource, and have TCK tests run on it, to ensure that DB can be used with Che&#8217;s JPA code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="datasource-components">Datasource components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>JDBC Pool configuration</strong>
+Depending on Database used by Che, <code>JNDIDataSourceFactory</code> implementation will provide all the required JDBC pool connection configuration.
+These properties can be overriden with Che configuration Environment Variables:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Che Environment Variable</th>
+<th class="tableblock halign-left valign-top">JDBC Pool configuration property</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_USERNAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">username</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_PASSWORD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_DRIVER__CLASS__NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">driverClassName</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_MAX__TOTAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxTotal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_MAX__IDLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxIdle</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHE_JDBC_MAX__WAIT__MILLIS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxWaitMillis</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>(More about JDBC configuration properties at <a href="https://tomcat.apache.org/tomcat-8.5-doc/jndi-datasource-examples-howto.html" class="bare">https://tomcat.apache.org/tomcat-8.5-doc/jndi-datasource-examples-howto.html</a>)</p>
+</div>
+<div class="paragraph">
+<p><strong>ExceptionHandler</strong>
+Database may sometimes produce different SQL exception, depending on the vendor.
+As in Java code, and TCK it is expected, a custom ExceptionHandler implementaion may be created, that will allow to rethrow more common exception.
+For example, in H2 and PostgreSQL, an exception may occur, when data couldn&#8217;t be updated/stored due to unique constrain violation.
+But as it will a vendor specific exception with different code, there are Custom <code>H2ExceptionHandler</code>/<code>PostgreSqlExceptionHandler</code> that will catch it, and throw instead a <code>DuplicateKeyException</code>, which is used across the codebase.</p>
+</div>
+<div class="paragraph">
+<p>Exception handler has to be defined in persistence XML.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="test-compatibility-kit">Test Compatibility Kit (TCK)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Test Compatibility kit is a set of integration tests that covers uses of essential DAO components, that are being run against real database.</p>
+</div>
+<div class="paragraph">
+<p>List of Che modules that have TCK tests:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>che-core-api-user</p>
+</li>
+<li>
+<p>che-core-api-account</p>
+</li>
+<li>
+<p>che-core-api-installer</p>
+</li>
+<li>
+<p>che-core-api-ssh</p>
+</li>
+<li>
+<p>che-core-api-workspace</p>
+</li>
+<li>
+<p>che-core-api-workspace-activity</p>
+</li>
+<li>
+<p>infrastructure-kubernetes</p>
+</li>
+<li>
+<p>che-multiuser-machine-authentication (Multi-User Che)</p>
+</li>
+<li>
+<p>che-multiuser-api-organization (Multi-User Che)</p>
+</li>
+<li>
+<p>che-multiuser-api-permission (Multi-User Che)</p>
+</li>
+<li>
+<p>che-multiuser-api-resource (Multi-User Che)</p>
+</li>
+<li>
+<p>che-multiuser-permission-workspace (Multi-User Che)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Tests in these modules are executed on H2 Database during the build.
+Also, each module packages tests into separate artifacts with <code>tests</code> classifier, which are meant to be used for their re-usage in other TCK tests running modules.</p>
+</div>
+<div class="paragraph">
+<p>As an example of that, there are <code>postgresql-tck</code> and <code>che-multiuser-postgresql-tck</code> modules for running TCK tests on Postgres DB.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cascade-removal-tests">JPA Cascade Removal Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Eclipse Che database schema, some objects have foreign keys reference on other objects.
+Example: Account and workspaces, Permissions and Workspaces. To be able to correctly
+remove such objects and avoid referential integrity problems Eclipse Che are using events mechanism.
+For example, method in AccountManager that removes account sends a CascadeEvent, and Workspace DAO has a CascadeEventSubscriber that would listen to that event
+and remove workspace at that time. In case if removal of workspace failed the whole transaction would be rolled back, because AccountManager method had a <code>@Transactional</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>All that functionality is covered by "Cascade Removal Tests", that are located in <code>cascade-removal</code> and <code>che-multiuser-cascade-removal</code> modules.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="flyway-migration">Flyway migration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Flyway framework is used to facilitate database schema initialization, as well as perform migrations.
+It is configured to pick up scripts and apply them in order, according to versioning.
+Some key configuration values are defined in che.properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>db.schema.flyway.baseline.enabled=true                      #
+db.schema.flyway.baseline.version=5.0.0.8.1                 #
+db.schema.flyway.scripts.prefix=                            #
+db.schema.flyway.scripts.suffix=.sql                        #
+db.schema.flyway.scripts.version_separator=__               #
+db.schema.flyway.scripts.locations=classpath:che-schema     #</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Che DB Schema artifacts have</p>
+</div>
+<div class="paragraph">
+<p>Taking a look at the sample structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>che-schema/
+    5.0.0-M1/
+        1__init.sql
+    5.0.0-M2
+        1__rename_tables.sql
+        2__insert_predefined_data.sql
+        postgresql/
+            2__insert_predefined_data.sql
+subproject-schema/
+    5.0.0-M1/
+        0.1__before_init_main.sql
+        1.1__init_subproject.sql
+    5.0.0-M2
+        2.1__create_additional_tables.sql</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Location directory
+The main root directory for scripts (in this example, <code>che-schema</code> and <code>subproject-schema</code> is used as location names for Flyway.
+There can be multiple locations (artifacts) with scripts, and Flyway can be configured with property to search for such locations in classpath</p>
+</div>
+<div class="paragraph">
+<p>db.schema.flyway.scripts.locations=classpath:che-schema,classpath:subproject-schema</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Version directory*</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are version directories under the <code>che-schema</code> like 5.0.0 or 5.0.0-M1 these directories contain
+scripts for specific versions
+SQL scripts will be placed under project version directories line 1.init.sql or 1.rename_fields.sql
+The naming of scripts is pretty simple: the first digit in the name is a script version in a project versions (it&#8217;s <code>1</code> in <code>1<em>init.sql</code>)
+then description of changes (if necessary) init in 1</em>init.sql and then the file extension .sql in 1__init.sql</p>
+</div>
+<div class="paragraph">
+<p>Note, that in this example, as well as in current Che schema, scripts numbers start from 1, but it is possible to use 0.
+This can be useful when script has to be run before the first script in superschema.</p>
+</div>
+<div class="paragraph">
+<p><strong>Vendor specific script</strong></p>
+</div>
+<div class="paragraph">
+<p>There is a directory in 5.0.0-M2 called <code>postresql</code> if current database provider is posgresql then
+the script from 5.0.0-M1/posgresql/2.add_workspace_constraint.sql will be used instead of 5.0.0-M1/2.add_workspace_constraint.sql, so basically if the same script name is provided in provider-specific directory then this script will be used instead</p>
+</div>
+<div class="paragraph">
+<p>So, the order of applying scripts be as following</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">db version</th>
+<th class="tableblock halign-left valign-top">script name</th>
+<th class="tableblock halign-left valign-top">location</th>
+<th class="tableblock halign-left valign-top">picked vendor specific</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.1.0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1__before_init_main.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subproject-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1__init.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">che-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.1.1.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1__init_subproject.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subproject-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.2.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1__rename_tables.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">che-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2__insert_predefined_data.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">che-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.0.0.2.2.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.1__create_new_tables.sql</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subproject-schema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pg-trgm">pg_trgm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Postgres Trigram extension is used for more optimised search of similar string <a href="https://www.postgresql.org/docs/9.6/static/pgtrgm.html" class="bare">https://www.postgresql.org/docs/9.6/static/pgtrgm.html</a></p>
+</div>
+<div class="paragraph">
+<p>in Che it is used for a faster search for similar email and names, and enabled with a vendor specific migration script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX index_user_lower_email ON usr USING GIN (LOWER(email) gin_trgm_ops);
+CREATE INDEX index_user_lower_name ON usr USING GIN (LOWER(name) gin_trgm_ops);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributor-guidelines">Contributor guidelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Creating a module to run TCK on a custom DB</strong></p>
+</div>
+<div class="paragraph">
+<p>In order to run TCK for a custom database, a maven module should be created with following components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>configured <code>docker-maven-plugin</code> to run an image with database;</p>
+</li>
+<li>
+<p>a Guice module that extends <code>TckModule</code> which will be responsible for establishing connection with DataSource, binding all required implementations of JPA entities and repositories;</p>
+</li>
+<li>
+<p>a file in src/test/resources/META-INF/services named <code>org.eclipse.che.commons.test.tck.TckModule</code>. In it, there must be defined a name of the mentioned TckModule implementaion;</p>
+</li>
+<li>
+<p>include all dependency artifacts with TCK tests (see list of Che modules above);</p>
+</li>
+<li>
+<p>include artifact with DB Driver;</p>
+</li>
+<li>
+<p>include artifact with Che SQL schema. Note, that your database may not be fully compatible with existing Che SQL schema, so you might gonna have to create a separate maven module to add additional vendor specific scripts ( See "Flyway Migration" for the information on how to add such scripts);</p>
+</li>
+<li>
+<p>add persistence.xml file or use PersistTestModuleBuilder helper class to create one programmatically in <code>TckModule</code> implementation;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note, that to contribute the module to Eclipse repository, one must create an Eclipse CQ for Database, its drivers and other possible dependencies.
+As these artifacts are used only for building and testing purposes, the type of CQ will be "works with". See <a href="https://www.eclipse.org/projects/handbook/#ip-third-party-workswith" class="bare">https://www.eclipse.org/projects/handbook/#ip-third-party-workswith</a></p>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_dev-docs.html" class="btn btn-default navbar-btn cursorNorm" role="button">dev-docs</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

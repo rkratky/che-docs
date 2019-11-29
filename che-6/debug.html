@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="workspaceruntimedebugger,  workspace, runtime, project, projects, debugger, debug, debug jar, breakpoint, suspend">
+<title>Debug | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Debug page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Debug">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Debug</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>Che currently supports debuggers for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#java">Java</a></p>
+</li>
+<li>
+<p><a href="#gdb">C/C++</a> (via GDB)</p>
+</li>
+<li>
+<p><a href="#php">PHP</a> (via Zend debugger, zDebug and Z-Ray)</p>
+</li>
+<li>
+<p><a href="#nodejs">Node.js</a> (via GDB)</p>
+</li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="java">Java</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java debugger is deployed with the workspace agent, i.e. runs in the workspace. It can connect to local processes (those running in a workspace) or remote ones.</p>
+</div>
+<div class="paragraph">
+<p>Breakpoints are set with a single click on a line number in the editor. You can set breakpoints before attaching a debugger:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/breakpoint.png" alt="breakpoint">
+</div>
+</div>
+<div class="paragraph">
+<p>In a Debug Dialog (<strong>Run &gt; Edit Debug Configurations…</strong>), choose if you want to attach to a process in a local workspace or a remote machine. If localhost is chosen, a drop down menu will show all ports that are exposed in a container. You may either choose an existing port or provide your own.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/debug-configurations.png" alt="debug configurations">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Java Console Apps</strong></p>
+</div>
+<div class="paragraph">
+<p>To debug console apps, pass debug arguments to JVM:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mvn clean install &amp;&amp; java -jar -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y ${current.project.path}/target/*.jar</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Java Web Apps</strong></p>
+</div>
+<div class="paragraph">
+<p>To debug a web application, you need to start a web server in a debug mode. Debug arguments may vary depending on the web server in use. For example, to start Tomcat in a debug mode, run: st</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="text">$TOMCAT_HOME/bin/catalina.sh jpda run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can add debug commands to CMD widget to permanently save them with the workspace config.</p>
+</div>
+<div class="paragraph">
+<p>Java debugger supports the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>step into</p>
+</li>
+<li>
+<p>step over</p>
+</li>
+<li>
+<p>run to cursor</p>
+</li>
+<li>
+<p>evaluate expression</p>
+</li>
+<li>
+<p>watch expression</p>
+</li>
+<li>
+<p>conditional breakpoints</p>
+</li>
+<li>
+<p>change variable value/expression</p>
+</li>
+<li>
+<p>suspend current or all threads</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/debug.gif" alt="debug">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gdb">GDB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GDB can be used to debug *C/C+* and *Node.js* projects. In Docker 1.13, a container requires certain capabilities for gdb and gdbserver to start. In <code>che.env</code> uncomment the following line and restart Che:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>CHE_DOCKER_SECURITYOPT=seccomp:unconfined</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-local-binary">Debugging Local Binary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compile your app with <code>-g</code> argument, go to <code>Run &gt; Edit Debug Configurations &gt; GDB</code>. Create a new configuration, check <code>Debug local binary</code> box. By default, binary path is <code>${current.project.path/a.out}</code>. When the debugger attaches, this macro is translated into an absolute path to a currently selected project. <code>a.out</code> is the default binary name. If you have compiled binary with a different name, change it:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/debug.png" alt="debug">
+</div>
+</div>
+<div class="paragraph">
+<p>Set a breakpoint in code, go to <code>Run &gt; Debug &gt; YourDebugConfiguration</code>. Once a debugger attaches, there’s a notification in the top right corner. A debugger panel will open.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remote-debugging-with-gdb-server">Remote Debugging with GDB server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Similar to Java debugger, one needs to start a process that a debugger will connect to. In case of GDB, this is <code>gdbserver</code> which is installed in C/CPP runtime by default.</p>
+</div>
+<div class="paragraph">
+<p>To <strong>run</strong> gdbserver, execute the following:</p>
+</div>
+<div class="paragraph">
+<p><code>gdbserver :$port /path/to/binary/file</code> where <code>$port</code> is a random port that you will then connect to. It is important to provide an absolute path to a binary file if you run gdbserver in a command.</p>
+</div>
+<div class="paragraph">
+<p>It is important to make sure that the binary has been compiled with <code>-g</code> argument, i.e. with attached sources.</p>
+</div>
+<div class="paragraph">
+<p>When gdbserver starts, it produces some output with info on process ID and port it’s listening on. When a remote client connects to gdbserver, there will be a message with IP address of a remote connection.</p>
+</div>
+<div class="paragraph">
+<p>To <strong>stop</strong> gdbserver, terminate the command in Consoles panel (if the server has been started as a command). If gdbserver has been started in a terminal, Ctrl+C does not kill it. Open another terminal into a machine, and run:</p>
+</div>
+<div class="paragraph">
+<p><code>kill $(ps ax | grep "[g]dbserver" | awk {'print $1;}')</code></p>
+</div>
+<div class="paragraph">
+<p>This commands grabs gdbserver PID and kills the process.</p>
+</div>
+<div class="paragraph">
+<p><strong>Connect to GDB server</strong></p>
+</div>
+<div class="paragraph">
+<p>Go to <code>Run &gt; Edit Debug Configurations</code> and enter host (localhost if gdbserver has been started in the same workspace environment), port and path to the binary file being debugged. By default, binary name is <code>a.out</code>. If you have compiled your binary with <code>-o</code> argument, you need to provide own custom binary name in a debug configuration.</p>
+</div>
+<div class="paragraph">
+<p>Save your configuration, choose it at <code>Run &gt; Debug &gt; &lt;YourDebugConfiguration&gt;</code> and attach the debugger, having previously set breakpoints in source files.</p>
+</div>
+<div class="paragraph">
+<p><strong>Connection Timeouts</strong></p>
+</div>
+<div class="paragraph">
+<p>Latency or poor connectivity may cause issues with remote debugging. A local GDB may fail to receive a timely response from the remote server. To fix it, set a default timeout for a local GDB. In the terminal, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo  "set remotetimeout 10" &gt; ~/.gdbinit</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may set a bigger timeout, say, 20 seconds, if there are serious connectivity issues with a remote GDB server.</p>
+</div>
+<div class="paragraph">
+<p>It is also possible to add this command as a Dockerfile instruction for a custom recipe:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>FROM eclipse/cpp_gcc
+RUN echo  "set remotetimeout 10" &gt; /home/user/.gdbinit</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="php">PHP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The PHP and Zend stacks come with the Zend Debugger module installed and configured. Debugging both PHP CLI scripts and PHP web apps is supported.</p>
+</div>
+<div class="paragraph">
+<p>The debugging workflow involves the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Launch the Zend Debugger Client to start listening for new debug sessions.</p>
+</li>
+<li>
+<p>Optionally set breakpoints in the PHP editor.</p>
+</li>
+<li>
+<p>Trigger a debug session from the CLI script or the web app.</p>
+</li>
+<li>
+<p>Use the Web IDE tooling to do the actual debugging.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/php-debugging.gif" alt="php debugging">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-the-zend-debugger-client">Starting the Zend Debugger Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>\{\{site.product_formal_name}} has the Zend Debugger Client integrated in the Web IDE. For launching the Zend Debugger Client:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <code>Run &gt; Edit Debug Configurations</code> from the main menu.</p>
+</li>
+<li>
+<p>Create new <code>PHP</code> configuration.</p>
+</li>
+<li>
+<p>Change any settings if necessary. The defaults are usually OK.</p>
+</li>
+<li>
+<p>Click the <code>Debug</code> button.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/php-debug-configuration.png" alt="php debug configuration">
+</div>
+</div>
+<div class="paragraph">
+<p>The successful launch of the Zend Debugger Client is noted with a notification message. From this moment on the Zend Debugger Client listens for new debug sessions initiated by the Zend Debugger module of the PHP engine.</p>
+</div>
+<div class="paragraph">
+<p>The Debug Configuration window allows the following configuration for the Zend Debugger Client:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Break at first line</code>. Determines whether to break the execution at the very first line, hit by the PHP interpreter. Enabled by default. It is useful to easily find the app’s entry point. You may want to switch this option off if you defined your own breakpoint and you are not interesting at breaking the execution at the first line.</p>
+</li>
+<li>
+<p><code>Client host/IP</code>. The host/IP on which to bind the server socket for listening for new debug sessions. The default host is <code>localhost</code>. Changing it should be only necessary if the PHP engine is running in a different workspace machine or outside of the \{\{site.product_mini_name}} workspace at all.</p>
+</li>
+<li>
+<p><code>Debug port</code>. The port on which to bind the server socket for listening for new debug sessions. The default port is <code>10137</code>. It should be rarely necessary to change it.</p>
+</li>
+<li>
+<p><code>Use SSL encryption</code>. Whether to use SSL encryption for the debugging communication between the PHP engine and the Zend Debugger Client. Disabled by default.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-php-cli-scripts">Debugging PHP CLI Scripts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PHP CLI scripts can be debugged by setting the <code>QUERY_STRING</code> environment variable when executing the PHP script. For example, to debug the <code>hello.php</code> script you should execute the following command in the Terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">QUERY_STRING=&quot;start_debug=1&amp;debug_host=localhost&amp;debug_port=10137&quot; php hello.php</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s dissect the value of the <code>QUERY_STRING</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>start_debug=1</code> says the PHP engine that we want to trigger a debug session for this execution.</p>
+</li>
+<li>
+<p><code>debug_host=localhost</code> says that the Zend Debugger Client runs on localhost (on the same host where the PHP engine runs).</p>
+</li>
+<li>
+<p><code>debug_port=10137</code> says that the Zend Debugger Client listens on port 10137.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For convenience the PHP and Zend stacks have the <code>debug php script</code> command. It will run the PHP script, which is currently opened in the editor, with the required <code>QUERY_STRING</code> preprended to the launch command. It is a handy way for easily debugging CLI script without the need to remember the exact <code>QUERY_STRING</code> variable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-php-web-apps">Debugging PHP Web Apps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Debugging web apps is done in a similar way. The value of the <code>QUERY_STRING</code> used for debugging CLI scripts must be added as a query string to the URL of the debugged web page. This can be done either manually or by using a browser toolbar/extension that does it automatically. Such browser extensions also make it easier to debug POST requests.</p>
+</div>
+<div class="paragraph">
+<p><strong>Using Query Params in URL</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>?start_debug=1&amp;debug_host=localhost&amp;debug_port=10137</code> query string must be added to the URL. For example, to debug the <code><a href="http://localhost:32810/web-php-simple/index.php" class="bare">http://localhost:32810/web-php-simple/index.php</a></code> web page you should request the following URL in the browser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>http://localhost:32810/web-php-simple/index.php?start_debug=1&amp;debug_host=localhost&amp;debug_port=10137</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-zdebug-extension-for-chrome">Using zDebug Extension for Chrome</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://chrome.google.com/webstore/detail/zdebug/gknbnafalimbhgkmichoadhmkaoingil">zDebug</a> extension can be used for easier triggering of debug sessions from the Chrome browser. The <a href="https://chrome.google.com/webstore/detail/zend-debugger-extension/aonajadpeeaijblinaeohfdmbgdpibba">Zend Debugger Extension</a> is another extension that does the same job.</p>
+</div>
+<div class="paragraph">
+<p>It is important to configure the Chrome extension properly before using it for debugging PHP apps running in a \{\{site.product_mini_name}} workspace:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set <code>Debug Host</code> to <code>localhost</code> or <code>127.0.0.1</code>.</p>
+</li>
+<li>
+<p>Set <code>Debug Port</code> to <code>10137</code>.</p>
+</li>
+<li>
+<p>Set <code>Debug Local Copy</code> to <code>No</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that it is not the browser that opens the debug session to the Zend Debugger Client. This is done by the PHP engine that runs in the \{\{site.product_mini_name}} workspace. The browser just tells the PHP engine to do so. So the above settings are for the PHP engine (the Zend Debugger module in particular). Thus the <code>Debug Host</code> must be set to <code>localhost</code> and not the public host of the docker container running the \{\{site.product_mini_name}} workspace.</p>
+</div>
+<div class="paragraph">
+<p>In the end the zDebug settings should look like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/zdebug-settings.png" alt="zdebug settings">
+</div>
+</div>
+<div class="paragraph">
+<p>Now you are ready to trigger the debug session:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the web page to debug.</p>
+</li>
+<li>
+<p>Click on the zDebug toolbar button.</p>
+</li>
+<li>
+<p>Click on <code>This Page</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-zend-debugger-toolbar-for-firefox">Using the Zend Debugger Toolbar for Firefox</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://addons.mozilla.org/firefox/addon/zend-debugger-toolbar/">Zend Debugger Toolbar for Firefox</a> can be used for easier triggering of debug sessions from the Firefox browser.</p>
+</div>
+<div class="paragraph">
+<p>After installing it, go to <code>Extra Stuff &gt; Setttings</code> to configure the toolbar:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Disable the <code>Debug Local Copy</code> option.</p>
+</li>
+<li>
+<p>Switch the <code>Client/IDE Settings</code> to <code>Manual Settings</code>.</p>
+</li>
+<li>
+<p>Set <code>Debug Port</code> to <code>10137</code>.</p>
+</li>
+<li>
+<p>Set <code>IP Address</code> to <code>127.0.0.1</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the end the toolbar settings should look like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/zend-debugger-firefox-settings.png" alt="zend debugger firefox settings">
+</div>
+</div>
+<div class="paragraph">
+<p>Now you are ready to trigger the debug session:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the web page to debug.</p>
+</li>
+<li>
+<p>Click on the <code>Debug</code> toolbar button.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-z-ray">Using Z-Ray</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://www.zend.com/en/products/server/z-ray">Z-Ray</a> is a productivity tool, part of <a href="http://www.zend.com/en/products/zend_server">Zend Server</a>, that is available in the Zend stack. Z-Ray requires no installation or configuraton. It is injected into the response coming from your PHP app and shown right in the browser you are using for development.</p>
+</div>
+<div class="paragraph">
+<p>Among other features, it also has the capability to trigger a debug session:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click on the "bug" button.</p>
+</li>
+<li>
+<p>Click on <code>Debug current page</code>.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/z-ray-debug.png" alt="z ray debug">
+</div>
+</div>
+<div class="paragraph">
+<p>That’s all!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="nodejs">NodeJS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Node.js ready-to-go <a href="stacks.html">stack</a> comes with a Node.js debugger module installed and configured. The Dockerfile is located in the <a href="https://github.com/eclipse/che-dockerfiles/blob/master/recipes/node/Dockerfile">eclipse/che-dockerfiles</a> repository.</p>
+</div>
+<div class="paragraph">
+<p>The debugging workflow is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Launch the Node.js debugger client to start a debug session</p>
+</li>
+<li>
+<p>Create/Run command to generate a preview URL</p>
+</li>
+<li>
+<p>Click the preview URL to interact with the app</p>
+</li>
+<li>
+<p>Use the debugger panel to perform debug functions</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can set breakpoints in the editor at any time by clicking on the line number.</p>
+</div>
+<div class="paragraph">
+<p><strong>Starting Node.js Debugger Client</strong></p>
+</div>
+<div class="paragraph">
+<p>\{\{site.product_formal_name}} has the Node.js client integrated in the web IDE. to launch the debugger client:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <code>Run &gt; Edit Debug Configurations</code> from the main menu</p>
+</li>
+<li>
+<p>Create a new <code>NODEJS</code> configuration</p>
+</li>
+<li>
+<p>Change any settings if necessary. The defaults are usually OK</p>
+</li>
+<li>
+<p>Click the <code>Debug</code> button</p>
+</li>
+<li>
+<p>The debugger will break at first line of code</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/debug-nodejs-config.png" alt="debug nodejs config">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Creating a Command with Preview URL</strong></p>
+</div>
+<div class="paragraph">
+<p>\{\{site.product_formal_name}}’s workspaces have machine(s) that are docker container(s). Docker container’s exposed ports are given an ephemeral port. The preview url provides an easy way convert an internal port to it’s external ephemeral port counter part.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a command <code>Run &gt; Edit Commands</code></p>
+</li>
+<li>
+<p>Give the command a name like "View Preview URL"</p>
+</li>
+<li>
+<p>Add a fictitious command <code>echo</code> for required command line</p>
+</li>
+<li>
+<p>Provide the preview URL for your app such as <code><a href="http://${server.port.&lt;port&gt;}/" class="bare">http://${server.port.&lt;port&gt;}/</a></code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-node.js-debugger">Using Node.js Debugger</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start the debugger <code>Run &gt; debug &gt; &lt;config-name&gt;</code></p>
+</li>
+<li>
+<p>Click the continue button until server is running</p>
+</li>
+<li>
+<p>Add breakpoints if needed</p>
+</li>
+<li>
+<p>Run the preview URL command (see above)</p>
+</li>
+<li>
+<p>Click the preview URL to open web app in another tab</p>
+</li>
+<li>
+<p>Go back to IDE tab</p>
+</li>
+<li>
+<p>Use the Web IDE tooling to do the actual debugging</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/che/docs/images/debug/nodejs-debugger-walkthru.gif" alt="nodejs debugger walkthru">
+</div>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_workspace.html" class="btn btn-default navbar-btn cursorNorm" role="button">workspace</a>
+        
+        
+        
+        <a href="tag_runtime.html" class="btn btn-default navbar-btn cursorNorm" role="button">runtime</a>
+        
+        
+        
+        <a href="tag_debugger.html" class="btn btn-default navbar-btn cursorNorm" role="button">debugger</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>

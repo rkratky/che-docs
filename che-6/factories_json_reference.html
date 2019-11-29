@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content="chedirfactories,  chedir, factories">
+<title>Factories JSON Reference | Eclipse Che Documentation</title>
+<link rel="stylesheet" href="/che-docs/css/syntax.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="/che-docs/css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="/che-docs/css/customstyles.css">
+<link rel="stylesheet" href="/che-docs/css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="/che-docs/css/theme-che.css">
+
+
+    <link rel="stylesheet" href="/che-docs/css/coderay.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/che-docs/css/asciidoc.css" type="text/css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js" crossorigin="anonymous"></script>
+<script src="/che-docs/js/toc.js"></script>
+<script src="/che-docs/js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="/che-docs/images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="che" href="/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: false,
+                openClass: 'active', // open
+                save: false, // leave false or nav highlighting doesn't work right
+                cookie: {
+                    name: 'navgoco',
+                    expires: false,
+                    path: '/'
+                },
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="/che-docs/">&nbsp;<span class="projectTitle"> Eclipse Che Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://medium.com/eclipse-che-blog/" target="_blank">Blog</a></li>
+                
+                
+                
+                <li><a href="https://github.com/eclipse/che" target="_blank">Source Code</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Che Version<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li class="dropdownActive"><a href="/che-docs/che-6">Che 6</a></li>
+                        
+                        
+                        
+                        <li><a href="/che-docs/che-7">Che 7</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get Support<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Akind%2Fbug" target="_blank">Known Bugs</a></li>
+                        
+                        
+                        
+                        <li><a href="https://github.com/eclipse/che/issues/new" target="_blank">File an Issue</a></li>
+                        
+                        
+                        
+                        <li><a href="https://stackoverflow.com/questions/tagged/eclipse-che" target="_blank">Che on StackOverflow</a></li>
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Factories JSON Reference page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+ -->
+		
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="/che-docs/js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: "/che-docs/search.json",
+                                searchResultTemplate: '<li><a href="{url}" title="Factories JSON Reference">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Eclipse Che 6</li>
+  
+  <div class="sidebarSubtitle">Documentation Topics</div>
+  
+  
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Overview</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/index.html">Introduction</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/quick-start.html">Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/single-multi-user.html">Single and Multi-User Flavors</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/infra-support.html">Supported Infrastructures</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Docker</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-single-user.html">Docker - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-multi-user.html">Docker - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-config.html">Docker - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/docker-cli.html">Docker - CLI Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on Kubernetes</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-single-user.html">Kubernetes - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-multi-user.html">Kubernetes - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-config.html">Kubernetes - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/kubernetes-admin-guide.html">Kubernetes - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Che on OpenShift</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-single-user.html">OpenShift - Single User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-multi-user.html">OpenShift - Multi User</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-config.html">OpenShift - Configuration</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/openshift-admin-guide.html">OpenShift - Admin Guide</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Management</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/user-management.html">Authentication and Authorization</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/authentication.html">Security Model</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/permissions.html">Permissions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/organizations.html">Organizations in UD</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/resource-management.html">Resource Management</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">User Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-starting-workspaces.html">Creating and starting Workspaces</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-projects.html">Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/editor-code-assistance.html">Editor and Code-Assistance</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dependency-management.html">Dependency Management</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/commands-ide-macro.html">Commands and IDE Macros</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/version-control.html">Version Control</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/debug.html">Debug</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Workspace Administration</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/what-are-workspaces.html">Workspace Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/stacks.html">Workspace - Stacks</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/recipes.html">Workspace - Recipes</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/servers.html">Workspace - Servers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/installers.html">Workspace - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/volumes.html">Workspace - Volumes Mount</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/env-variables.html">Workspace - Environment Variables</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/projects.html">Workspace - Projects</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspaces-troubleshooting.html">Workspace - Troubleshooting</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/workspace-data-model.html">Workspace Data Model</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Portable Workspaces</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-getting-started.html">Chedir - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/why-chedir.html">Chedir - Why Chedir?</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-installation.html">Chedir - Installation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-project-setup.html">Chedir - Project Setup</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-up-and-down.html">Chedir - Up and Down</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chefile.html">Chedir - Chefile</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/chedir-ssh.html">Chedir - SSH</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories-getting-started.html">Factory - Getting Started</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/creating-factories.html">Factory - Creating</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/factories_json_reference.html">Factory - JSON Reference</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Developer Guides</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/framework-overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/rest-api.html">SDK - REST API</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/che-in-che-quickstart.html">SDK - Your First Plugin</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/build-reqs.html">SDK - Building Che</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/assemblies.html">SDK - Assemblies</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/logging.html">SDK - Logging</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/ide-extensions-gwt.html">SDK - GWT IDE Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/server-side-extensions.html">SDK - Server Side Extensions</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/custom-installers.html">SDK - Installers</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/project-types.html">SDK - Project Types</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/language-servers.html">SDK - Language Support</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/parts.html">IDE UI&#58 Parts</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/actions.html">IDE UI&#58 Actions</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Dev Essentials</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/guice.html">Dependency Injection</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dto.html">Transport&#58 DTO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/json-rpc.html">Communication&#58 JSON-RPC</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/handling-projects-in-plugins.html">Handling Projects in Plugins</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/dao.html">Persistence, DAO</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/properties.html">Properties</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      
+      <a href="#" class="expandable">Infrastructure and SPI</a>
+      
+      <ul>
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi_overview.html">Overview</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a href="/che-docs/che-6/spi-implementation.html">Implementation Notes</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+         <p class="external">
+             <a href="#" id="collapseAll">Collapse all</a> | <a href="#" id="expandAll">Expand all</a>
+         </p>
+         
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Factories JSON Reference</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2' });
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    <!-- 
+
+
+     -->
+
+  <div class="paragraph">
+<p>A factory configuration is a JSON snippet either stored within Che or as a <code>.factory.json</code> file. You can create factories within the IDE using the Che URL syntax, within the dashboard, or on the command line with the API and CLI.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span> : {
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>v</span><span style="color:#404">&quot;</span></span>         : <span style="color:#60E">4.0</span>,            <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>workspace</span><span style="color:#404">&quot;</span></span> : {},             <i class="conum" data-value="2"></i><b>(2)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>policies</span><span style="color:#404">&quot;</span></span>  : {},             <i class="conum" data-value="3"></i><b>(3)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>ide</span><span style="color:#404">&quot;</span></span>       : {},             <i class="conum" data-value="4"></i><b>(4)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>creator</span><span style="color:#404">&quot;</span></span>   : {},             <i class="conum" data-value="5"></i><b>(5)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Version of the configuration format.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Identical to <code>workspace:{}</code> object for Eclipse Che.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>(Optional) Restrictions that limit behaviors.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>(Optional) Trigger IDE UI actions tied to workspace events.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>(Optional) Identifying information of author.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>factory.workspace</code> is identical to the <code>workspace:{}</code> object for Eclipse Che and contains the structure of the workspace. To learn more about the workspace JSON object, see <a href="workspace-data-model.html">Workspace Data Model</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can export Che workspaces and then reuse the workspace definition within a factory. Che workspaces are composed of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0..n projects</p>
+</li>
+<li>
+<p>0..n environments that contain machines to run the code</p>
+</li>
+<li>
+<p>0..n commands to execute against the code and machines</p>
+</li>
+<li>
+<p>a type</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>factory.policies</code>, <code>factory.ide</code>, and <code>factory.creator</code> objects are unique to factories. They provide meta information to the automation engine that alter the presentation of the factory URL or the behavior of the provisioning.</p>
+</div>
+<div class="sect1">
+<h2 id="mixins">Mixins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A mixin adds additional behaviors to a project as a set of new project type attributes. Mixins are reusable across any project type. To define the mixins to add to a project, specify an array of strings, with each string containing the identifier for the mixin. For example, <code>"mixins" : [ "pullrequest" ]</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mixin ID</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pullrequest</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables pull request workflow where Che handles local and remote branching, forking, and pull request issuance. Pull requests generated from within Che have another factory placed into the comments of pull requests that a PR reviewer can consume. Adds contribution panel to the IDE. If this mixin is set, it uses attribute values for <code>project.attributes.local_branch</code> and <code>project.attributes.contribute_to_branch</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>pullrequest</code> mixin requires additional configuration from the <code>attributes</code> object of the project. If present, Che will use the project attributes as defined in the factory. If not provided, Che will set defaults for the attributes.</p>
+</li>
+<li>
+<p>Learn more about other link:TODO: link to project API docs[mixins]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pull-request-mixin-attributes">Pull Request mixin attributes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Project attributes alter the behavior of the IDE or workspace.</p>
+</div>
+<div class="paragraph">
+<p>Different Eclipse Che plug-ins can add their own attributes to affect the behavior of the IDE or workspace. Attribute configuration is always optional and if not provided within a factory definition, the IDE or workspace sets it.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>local_branch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used in conjunction with the <code>pullrequest</code> mixin. If provided, the local branch for the project is set with this value. If not provided, the local branch is set with the value of <code>project.source.parameters.branch</code> (the name of the branch from the remote). If both <code>local_branch</code> and <code>project.source.parameters.branch</code> are not provided, the local branch is set to the name of the checked out branch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>contribute_to_branch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the branch that a pull request will be contributed to. The value of <code>project.source.parameters.branch</code> is default. It is the name of the branch that this project was cloned from.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Following is a snippet that demonstrates full configuration of the <code>contribution</code> mixin.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">k</span><span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">j</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span> : {
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>mixins</span><span style="color:#404">&quot;</span></span>     : [ <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">pullrequest</span><span style="color:#710">&quot;</span></span> ],
+
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>attributes</span><span style="color:#404">&quot;</span></span> : {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>local_branch</span><span style="color:#404">&quot;</span></span>         : [ <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">timing</span><span style="color:#710">&quot;</span></span> ],
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>contribute_to_branch</span><span style="color:#404">&quot;</span></span> : [ <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">master</span><span style="color:#710">&quot;</span></span> ]
+  },
+
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>source</span><span style="color:#404">&quot;</span></span> : {
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>type</span><span style="color:#404">&quot;</span></span>       : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">git</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>location</span><span style="color:#404">&quot;</span></span>   : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">https://github.com/codenvy/che.git</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>parameters</span><span style="color:#404">&quot;</span></span> : {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>keepVcs</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">true</span><span style="color:#710">&quot;</span></span>
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="policies">Policies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Following is an example of a factory policy.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">s</span> : {
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>referer</span><span style="color:#404">&quot;</span></span>   : <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">R</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">N</span><span style="color:#F00;background-color:#FAA">G</span>,                 <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>since</span><span style="color:#404">&quot;</span></span>     : <span style="color:#F00;background-color:#FAA">E</span><span style="color:#F00;background-color:#FAA">P</span><span style="color:#F00;background-color:#FAA">O</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">H</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">M</span><span style="color:#F00;background-color:#FAA">E</span>,              <i class="conum" data-value="2"></i><b>(2)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>until</span><span style="color:#404">&quot;</span></span>     : <span style="color:#F00;background-color:#FAA">E</span><span style="color:#F00;background-color:#FAA">P</span><span style="color:#F00;background-color:#FAA">O</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">H</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">M</span><span style="color:#F00;background-color:#FAA">E</span>,              <i class="conum" data-value="3"></i><b>(3)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>create</span><span style="color:#404">&quot;</span></span>    : [<span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">k</span> <span style="color:#F00;background-color:#FAA">|</span> <span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">U</span><span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">r</span>]    <i class="conum" data-value="4"></i><b>(4)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Works only for clients from a referrer.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Factory works only after this date.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Factory works only before this date.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Create one workpace per click, user, or account.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="factories_json_reference-limitations">Limitations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use <code>since : EPOCHTIME</code>, <code>until : EPOCHTIME</code>, and <code>referer</code> as a way to prevent the factory from executing under certain conditions. <code>since</code> and <code>until</code> represent a valid time window that allows the factory to activate. The <code>referrer</code> checks the hostname of the acceptor and only allows the factory to execute if there is a match.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="factories_json_reference-multiplicity">Multiplicity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using <code>create : perClick</code> causes every click of the factory URL to generate a new workspace, each with its own identifier, name, and resources. Using <code>create : perUser</code> causes only one workspace to be generated for each unique user that clicks on the factory URL. If the workspace has previously been generated, the existing workspace is reopened.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="factories_json_reference-ide-customization">Customizing the IDE</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">.</span>{<span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">v</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">t</span>} : {                 <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>actions</span><span style="color:#404">&quot;</span></span> : [{}]                      <i class="conum" data-value="2"></i><b>(2)</b>
+}
+
+<span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">.</span>{<span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">v</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">t</span>}<span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">s</span> : [{
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span>         : <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">g</span>,                <i class="conum" data-value="3"></i><b>(3)</b>
+  <span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">s</span> : {}                       <i class="conum" data-value="4"></i><b>(4)</b>
+}]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>event = <code>onAppLoaded</code>, <code>onProjectsLoaded</code>, <code>onAppClosed</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>List of IDE actions to be executed when the event is triggered.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Action for the IDE to perform when the event is triggered.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Properties to customize action behavior.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can instruct the factory to invoke a series of IDE actions based on events in the lifecycle of the workspace.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>onAppLoaded</code></dt>
+<dd>
+<p>Triggered when the IDE is loaded.</p>
+</dd>
+<dt class="hdlist1"><code>onProjectsLoaded</code></dt>
+<dd>
+<p>Triggered when the workspace and all projects have been activated or imported.</p>
+</dd>
+<dt class="hdlist1"><code>onAppClosed</code></dt>
+<dd>
+<p>Triggered when the IDE is closed.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Following is an example that associates a variety of actions with all of the events.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#606"><span style="color:#404">&quot;</span><span>ide</span><span style="color:#404">&quot;</span></span> : {
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>onProjectsLoaded</span><span style="color:#404">&quot;</span></span> : {                                               <i class="conum" data-value="1"></i><b>(1)</b>
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>actions</span><span style="color:#404">&quot;</span></span> : [{
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">openFile</span><span style="color:#710">&quot;</span></span>,                                               <i class="conum" data-value="2"></i><b>(2)</b>
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>properties</span><span style="color:#404">&quot;</span></span> : {                                                 <i class="conum" data-value="3"></i><b>(3)</b>
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>file</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/my-project/pom.xml</span><span style="color:#710">&quot;</span></span>
+      }
+    },
+    {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">runCommand</span><span style="color:#710">&quot;</span></span>,                                             <i class="conum" data-value="4"></i><b>(4)</b>
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>properties</span><span style="color:#404">&quot;</span></span> : {
+        <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">MCI</span><span style="color:#710">&quot;</span></span>                                                 <i class="conum" data-value="5"></i><b>(5)</b>
+      }
+    }
+  ]},
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>onAppLoaded</span><span style="color:#404">&quot;</span></span>: {
+     <span style="color:#606"><span style="color:#404">&quot;</span><span>actions</span><span style="color:#404">&quot;</span></span>: [
+        {
+           <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">properties:{
+              </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">g</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">g</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">e</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">: </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">G</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">g</span> <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">d</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">,                      <i class="conum" data-value="6"></i><b>(6)</b>
+              </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">g</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">g</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">U</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">l</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">: </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">h</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">p</span>:<span style="color:#F00;background-color:#FAA">/</span><span style="color:#F00;background-color:#FAA">/</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">x</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">/</span><span style="color:#F00;background-color:#FAA">R</span><span style="color:#F00;background-color:#FAA">E</span><span style="color:#F00;background-color:#FAA">A</span><span style="color:#F00;background-color:#FAA">D</span><span style="color:#F00;background-color:#FAA">M</span><span style="color:#F00;background-color:#FAA">E</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">h</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">l</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">   <i class="conum" data-value="7"></i><b>(7)</b>
+           },
+           </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">: </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">W</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">m</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">P</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">g</span><span style="color:#F00;background-color:#FAA">e</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">
+        }
+     ]
+  },
+  </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">A</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">p</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">d</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> : {                                                    <i class="conum" data-value="8"></i><b>(8)</b>
+    </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">s</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> : [{
+      </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">i</span><span style="color:#F00;background-color:#FAA">d</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20"> : </span><span style="color:#710">&quot;</span></span><span style="color:#F00;background-color:#FAA">w</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">O</span><span style="color:#F00;background-color:#FAA">n</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">l</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">s</span><span style="color:#F00;background-color:#FAA">e</span><span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">                                             <i class="conum" data-value="9"></i><b>(9)</b>
+    }]
+  }
+}</span></span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Actions triggered when a project is opened.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Opens a file in the editor. Can add multiple.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The file to be opened (include project name).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Launch command after the IDE opens.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Command name.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Title of a <strong>Welcome</strong> tab.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>HTML file to be loaded into a tab.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Actions to be triggered when the IDE is closed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Show warning when closing a browser tab.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Each event type has a set of actions that can be triggered. There is no ordering of actions executed when you provide a list; Che will asynchronously invoke multiple actions if appropriate. Some actions can be configured in how they perform and will have an associated <code>properties : {}</code> object.</p>
+</div>
+<div class="paragraph">
+<p><strong>onProjectsLoaded Event</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Action</th>
+<th class="tableblock halign-left valign-top">Properties?</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>runCommand</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify the name of the command to invoke after the IDE is loaded. Specify the commands in the <code>factory.workspace.commands : []</code> array.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openFile</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open project files as a tab in the editor.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>onAppLoaded Event</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Action</th>
+<th class="tableblock halign-left valign-top">Properties?</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openWelcomePage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customize the content of the welcome panel when the workspace is loaded. Note that browsers block http resources that are loaded into https pages.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>onAppClosed Event</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Action</th>
+<th class="tableblock halign-left valign-top">Properties?</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>warnOnClose</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Opens a warning pop-up window when the user closes the browser tab with a project that has uncommitted changes. Requires <code>project.parameters.keepVcs</code> to be <code>true</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="action-open-file">Action: Open File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This action opens a file as a tab in the editor. You can provide this action multiple times to have multiple files open. The file property is a relative reference to a file in the project source tree. The <code>file</code> parameter is the relative path within the workspace to the file that should be opened by the editor. The <code>line</code> parameter is optional and can be used to move the editor cursor to a specific line when the file is opened. Projects are located in the <code>/projects/</code> directory of a workspace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>id</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">openFile</span><span style="color:#710">&quot;</span></span>,
+    <span style="color:#606"><span style="color:#404">&quot;</span><span>properties</span><span style="color:#404">&quot;</span></span> : {
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>file</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">/my-project/pom.xml</span><span style="color:#710">&quot;</span></span>,
+      <span style="color:#606"><span style="color:#404">&quot;</span><span>line</span><span style="color:#404">&quot;</span></span> : <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">50</span><span style="color:#710">&quot;</span></span>
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="action-find-and-replace">Action: Find and Replace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In projects created from a factory, Che can find and replace values in the source code after it is imported into the project tree. This lets you parameterize your source code. Find and replace can be run as a <strong>Run Command</strong> during <code>onProjectsLoaded</code> event. You can use <code>sed</code>, <code>awk</code>, or any other tools that are available in your workspace environment.</p>
+</div>
+<div class="paragraph">
+<p>To define a command for your workspace in <code>factory.workspace.workspaceConfig.commands</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "commandLine": "sed -i 's/***/userId984hfy6/g' /projects/console-java-simple/README.md",
+  "name": "replace",
+  "attributes": {
+    "goal": "Common",
+    "previewUrl": ""
+  },
+  "type": "custom"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, a named command <code>replace</code> is created. The command replaces each occurrence of <code><strong>*</strong></code> with the string <code>userId984hfy6</code> in the <code>README.md</code> file of the project.</p>
+</div>
+<div class="paragraph">
+<p>Then register this command to the execution list linked to the <code>onProjectsLoaded</code> event. In this example, the <code>replace</code> command is executed after the project is imported into a workspace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>"ide": {
+    "onProjectsLoaded": {
+      "actions": [
+        {
+          "properties": {
+            "name": "replace"
+          },
+          "id": "runCommand"
+        }
+      ]
+    }
+  }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <a href="https://www.gnu.org/software/sed/manual/html_node/Regular-Expressions.html">regular expressions</a> in <code>sed</code>, both in find-replace and file-file type patterns.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creator">Creator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This object has meta information that you can embed within the factory. These attributes do not affect the automation behavior or the behavior of the generated workspace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json"><span style="color:#F00;background-color:#FAA">f</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">y</span><span style="color:#F00;background-color:#FAA">.</span><span style="color:#F00;background-color:#FAA">c</span><span style="color:#F00;background-color:#FAA">r</span><span style="color:#F00;background-color:#FAA">e</span><span style="color:#F00;background-color:#FAA">a</span><span style="color:#F00;background-color:#FAA">t</span><span style="color:#F00;background-color:#FAA">o</span><span style="color:#F00;background-color:#FAA">r</span> : {
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>name</span><span style="color:#404">&quot;</span></span>      : <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">R</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">N</span><span style="color:#F00;background-color:#FAA">G</span>,            <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>email</span><span style="color:#404">&quot;</span></span>     : <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">R</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">N</span><span style="color:#F00;background-color:#FAA">G</span>,            <i class="conum" data-value="2"></i><b>(2)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>created</span><span style="color:#404">&quot;</span></span>   : <span style="color:#F00;background-color:#FAA">E</span><span style="color:#F00;background-color:#FAA">P</span><span style="color:#F00;background-color:#FAA">O</span><span style="color:#F00;background-color:#FAA">C</span><span style="color:#F00;background-color:#FAA">H</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">M</span><span style="color:#F00;background-color:#FAA">E</span>,         <i class="conum" data-value="3"></i><b>(3)</b>
+  <span style="color:#606"><span style="color:#404">&quot;</span><span>userId</span><span style="color:#404">&quot;</span></span>    : <span style="color:#F00;background-color:#FAA">S</span><span style="color:#F00;background-color:#FAA">T</span><span style="color:#F00;background-color:#FAA">R</span><span style="color:#F00;background-color:#FAA">I</span><span style="color:#F00;background-color:#FAA">N</span><span style="color:#F00;background-color:#FAA">G</span>             <i class="conum" data-value="4"></i><b>(4)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the author of this configuration file.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The author&#8217;s email address.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>This value is set by the system.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>This value is set by the system.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+    <div class="tags">
+        
+        <b>Tags: </b>
+        
+        
+        
+        <a href="tag_chedir.html" class="btn btn-default navbar-btn cursorNorm" role="button">chedir</a>
+        
+        
+        
+        <a href="tag_factories.html" class="btn btn-default navbar-btn cursorNorm" role="button">factories</a>
+        
+        
+        
+    </div>
+
+<!-- 
+ -->
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+                    Eclipse Che - Documentation <br/>
+                    Site last generated: Nov 29, 2019 <br/>
+                    <hr>
+                    <a href="http://www.eclipse.org" target="_blank">Eclipse Foundation</a><br/>
+                    <a href="http://www.eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a><br/>
+                    <a href="http://www.eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a><br/>
+                    <a href="https://www.eclipse.org/legal/epl-2.0/" target="_blank">Eclipse Public License</a><br/>
+                    <a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a><br/>
+                </div>
+            </div>
+</footer>
+
+
+
+
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+
+</body>
+
+</html>
