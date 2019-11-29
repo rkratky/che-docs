@@ -1,0 +1,32 @@
+// version-control
+
+[id="accessing-a-git-repository-via-https_{context}"]
+= Accessing a Git repository via HTTPS
+
+.Prerequisites
+* Git is installed. Install Git if needed by following link:https://git-scm.com/book/en/v2/Getting-Started-Installing-Git[Getting Started - Installing Git]
+
+.Procedure
+To clone a repository using HTTPS:
+
+. Use the link:https://code.visualstudio.com/docs/editor/versioncontrol#_cloning-a-repository[clone] command provided by the `vscode` Git extension.
+
+Alternatively, use the native *Git* commands in the terminal to clone a project.
+
+. Navigate to destination folder using `cd` command
+. Use `git clone` to clone a repository
++
+[subs=+quotes]
+----
+$ git clone _<link>_
+----
+
+WARNING: Self-signed SSL certificates are not supported. Use SSH keys instead.
+
+////
+.Additional resources
+
+* A bulleted list of links to other material closely related to the contents of the procedure module.
+* For more details on writing procedure modules, see the link:https://github.com/redhat-documentation/modular-docs#modular-documentation-reference-guide[Modular Documentation Reference Guide].
+* Use a consistent system for file names, IDs, and titles. For tips, see _Anchor Names and File Names_ in link:https://github.com/redhat-documentation/modular-docs#modular-documentation-reference-guide[Modular Documentation Reference Guide].
+////

@@ -1,0 +1,48 @@
+---
+title: Using alternative IDEs in Che
+keywords: 
+tags: []
+sidebar: che_7_docs
+permalink: che-7/using-alternative-ides-in-che/
+folder: che-7/end-user-guide
+summary: 
+---
+
+:parent-context-of-using-alternative-ides-in-che: {context}
+
+[id='using-alternative-ides-in-che']
+= Using alternative IDEs in Che
+
+:context: using-alternative-ides-in-che
+
+Extending Eclipse Che developer workspaces using different IDEs (integrated development environments) enables:
+
+* Re-purposing the environment for different use cases.
+
+* Providing a dedicated custom IDE for specific tools.
+
+* Providing different perspectives for individual users or groups of users.
+
+// In the traditional Eclipse IDE world, that was done with RCP applications.
+// find out what's RCP?
+
+Eclipse Che provides a default web IDE to be used with the developer workspaces. This IDE is completely decoupled. You can bring your own custom IDE for Eclipse Che:
+
+* *Built from Eclipse Theia*, which is a framework to build web IDEs. Example: link:https://www.youtube.com/watch?v=B6aCqywKpyY[Sirius on the web].
+// TODO: Learn more link:[LINK].
+
+* *Completely different web IDEs*, such as Jupyter, Eclipse Dirigible, or others. Example: link:https://www.youtube.com/watch?v=VooNzKxRFgw[Jupyter in Eclipse Che workspaces].
+
+.Bringing custom IDE built from Eclipse Theia
+
+* Creating your own custom IDE based on Eclipse Theia
+* Adding Che-specific tools to your custom IDE
+* Packaging your custom IDE into the available editors for Che
+// TODO: all bullets needs links to docs
+
+.Bringing your completely different web IDE into Che
+
+* Packaging your custom IDE into the available editors for Che
+// TODO: bullet needs a lonk to docs
+
+:context: {parent-context-of-using-alternative-ides-in-che}

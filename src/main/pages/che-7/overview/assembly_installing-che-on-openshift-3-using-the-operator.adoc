@@ -1,0 +1,33 @@
+---
+title: Installing Che on OpenShift 3 using the operator
+keywords: 
+tags: []
+sidebar: che_7_docs
+permalink: che-7/installing-che-on-openshift-3-using-the-operator/
+folder: che-7/overview
+summary: 
+---
+
+// che-quick-starts
+
+:parent-context-of-installing-che-on-openshift-3-using-the-operator: {context}
+
+[id='installing-che-on-openshift-3-using-the-operator_{context}']
+= Installing Che on OpenShift 3 using the operator
+
+:context: installing-che-on-openshift-3-using-the-operator
+
+.Prerequisites
+
+* A running instance of OpenShift 3.11
+* The `oc` tool installed
+* The `chectl` tool installed
+* Administrator rights to the OpenShift installation (needed by `che-role`)
+
+include::proc_preparing-openshift-for-installing-che.adoc[leveloffset=+1]
+
+include::proc_installing-che-on-openshift-using-the-operator.adoc[leveloffset=+1]
+
+include::proc_installing-che-on-openshift-using-the-operator-and-ssl.adoc[leveloffset=+1]
+
+:context: {parent-context-of-installing-che-on-openshift-3-using-the-operator}
